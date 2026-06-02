@@ -14,7 +14,7 @@ export default function Ticker() {
   const duplicatedItems = [...TICKER_RAW, ...TICKER_RAW];
 
   return (
-    <div className="bg-ink py-[10px] overflow-hidden mt-[82px] select-none">
+    <div className="bg-ink py-[10px] overflow-hidden mt-[70px] select-none">
       <div className="flex whitespace-nowrap animate-ticker hover:[animation-play-state:paused]">
         {duplicatedItems.map((t, i) => (
           <span

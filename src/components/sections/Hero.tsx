@@ -1,9 +1,6 @@
-import { Icons } from "./Icons";
+import { useNavigate } from "react-router-dom";
+import { Icons } from "../Icons";
 import { motion } from "framer-motion";
-
-interface HeroProps {
-  go: (id: string) => void;
-}
 
 const HERO_STATS = [
   { val: "50", sfx: "+", label: "Healthcare institutions\nserved across India" },
@@ -12,7 +9,9 @@ const HERO_STATS = [
   { val: "Pan", sfx: "-Asia", label: "Institutional PE\nnetwork coverage" },
 ];
 
-export default function Hero({ go }: HeroProps) {
+export default function Hero() {
+  const navigate = useNavigate();
+
   // Animation Variants
   const containerVariants = {
     hidden: {},
@@ -36,7 +35,7 @@ export default function Hero({ go }: HeroProps) {
   } as any;
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center pt-24 pb-12 md:pt-28 md:pb-16 bg-slate-brand overflow-x-hidden">
+    <section className="relative min-h-[90vh] flex items-center pt-6 pb-16 md:pt-8 md:pb-24 bg-slate-brand">
       {/* Background Radial Glows */}
       <div className="absolute top-[-10%] right-[-10%] w-[80vw] h-[80vw] max-w-[900px] max-h-[900px] rounded-full bg-[radial-gradient(circle,rgba(37,99,235,0.06)_0%,transparent_65%)] pointer-events-none" />
       <div className="absolute bottom-[-15%] left-[-5%] w-[60vw] h-[60vw] max-w-[700px] max-h-[700px] rounded-full bg-[radial-gradient(circle,rgba(201,168,76,0.035)_0%,transparent_65%)] pointer-events-none" />
@@ -86,23 +85,23 @@ export default function Hero({ go }: HeroProps) {
             <motion.div variants={itemVariants} className="flex items-center gap-3.5 flex-wrap mt-[26px]">
               <button
                 className="inline-flex items-center gap-2 bg-blue-brand hover:bg-blue-hover text-white font-semibold tracking-[0.05em] uppercase text-[0.82rem] px-7 py-4 rounded-[6px] transition-all duration-300 shadow-[0_4px_18px_rgba(37,99,235,0.22)] hover:-translate-y-[2px] hover:shadow-[0_8px_30px_rgba(37,99,235,0.32)]"
-                onClick={() => go("contact")}
+                onClick={() => navigate("/contact")}
               >
                 Confidential Inquiry
                 <Icons.Arr className="w-[13px] h-[13px] transition-transform group-hover:translate-x-1" />
               </button>
               <button
                 className="inline-flex items-center gap-2 bg-white text-ink border border-border-brand/80 font-semibold tracking-[0.05em] uppercase text-[0.82rem] px-7 py-4 rounded-[6px] transition-all duration-300 hover:border-ink hover:bg-ink hover:text-white shadow-sh1 hover:-translate-y-[2px]"
-                onClick={() => go("mandates")}
+                onClick={() => navigate("/services")}
               >
-                Explore Mandates
+                Explore Services
               </button>
             </motion.div>
 
             {/* Institutional Stat Metrics */}
             <motion.div
               variants={itemVariants}
-              className="grid grid-cols-2 sm:grid-cols-4 gap-6 w-full mt-8 pt-6 border-t border-border-brand/80"
+              className="grid grid-cols-2 sm:grid-cols-4 gap-6 w-full mt-10 pt-8 border-t border-border-brand/80"
             >
               {HERO_STATS.map((s) => (
                 <div key={s.label} className="flex flex-col items-start border-l border-border-brand/80 pl-4 first:border-l-0 first:pl-0">

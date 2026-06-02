@@ -2,13 +2,82 @@ import React from "react";
 
 export const Icons = {
   Logo: (props: React.SVGProps<SVGSVGElement>) => (
-    <svg viewBox="0 0 24 24" fill="none" {...props}>
-      {/* Logo Dark Navy Background Square (rx=4 for rounded corners) */}
-      <rect x="2" y="2" width="20" height="20" rx="4" fill="#07152B" />
+    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+      {/* Dark Navy Square Background */}
+      <rect width="200" height="200" fill="#0D2146" />
+      
       {/* Head Profile facing left (Accent Blue #2563EB) */}
-      <path d="M14.5 17.5c0-1-.3-1.9-.8-2.6-.5-.8-1-1.2-1.5-1.7-.5-.5-.7-.9-.5-1.5.1-.4.3-.8.6-1.1.3-.4.7-.7 1.1-.9.4-.2.8-.3 1.3-.3.5 0 1 .2 1.4.5s.6.8.6 1.3v5.1H14.5zm-5.8-9c-.7 0-1.3.5-1.5 1.1-.2.8-.1 1.6-.5 2.2-.3.5-1 .7-1.5 1.1-.5.5-.3 1.3.3 1.7l.5.3c.3.2.4.6.2.9-.2.3-.5.5-.8.6l-.3.1c-.4.2-.6.7-.4 1.1.2.4.7.6 1.1.4l.5-.2c.3-.1.7.1.8.4.2.4.1.9-.3 1.2-.2.2-.3.6-.2 1 .2.3.5.5.9.5h2.5c.5 0 1-.3 1.1-.8l.2-.7a3.5 3.5 0 00-3.3-3.9" fill="#2563EB" />
-      {/* Brain Cutout inside head (Primary Navy #07152B) */}
-      <path d="M12.2 11c-.5 0-1 .4-1 1 0 .6.2 1.1.6 1.5.1.1.2.3.2.5s.2.5.5.5h1.5c.3 0 .5-.3.5-.5s.1-.4.2-.5c.4-.4.6-.9.6-1.5 0-.6-.5-1-1.1-1z" fill="#07152B" />
+      <path 
+        d="M 132,115 
+           C 132,108 128,96 128,88 
+           C 128,74 138,64 138,50 
+           C 138,29 122,15 102,15 
+           C 81,15 72,29 72,50 
+           C 72,55 73,58 75,62 
+           L 67,65 
+           L 73,69 
+           L 69,72 
+           L 74,75 
+           L 71,78 
+           C 75,84 81,88 88,88 
+           L 95,88 
+           L 95,115 
+           Z" 
+        fill="#2563EB" 
+      />
+      
+      {/* Brain Cutout inside head (Dark Navy #0D2146) */}
+      <path 
+        d="M 94,40 
+           C 90,38 90,32 94,29 
+           C 98,25 104,25 106,29 
+           C 109,25 115,25 117,29 
+           C 121,32 121,38 117,41 
+           C 121,45 121,50 116,53 
+           C 112,55 106,55 104,51 
+           C 102,55 96,55 93,51 
+           C 90,49 90,44 94,40 
+           Z" 
+        fill="#0D2146" 
+      />
+      
+      {/* Framed Text Box */}
+      {/* Outer Border */}
+      <rect x="12" y="128" width="176" height="52" fill="none" stroke="#FFFFFF" strokeWidth="2.5" />
+      
+      {/* Divider line */}
+      <line x1="12" y1="162" x2="188" y2="162" stroke="#FFFFFF" strokeWidth="2.5" />
+      
+      {/* Bottom Compartment Background (White) */}
+      <rect x="13.25" y="163.25" width="173.5" height="15.5" fill="#FFFFFF" />
+      
+      {/* Top Text: "Insight Thinkers Agency" */}
+      <text 
+        x="100" 
+        y="151.5" 
+        fill="#FFFFFF" 
+        fontFamily="Georgia, serif" 
+        fontSize="14.5" 
+        textAnchor="middle" 
+        fontWeight="bold"
+        letterSpacing="0.2"
+      >
+        Insight Thinkers Agency
+      </text>
+      
+      {/* Bottom Text: "Marketing with a Thinker's Touch" */}
+      <text 
+        x="100" 
+        y="174" 
+        fill="#0D2146" 
+        fontFamily="Inter, system-ui, sans-serif" 
+        fontSize="7.5" 
+        textAnchor="middle" 
+        fontWeight="800"
+        letterSpacing="0.4"
+      >
+        Marketing with a Thinker's Touch
+      </text>
     </svg>
   ),
   Arr: (props: React.SVGProps<SVGSVGElement>) => (
