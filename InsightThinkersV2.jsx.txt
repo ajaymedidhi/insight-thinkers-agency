@@ -1,0 +1,1141 @@
+import { useState, useEffect, useCallback } from "react";
+
+const CSS = `
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0a1628;--ink2:#0f2040;--ink3:#162d54;
+  --blue:#1847c9;--blue2:#2055d9;--blue3:#3b6ef5;
+  --gold:#c9a84c;--gold2:#b8922e;
+  --slate:#f4f6fb;--slate2:#eaeffb;--slate3:#dde5f5;
+  --white:#fff;--muted:#5a6a8a;--muted2:#8494b0;--border:#d8e0f0;
+  --green:#15803d;--gbg:#f0fdf4;--gbdr:#bbf7d0;
+  --ff-d:'Cormorant Garamond',Georgia,serif;
+  --ff-s:'Inter',system-ui,sans-serif;
+  --ff-m:'JetBrains Mono',monospace;
+  --sh1:0 4px 20px rgba(10,22,40,.09);
+  --sh2:0 12px 48px rgba(10,22,40,.14);
+  --sh3:0 24px 80px rgba(10,22,40,.20);
+  --t:.2s ease;
+}
+html{scroll-behavior:smooth}
+body{font-family:var(--ff-s);background:var(--white);color:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+button{font-family:var(--ff-s)}
+::-webkit-scrollbar{width:4px}::-webkit-scrollbar-thumb{background:var(--blue);border-radius:2px}
+@keyframes fadeUp{from{opacity:0;transform:translateY(32px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.7);opacity:.4}}
+@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+@keyframes ticker{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+.v0{animation:fadeUp .8s cubic-bezier(.22,1,.36,1) both}
+.v1{animation:fadeUp .8s .12s cubic-bezier(.22,1,.36,1) both}
+.v2{animation:fadeUp .8s .24s cubic-bezier(.22,1,.36,1) both}
+.v3{animation:fadeUp .8s .36s cubic-bezier(.22,1,.36,1) both}
+.v4{animation:fadeUp .8s .48s cubic-bezier(.22,1,.36,1) both}
+
+/* TYPOGRAPHY */
+.display{font-family:var(--ff-d);font-size:clamp(2.6rem,4.8vw,4.4rem);line-height:1.08;font-weight:600;color:var(--ink);letter-spacing:-.01em}
+.display em{color:var(--blue);font-style:italic;font-weight:400}
+.display-sm{font-family:var(--ff-d);font-size:clamp(1.9rem,3vw,2.75rem);line-height:1.15;font-weight:600;color:var(--ink);letter-spacing:-.005em}
+.display-sm em{color:var(--blue);font-style:italic;font-weight:400}
+.eyebrow{display:flex;align-items:center;gap:10px;font-family:var(--ff-m);font-size:.62rem;letter-spacing:.26em;text-transform:uppercase;color:var(--blue);margin-bottom:20px}
+.eyebrow::before{content:'';display:block;width:24px;height:1.5px;background:var(--blue);flex-shrink:0}
+.body-lg{font-size:1.03rem;line-height:1.85;color:var(--muted)}
+.body-lg strong{color:var(--ink);font-weight:600}
+.body-md{font-size:.92rem;line-height:1.78;color:var(--muted)}
+.body-md strong{color:var(--ink);font-weight:600}
+.body-sm{font-size:.81rem;line-height:1.72;color:var(--muted2)}
+.lbl{font-family:var(--ff-m);font-size:.6rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted2)}
+
+/* LAYOUT */
+.wrap{max-width:1280px;margin:0 auto;padding:0 64px}
+.section{padding:104px 0}
+.section-alt{background:var(--slate)}
+.mt8{margin-top:8px}.mt12{margin-top:12px}.mt16{margin-top:16px}.mt20{margin-top:20px}
+.mt24{margin-top:24px}.mt32{margin-top:32px}.mt40{margin-top:40px}.mt48{margin-top:48px}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:8px;cursor:pointer;border:none;font-family:var(--ff-s);font-weight:500;letter-spacing:.04em;border-radius:6px;transition:all var(--t);font-size:.85rem}
+.btn-ink{background:var(--ink);color:#fff;padding:13px 26px;box-shadow:0 4px 16px rgba(10,22,40,.2)}
+.btn-ink:hover{background:var(--ink2);transform:translateY(-2px);box-shadow:0 8px 28px rgba(10,22,40,.28)}
+.btn-blue{background:var(--blue);color:#fff;padding:13px 26px;box-shadow:0 4px 16px rgba(24,71,201,.26)}
+.btn-blue:hover{background:var(--blue2);transform:translateY(-2px);box-shadow:0 8px 28px rgba(24,71,201,.34)}
+.btn-ghost{background:transparent;color:var(--ink);border:1.5px solid var(--border);padding:12px 24px}
+.btn-ghost:hover{border-color:var(--ink);background:var(--ink);color:#fff}
+.btn-ghost-w{background:transparent;color:#fff;border:1.5px solid rgba(255,255,255,.25);padding:12px 24px}
+.btn-ghost-w:hover{background:rgba(255,255,255,.08);border-color:rgba(255,255,255,.5)}
+
+/* CHIPS */
+.chip{display:inline-flex;align-items:center;padding:4px 10px;border-radius:4px;font-size:.67rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;border:1px solid}
+.chip-g{color:var(--green);background:var(--gbg);border-color:var(--gbdr)}
+.chip-b{color:var(--blue);background:#eef3ff;border-color:#c7d8ff}
+.chip-s{color:var(--ink);background:var(--slate2);border-color:var(--border)}
+
+/* ══ NAV ══ */
+.nav{position:fixed;top:0;left:0;right:0;z-index:300;background:rgba(255,255,255,.96);backdrop-filter:blur(18px);border-bottom:1px solid var(--border);transition:box-shadow var(--t)}
+.nav.sc{box-shadow:0 2px 32px rgba(10,22,40,.1)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:68px;padding:0 48px}
+.nav-logo{display:flex;align-items:center;gap:12px;cursor:pointer;user-select:none}
+.nav-mark{width:38px;height:38px;background:var(--ink);border-radius:7px;display:flex;align-items:center;justify-content:center}
+.nav-mark svg{width:20px;height:20px}
+.nav-name{font-weight:600;font-size:.93rem;color:var(--ink);letter-spacing:-.01em;line-height:1.1}
+.nav-sub{font-family:var(--ff-m);font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;color:var(--blue)}
+.nav-links{display:flex;align-items:center;gap:2px}
+.nl{padding:7px 13px;font-size:.77rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);cursor:pointer;border-radius:5px;border-bottom:2px solid transparent;transition:all var(--t)}
+.nl:hover{color:var(--ink);background:var(--slate)}
+.nl.on{color:var(--blue);border-bottom-color:var(--blue)}
+.nav-cta{display:flex;align-items:center;gap:7px;background:var(--ink);color:#fff;border:none;cursor:pointer;padding:10px 20px;border-radius:7px;font-size:.77rem;font-weight:500;letter-spacing:.05em;text-transform:uppercase;transition:all var(--t)}
+.nav-cta:hover{background:var(--ink2);transform:translateY(-1px);box-shadow:0 6px 20px rgba(10,22,40,.22)}
+.ham{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px}
+.ham span{display:block;width:22px;height:1.5px;background:var(--ink);border-radius:1px;transition:all .3s}
+.ham.open span:first-child{transform:translateY(6.5px) rotate(45deg)}
+.ham.open span:nth-child(2){opacity:0}
+.ham.open span:last-child{transform:translateY(-6.5px) rotate(-45deg)}
+.drawer{position:fixed;top:68px;left:0;right:0;z-index:290;background:#fff;border-bottom:1px solid var(--border);box-shadow:0 16px 48px rgba(10,22,40,.14);padding:20px 28px 28px;transform:translateY(-110%);transition:transform .32s cubic-bezier(.22,1,.36,1)}
+.drawer.open{transform:translateY(0)}
+.drawer-link{display:block;padding:12px 16px;font-size:.9rem;font-weight:500;color:var(--ink);border-radius:7px;cursor:pointer;transition:background var(--t)}
+.drawer-link:hover,.drawer-link.on{background:var(--slate);color:var(--blue)}
+.drawer-cta{width:100%;margin-top:14px;padding:14px;background:var(--ink);color:#fff;border:none;cursor:pointer;border-radius:8px;font-size:.86rem;font-weight:600;letter-spacing:.06em;text-transform:uppercase}
+
+/* ══ TICKER ══ */
+.ticker{background:var(--ink);padding:10px 0;overflow:hidden}
+.ticker-inner{display:flex;white-space:nowrap;animation:ticker 36s linear infinite}
+.ticker-inner:hover{animation-play-state:paused}
+.t-item{display:inline-flex;align-items:center;gap:10px;padding:0 30px;font-family:var(--ff-m);font-size:.63rem;letter-spacing:.16em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+.t-dot{width:4px;height:4px;border-radius:50%;background:var(--gold);flex-shrink:0}
+
+/* ══ HERO ══ */
+.hero{min-height:100vh;display:flex;align-items:center;padding:88px 0 60px;position:relative;overflow:hidden;background:var(--white)}
+.hero-orb1{position:absolute;top:-180px;right:-100px;width:860px;height:860px;border-radius:50%;background:radial-gradient(circle,rgba(24,71,201,.055) 0%,transparent 65%);pointer-events:none}
+.hero-orb2{position:absolute;bottom:-130px;left:-80px;width:560px;height:560px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.04) 0%,transparent 65%);pointer-events:none}
+.hero-grid{position:absolute;inset:0;background-image:linear-gradient(rgba(10,22,40,.022) 1px,transparent 1px),linear-gradient(90deg,rgba(10,22,40,.022) 1px,transparent 1px);background-size:80px 80px;pointer-events:none}
+.hero-in{position:relative;z-index:1;display:grid;grid-template-columns:1fr 420px;gap:60px;align-items:center;max-width:1280px;margin:0 auto;padding:0 64px;width:100%}
+.hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--slate2);border:1px solid var(--border);border-radius:30px;padding:6px 14px;margin-bottom:26px}
+.hero-tag-dot{width:6px;height:6px;background:#22c55e;border-radius:50%;animation:pulse 2s ease-in-out infinite}
+.hero-tag-txt{font-family:var(--ff-m);font-size:.61rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted)}
+.hero-desc{font-size:1.04rem;line-height:1.82;color:var(--muted);max-width:510px;margin-top:22px}
+.hero-desc strong{color:var(--ink);font-weight:600}
+.hero-btns{display:flex;align-items:center;gap:13px;flex-wrap:wrap;margin-top:34px}
+.hero-proof{display:flex;align-items:stretch;margin-top:48px;padding-top:40px;border-top:1px solid var(--border)}
+.hero-pstat{padding:0 28px;text-align:center;border-right:1px solid var(--border)}
+.hero-pstat:first-child{padding-left:0}
+.hero-pstat:last-child{border-right:none}
+.hero-pval{font-family:var(--ff-d);font-size:1.95rem;font-weight:700;color:var(--ink);line-height:1}
+.hero-pval em{color:var(--blue);font-style:italic}
+.hero-plabel{font-size:.74rem;color:var(--muted);margin-top:5px;line-height:1.4}
+
+/* snap card */
+.snap{background:#fff;border-radius:20px;box-shadow:var(--sh3);border:1px solid var(--border);overflow:hidden;animation:float 5s ease-in-out infinite}
+.snap-hd{display:flex;align-items:center;justify-content:space-between;padding:18px 20px;border-bottom:1px solid var(--border)}
+.snap-hd-t{font-size:.84rem;font-weight:600;color:var(--ink)}
+.live{display:flex;align-items:center;gap:6px;background:var(--gbg);border:1px solid var(--gbdr);border-radius:20px;padding:4px 10px}
+.live-dot{width:6px;height:6px;background:#22c55e;border-radius:50%;animation:pulse 1.8s ease-in-out infinite}
+.live-txt{font-family:var(--ff-m);font-size:.61rem;letter-spacing:.14em;color:var(--green)}
+.snap-grid{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--border)}
+.sc{padding:16px 18px;border-right:1px solid var(--border);border-bottom:1px solid var(--border)}
+.sc:nth-child(even){border-right:none}
+.sc:nth-last-child(-n+2){border-bottom:none}
+.sc.dk{background:var(--ink)}
+.sc-ico{font-size:.95rem;margin-bottom:5px}
+.sc-val{font-family:var(--ff-d);font-size:1.35rem;font-weight:700;color:var(--ink);line-height:1}
+.sc.dk .sc-val{color:#fff}
+.sc-lbl{font-size:.72rem;color:var(--muted);margin-top:3px;line-height:1.3}
+.sc.dk .sc-lbl{color:#94a3b8}
+.sc-sub{font-size:.66rem;color:var(--muted2);margin-top:1px}
+.sc.dk .sc-sub{color:#475569}
+.snap-nda{display:flex;align-items:center;gap:11px;padding:14px 18px;background:var(--ink)}
+.snap-nda-txt{font-size:.75rem;color:#94a3b8;line-height:1.4}
+.snap-nda-txt strong{color:#fff}
+
+/* ══ ABOUT ══ */
+.ab-intro{max-width:740px;margin:0 auto;text-align:center;padding-bottom:68px}
+.pillars{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border-radius:16px;overflow:hidden;margin-bottom:76px}
+.pillar{background:#fff;padding:38px 32px;position:relative;transition:background var(--t)}
+.pillar:hover{background:var(--slate)}
+.pillar-ln{position:absolute;top:0;left:0;right:0;height:3px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .38s ease}
+.pillar:hover .pillar-ln{transform:scaleX(1)}
+.pillar-n{font-family:var(--ff-d);font-size:3.2rem;font-weight:700;color:rgba(24,71,201,.07);line-height:1;margin-bottom:18px}
+.pillar-ico{width:46px;height:46px;border-radius:10px;background:var(--slate2);display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.pillar-title{font-family:var(--ff-d);font-size:1.18rem;font-weight:600;color:var(--ink);margin-bottom:9px}
+.pillar-body{font-size:.84rem;color:var(--muted);line-height:1.74}
+
+.ab-story{display:grid;grid-template-columns:1fr 1fr;gap:76px;align-items:start;padding:68px 0;border-top:1px solid var(--border)}
+.pullquote{border-left:3px solid var(--gold);padding:14px 20px;margin:26px 0;background:linear-gradient(90deg,rgba(201,168,76,.04),transparent)}
+.pullquote p{font-family:var(--ff-d);font-style:italic;font-size:1.1rem;line-height:1.7;color:var(--ink)}
+.pullquote cite{display:block;margin-top:7px;font-family:var(--ff-m);font-size:.6rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted2)}
+
+.timeline{display:flex;flex-direction:column;gap:0}
+.tl{display:flex;gap:0;padding-bottom:28px}
+.tl:last-child{padding-bottom:0}
+.tl-spine{display:flex;flex-direction:column;align-items:center;width:10px;flex-shrink:0;margin-right:18px;margin-top:4px}
+.tl-dot{width:10px;height:10px;border-radius:50%;background:var(--blue);border:2px solid #fff;box-shadow:0 0 0 2px var(--blue);flex-shrink:0}
+.tl-line{width:1px;flex:1;background:var(--border);margin-top:5px}
+.tl:last-child .tl-line{display:none}
+.tl-yr{font-family:var(--ff-m);font-size:.62rem;letter-spacing:.12em;color:var(--blue);margin-bottom:5px}
+.tl-h{font-size:.9rem;font-weight:600;color:var(--ink);margin-bottom:4px}
+.tl-p{font-size:.81rem;color:var(--muted);line-height:1.65}
+
+.values{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;padding-top:68px;border-top:1px solid var(--border)}
+.val-card{padding:26px 20px;border:1px solid var(--border);border-radius:12px;transition:box-shadow var(--t),transform var(--t)}
+.val-card:hover{box-shadow:var(--sh2);transform:translateY(-4px)}
+.val-ico{font-size:1.4rem;margin-bottom:12px}
+.val-title{font-size:.88rem;font-weight:600;color:var(--ink);margin-bottom:6px}
+.val-body{font-size:.79rem;color:var(--muted);line-height:1.65}
+
+/* ══ SERVICES ══ */
+.svc-hero{display:grid;grid-template-columns:1.1fr 1fr;gap:76px;align-items:start;margin-bottom:72px}
+.svc-cards{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.svc-card{background:#fff;border:1px solid var(--border);border-radius:13px;padding:30px 26px;position:relative;overflow:hidden;transition:box-shadow var(--t),transform var(--t)}
+.svc-card::after{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .35s ease}
+.svc-card:hover{box-shadow:var(--sh2);transform:translateY(-4px)}
+.svc-card:hover::after{transform:scaleX(1)}
+.svc-ico{width:46px;height:46px;border-radius:10px;background:linear-gradient(135deg,var(--ink),var(--ink3));display:flex;align-items:center;justify-content:center;margin-bottom:16px}
+.svc-ico svg{width:21px;height:21px}
+.svc-cat{font-family:var(--ff-m);font-size:.59rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);margin-bottom:7px}
+.svc-title{font-family:var(--ff-d);font-size:1.14rem;font-weight:600;color:var(--ink);margin-bottom:9px}
+.svc-body{font-size:.82rem;color:var(--muted);line-height:1.72;margin-bottom:14px}
+.svc-bullets{list-style:none;display:flex;flex-direction:column;gap:5px}
+.svc-bullets li{display:flex;align-items:flex-start;gap:7px;font-size:.77rem;color:var(--muted)}
+.svc-bullets li::before{content:'→';color:var(--blue);font-size:.7rem;margin-top:1px;flex-shrink:0}
+
+.process-box{background:var(--ink);border-radius:18px;padding:52px;margin-top:68px}
+.process-title{font-family:var(--ff-d);font-size:1.9rem;font-weight:600;color:#fff;margin-bottom:6px}
+.process-sub{font-size:.88rem;color:#64748b;margin-bottom:44px}
+.process-steps{display:grid;grid-template-columns:repeat(6,1fr);gap:0;position:relative}
+.process-steps::before{content:'';position:absolute;top:19px;left:8%;right:8%;height:1px;background:rgba(255,255,255,.1)}
+.ps{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;position:relative;z-index:1}
+.ps-n{width:38px;height:38px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;font-family:var(--ff-m);font-size:.7rem;color:#fff;flex-shrink:0}
+.ps-t{font-size:.77rem;font-weight:600;color:#fff;line-height:1.3}
+.ps-d{font-size:.69rem;color:#64748b;line-height:1.4}
+
+/* ══ MANDATES ══ */
+.mandate-layout{display:grid;grid-template-columns:1.05fr 1fr;gap:72px;align-items:start}
+.mc{background:#fff;border:1px solid var(--border);border-radius:13px;overflow:hidden;transition:box-shadow var(--t);margin-bottom:16px}
+.mc:last-of-type{margin-bottom:0}
+.mc:hover{box-shadow:var(--sh2)}
+.mc-top{display:flex;align-items:flex-start;gap:14px;padding:24px 26px 18px}
+.mc-num{font-family:var(--ff-d);font-size:1.4rem;font-weight:700;color:rgba(24,71,201,.18);min-width:28px;line-height:1;padding-top:2px}
+.mc-title{font-family:var(--ff-d);font-size:1.06rem;font-weight:600;color:var(--ink);margin-bottom:7px}
+.mc-body{font-size:.82rem;color:var(--muted);line-height:1.7}
+.mc-foot{padding:13px 26px;background:var(--slate);border-top:1px solid var(--border)}
+.mc-tags{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.mc-meta-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:8px}
+.mc-meta-cell{background:#fff;border-radius:6px;padding:7px 10px;border:1px solid var(--border)}
+.mc-meta-lbl{font-family:var(--ff-m);font-size:.58rem;letter-spacing:.16em;text-transform:uppercase;color:var(--muted2);margin-bottom:2px}
+.mc-meta-val{font-size:.77rem;font-weight:600;color:var(--ink)}
+.mc-ask{font-family:var(--ff-m);font-size:.6rem;letter-spacing:.1em;color:var(--muted2)}
+
+.md-box{background:var(--ink);border-radius:16px;padding:38px 34px;margin-top:28px}
+.md-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);border-radius:6px;padding:5px 12px;margin-bottom:18px}
+.md-bdot{width:6px;height:6px;background:#22c55e;border-radius:50%;animation:pulse 2s infinite}
+.md-btxt{font-family:var(--ff-m);font-size:.59rem;letter-spacing:.18em;color:#94a3b8}
+.md-title{font-family:var(--ff-d);font-size:1.55rem;font-weight:600;color:#fff;margin-bottom:8px}
+.md-sub{font-size:.84rem;color:#64748b;line-height:1.6;margin-bottom:26px}
+.md-stats{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:rgba(255,255,255,.07);border-radius:10px;overflow:hidden;margin-bottom:24px}
+.md-stat{padding:16px 14px;background:rgba(255,255,255,.03)}
+.md-sval{font-family:var(--ff-d);font-size:1.35rem;font-weight:700;color:#fff;line-height:1;margin-bottom:3px}
+.md-slbl{font-size:.71rem;color:#64748b}
+.md-steps{display:flex;flex-direction:column;gap:9px;margin-bottom:24px}
+.md-step{display:flex;align-items:center;gap:11px}
+.md-tick{width:19px;height:19px;border-radius:50%;background:rgba(24,71,201,.35);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.md-tick svg{width:9px;height:9px}
+.md-step-t{font-size:.81rem;color:#94a3b8}
+
+/* ══ LEADERSHIP ══ */
+.leader-layout{display:grid;grid-template-columns:380px 1fr;gap:60px;align-items:start}
+.lc{background:var(--ink);border-radius:20px;padding:42px 36px;position:sticky;top:88px;overflow:hidden}
+.lc-bg{position:absolute;top:-60px;right:-60px;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(24,71,201,.14) 0%,transparent 70%);pointer-events:none}
+.lc-init{position:relative;font-family:var(--ff-d);font-size:5.5rem;font-weight:700;color:rgba(255,255,255,.07);line-height:1;margin-bottom:18px;letter-spacing:-.02em}
+.lc-name{font-family:var(--ff-d);font-size:1.9rem;font-weight:600;color:#fff;margin-bottom:3px}
+.lc-role{font-family:var(--ff-m);font-size:.61rem;letter-spacing:.2em;text-transform:uppercase;color:#64748b;margin-bottom:28px}
+.lc-hr{border:none;border-top:1px solid rgba(255,255,255,.08);margin-bottom:24px}
+.lc-rows{display:flex;flex-direction:column;gap:15px}
+.lc-row{display:grid;grid-template-columns:76px 1fr;gap:10px}
+.lc-status{font-family:var(--ff-m);font-size:.61rem;letter-spacing:.05em;color:#475569;padding-top:1px}
+.lc-rh{font-size:.85rem;font-weight:600;color:#e2e8f0;margin-bottom:2px}
+.lc-rs{font-size:.73rem;color:#64748b}
+.lc-creds{display:flex;flex-direction:column;gap:7px;margin-top:24px;padding-top:20px;border-top:1px solid rgba(255,255,255,.08)}
+.lc-cred{display:flex;align-items:center;gap:7px;font-size:.77rem;color:#94a3b8}
+.lc-cdot{width:4px;height:4px;border-radius:50%;background:var(--gold);flex-shrink:0}
+
+.ldr-content{display:flex;flex-direction:column;gap:0}
+.ldr-sec{padding:30px 0;border-bottom:1px solid var(--border)}
+.ldr-sec:first-child{padding-top:0}
+.ldr-sec:last-child{border-bottom:none}
+.ldr-sec-lbl{font-family:var(--ff-m);font-size:.61rem;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);margin-bottom:14px}
+.exp-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:14px}
+.exp-item{background:var(--slate);border-radius:10px;padding:15px 16px;border:1px solid var(--border)}
+.exp-h{font-size:.83rem;font-weight:600;color:var(--ink);margin-bottom:4px}
+.exp-b{font-size:.76rem;color:var(--muted);line-height:1.6}
+.phi-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:13px;margin-top:14px}
+.phi{background:var(--slate);border-radius:10px;padding:18px 16px;border-left:3px solid var(--blue)}
+.phi-q{font-family:var(--ff-d);font-size:.93rem;font-style:italic;color:var(--ink);line-height:1.5;margin-bottom:7px}
+.phi-a{font-size:.76rem;color:var(--muted);line-height:1.6}
+
+/* ══ NETWORK ══ */
+.net-layout{display:grid;grid-template-columns:1fr 520px;gap:60px;align-items:start;margin-bottom:68px}
+.net-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.nc{background:#fff;border:1px solid var(--border);border-radius:12px;padding:20px 21px;transition:box-shadow var(--t),transform var(--t)}
+.nc:hover{box-shadow:var(--sh2);transform:translateY(-3px)}
+.nc-type{font-family:var(--ff-m);font-size:.59rem;letter-spacing:.18em;text-transform:uppercase;color:var(--blue);margin-bottom:6px}
+.nc-title{font-size:.95rem;font-weight:600;color:var(--ink);margin-bottom:3px}
+.nc-sub{font-size:.77rem;color:var(--muted2);margin-bottom:8px}
+.nc-count{display:inline-flex;align-items:center;gap:5px;font-family:var(--ff-m);font-size:.6rem;letter-spacing:.1em;color:var(--muted)}
+.nc-cdot{width:5px;height:5px;border-radius:50%;background:var(--green)}
+.net-why{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;padding-top:60px;border-top:1px solid var(--border)}
+.nw{padding:26px 24px;border:1px solid var(--border);border-radius:12px;background:#fff}
+.nw-n{font-family:var(--ff-d);font-size:2.3rem;font-weight:700;color:rgba(24,71,201,.1);margin-bottom:11px;line-height:1}
+.nw-t{font-size:.88rem;font-weight:600;color:var(--ink);margin-bottom:6px}
+.nw-b{font-size:.79rem;color:var(--muted);line-height:1.7}
+
+/* ══ DIFFERENTIATORS ══ */
+.diff{background:var(--ink);padding:96px 0;position:relative;overflow:hidden}
+.diff-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.015) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.015) 1px,transparent 1px);background-size:60px 60px;pointer-events:none}
+.diff-inner{position:relative;z-index:1}
+.diff-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.07);border-radius:16px;overflow:hidden;margin-top:52px}
+.dc{background:var(--ink);padding:38px 34px;transition:background var(--t)}
+.dc:hover{background:var(--ink2)}
+.dc-ico{font-size:1.7rem;margin-bottom:16px}
+.dc-title{font-family:var(--ff-d);font-size:1.15rem;font-weight:600;color:#fff;margin-bottom:9px}
+.dc-body{font-size:.82rem;color:#94a3b8;line-height:1.74}
+.dc-tag{display:inline-flex;align-items:center;gap:5px;margin-top:13px;background:rgba(24,71,201,.18);border:1px solid rgba(24,71,201,.28);border-radius:4px;padding:4px 10px;font-family:var(--ff-m);font-size:.58rem;letter-spacing:.12em;text-transform:uppercase;color:var(--blue3)}
+
+/* ══ CONTACT ══ */
+.contact-layout{display:grid;grid-template-columns:1fr 520px;gap:68px;align-items:start}
+.ci-block{padding:22px 0;border-bottom:1px solid var(--border)}
+.ci-block:first-child{padding-top:0}
+.ci-lbl{font-family:var(--ff-m);font-size:.59rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted2);margin-bottom:7px}
+.ci-row{display:flex;align-items:center;gap:11px}
+.ci-ico{width:37px;height:37px;background:var(--slate2);border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ci-val{font-size:.88rem;font-weight:500;color:var(--ink)}
+.ci-sub{font-size:.77rem;color:var(--muted);margin-top:2px}
+.promise{background:var(--slate);border:1px solid var(--border);border-radius:13px;padding:26px;margin-top:26px}
+.promise-t{font-size:.85rem;font-weight:600;color:var(--ink);margin-bottom:13px}
+.promise-items{display:flex;flex-direction:column;gap:9px}
+.pi{display:flex;align-items:flex-start;gap:9px;font-size:.81rem;color:var(--muted);line-height:1.55}
+.pi-chk{width:18px;height:18px;border-radius:50%;background:var(--blue);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+.pi-chk svg{width:9px;height:9px}
+
+.form-wrap{background:#fff;border:1px solid var(--border);border-radius:20px;padding:38px;box-shadow:var(--sh1)}
+.form-title{font-family:var(--ff-d);font-size:1.28rem;font-weight:600;color:var(--ink);margin-bottom:5px}
+.form-sub{font-size:.81rem;color:var(--muted);margin-bottom:26px}
+.fg-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.fg-full{grid-column:1/-1}
+.field{display:flex;flex-direction:column;gap:5px;margin-bottom:14px}
+.field label{font-family:var(--ff-m);font-size:.59rem;letter-spacing:.18em;text-transform:uppercase;color:var(--muted2)}
+.field input,.field select,.field textarea{padding:11px 13px;border:1.5px solid var(--border);border-radius:8px;font-family:var(--ff-s);font-size:.88rem;color:var(--ink);background:#fff;outline:none;transition:border-color var(--t),box-shadow var(--t);appearance:none}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px rgba(24,71,201,.09)}
+.field input.err,.field textarea.err{border-color:#dc2626}
+.field textarea{resize:vertical;min-height:108px;line-height:1.6}
+.field select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='%235a6a8a'%3E%3Cpath d='M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;background-size:17px;padding-right:34px}
+.err-msg{font-size:.71rem;color:#dc2626;margin-top:2px}
+.submit-btn{width:100%;padding:14px;background:var(--ink);color:#fff;border:none;cursor:pointer;border-radius:9px;font-family:var(--ff-s);font-size:.83rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;transition:all var(--t);margin-top:4px}
+.submit-btn:hover:not(:disabled){background:var(--ink2);transform:translateY(-1px);box-shadow:0 8px 24px rgba(10,22,40,.22)}
+.submit-btn:disabled{opacity:.55;cursor:not-allowed}
+.submit-btn.loading{background:linear-gradient(90deg,var(--ink),var(--ink3),var(--ink));background-size:300% 100%;animation:shimmer 1.6s linear infinite}
+.form-note{font-size:.71rem;color:var(--muted2);text-align:center;margin-top:11px}
+.success{text-align:center;padding:46px 20px;animation:fadeIn .5s ease}
+.success-ico{font-size:2.8rem;margin-bottom:14px}
+.success-h{font-family:var(--ff-d);font-size:1.55rem;font-weight:600;color:var(--ink);margin-bottom:9px}
+.success-p{font-size:.88rem;color:var(--muted);line-height:1.7;max-width:320px;margin:0 auto}
+
+/* ══ FOOTER ══ */
+.footer{background:var(--ink);padding:68px 0 30px}
+.footer-top{display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr;gap:48px;margin-bottom:52px}
+.ft-logo{display:flex;align-items:center;gap:10px;margin-bottom:14px}
+.ft-mark{width:33px;height:33px;background:rgba(255,255,255,.08);border-radius:7px;display:flex;align-items:center;justify-content:center}
+.ft-name{font-weight:600;font-size:.91rem;color:#fff}
+.ft-sub{font-family:var(--ff-m);font-size:.55rem;letter-spacing:.22em;text-transform:uppercase;color:#334155}
+.ft-desc{font-size:.81rem;color:#475569;line-height:1.75;max-width:275px;margin-bottom:18px}
+.ft-awards{display:flex;flex-direction:column;gap:7px}
+.ft-award{display:flex;align-items:center;gap:7px;font-size:.73rem;color:#334155}
+.ft-adot{width:4px;height:4px;border-radius:50%;background:var(--gold);flex-shrink:0}
+.ft-col h5{font-family:var(--ff-m);font-size:.59rem;letter-spacing:.2em;text-transform:uppercase;color:#334155;margin-bottom:16px}
+.ft-col ul{list-style:none;display:flex;flex-direction:column;gap:9px}
+.ft-col li{font-size:.82rem;color:#475569;cursor:pointer;transition:color var(--t)}
+.ft-col li:hover{color:#94a3b8}
+.ft-col li.acc{color:rgba(99,146,255,.65)}
+.ft-col li.acc:hover{color:#7eadff}
+.ft-hr{border:none;border-top:1px solid rgba(255,255,255,.06);margin-bottom:22px}
+.ft-bottom{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:11px}
+.ft-copy{font-size:.73rem;color:#334155}
+.ft-chips{display:flex;gap:7px}
+.ft-chip{font-family:var(--ff-m);font-size:.57rem;letter-spacing:.14em;text-transform:uppercase;color:#334155;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.06);padding:4px 10px;border-radius:5px}
+
+/* ══ RESPONSIVE ══ */
+@media(max-width:1100px){
+  .values{grid-template-columns:1fr 1fr}
+  .process-steps{grid-template-columns:repeat(3,1fr);row-gap:26px}
+  .process-steps::before{display:none}
+  .footer-top{grid-template-columns:1fr 1fr}
+  .diff-grid,.phi-cards{grid-template-columns:1fr 1fr}
+}
+@media(max-width:960px){
+  .wrap{padding:0 32px}
+  .nav-in{padding:0 32px}
+  .nav-links,.nav-cta{display:none}
+  .ham{display:flex}
+  .hero-in{grid-template-columns:1fr;padding:0 32px}
+  .snap{display:none}
+  .ab-story,.svc-hero,.mandate-layout,.leader-layout,.net-layout,.contact-layout{grid-template-columns:1fr;gap:44px}
+  .pillars,.net-grid,.values{grid-template-columns:1fr}
+  .svc-cards{grid-template-columns:1fr}
+  .exp-grid,.net-why{grid-template-columns:1fr}
+  .section{padding:72px 0}
+  .footer-top{grid-template-columns:1fr}
+}
+@media(max-width:600px){
+  .wrap,.hero-in{padding:0 20px}
+  .nav-in{padding:0 20px}
+  .hero-proof{flex-direction:column;gap:18px}
+  .hero-pstat{border:none;padding:0;text-align:left}
+  .diff-grid{grid-template-columns:1fr}
+  .md-stats,.fg-grid{grid-template-columns:1fr}
+  .process-box{padding:28px 20px}
+  .phi-cards{grid-template-columns:1fr}
+}
+`;
+
+/* ════════════ ICONS ════════════ */
+const I = {
+  Logo:    ()=><svg viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.8" strokeLinecap="round"><path d="M12 2L2 7l10 5 10-5-10-5M2 17l10 5 10-5M2 12l10 5 10-5"/></svg>,
+  Arr:     ()=><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg>,
+  Chk:     ()=><svg viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="2.5" strokeLinecap="round"><path d="M20 6L9 17l-5-5"/></svg>,
+  Finance: ()=><svg viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.7" strokeLinecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M7 15h.01M11 15h2"/></svg>,
+  Legal:   ()=><svg viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.7" strokeLinecap="round"><path d="M12 1v22M4.5 6.5l15 11M19.5 6.5l-15 11"/></svg>,
+  Medical: ()=><svg viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.7" strokeLinecap="round"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>,
+  AI:      ()=><svg viewBox="0 0 24 24" fill="none" stroke="#fff" strokeWidth="1.7" strokeLinecap="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M9 9h6M9 12h4M9 15h2"/></svg>,
+  Mail:    ()=><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M2 8l10 6 10-6"/></svg>,
+  Phone:   ()=><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3.1 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3.1-8.6A2 2 0 014 2.1h3a2 2 0 012 1.7c.1 1 .4 2 .7 2.8a2 2 0 01-.5 2.1L8 9.9a16 16 0 006 6l1.2-1.2a2 2 0 012.1-.5c.9.3 1.8.6 2.8.7a2 2 0 011.7 2z"/></svg>,
+  Pin:     ()=><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"><path d="M21 10c0 7-9 13-9 13S3 17 3 10a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>,
+  Shield:  ()=><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>,
+  Globe:   ()=><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 010 20M12 2a15.3 15.3 0 000 20"/></svg>,
+};
+
+/* ════════════ DATA ════════════ */
+const NAV_ITEMS = ["About","Services","Mandates","Leadership","Network","Contact"];
+
+const TICKER_RAW = ["Active M&A Mandates — South India Healthcare","NDA-First Engagement Protocol","Chartered Accountants · Company Secretaries · Medical Doctors · Software Engineers","₹120 Crore+ Asset Value Under Advisory","PE Network Across South Asia & Southeast Asia","Institutional-Grade Due Diligence","Founder-Led Every Mandate — No Handoffs","HMS · PACS · EMR · Enterprise HealthTech"];
+
+const HERO_STATS = [
+  {val:"50",sfx:"+",label:"Healthcare institutions\nserved across India"},
+  {val:"6",sfx:"+",label:"Proprietary AI health-\ntech products built"},
+  {val:"₹120",sfx:"Cr+",label:"Gross asset value\nunder active advisory"},
+  {val:"Pan",sfx:"-Asia",label:"Institutional PE\nnetwork coverage"},
+];
+
+const PILLARS = [
+  {n:"01",Icon:I.Finance,title:"Capital Markets Precision",body:"Every mandate is structured to institutional standards — SPAs, SHAs, MOUs, term sheets — with CA and CS oversight at every stage. We don't just identify deals; we architect them to close."},
+  {n:"02",Icon:I.Medical,title:"Healthcare Sector Intelligence",body:"Qualified medical professionals on staff conduct clinical due diligence, assess hospital operations, evaluate patient flows, and audit regulatory compliance. Intelligence no generalist firm can replicate."},
+  {n:"03",Icon:I.AI,title:"Proprietary Technology Layer",body:"We've built HMS, PACS, EMR, and enterprise health software from the ground up. We evaluate healthcare technology as engineers — providing buyers with credible, conflict-free technical assessments."},
+];
+
+const TIMELINE = [
+  {yr:"Founded",h:"Insight Thinkers Agency Established",p:"Founded by Vasanth S with a singular thesis: healthcare M&A requires simultaneous mastery of capital markets, clinical operations, and enterprise technology — not just financial modelling."},
+  {yr:"Year 1–2",h:"First Mandates Closed",p:"Completed first institutional M&A transactions in South India hospital sector. Personally led and closed — establishing a track record with institutional counterparties and PE fund managers."},
+  {yr:"Year 2–3",h:"AI HealthTech Division Launched",p:"Launched proprietary AI product line: HMS, PACS, and EMR platforms deployed across 50+ hospitals and diagnostic centres. Products are actively operated — not theoretical."},
+  {yr:"Year 3–4",h:"Pan-Asia PE Network Built",p:"Expanded institutional relationships to cover healthcare PE funds across South Asia and Southeast Asia. Active co-advisory mandates established with major fund managers."},
+  {yr:"Present",h:"Live Mandates — Active Advisory",p:"Currently managing exclusive advisory mandates on operational hospital assets with aggregate monthly revenues exceeding ₹8 Crores. All mandates are live, not archival."},
+];
+
+const VALUES = [
+  {ico:"⚖️",t:"Institutional Rigour",b:"Every deliverable — financial model, legal document, clinical report — is prepared to standards that institutional counterparties expect and demand."},
+  {ico:"🔒",t:"Absolute Confidentiality",b:"NDA-first engagement is not a protocol — it is a philosophy. No mandate is discussed without mutual legal protection in place."},
+  {ico:"🎯",t:"Completion Over Commission",b:"We accept only mandates we are confident we can close. Breadth of pipeline is never prioritised over depth of execution."},
+  {ico:"🔬",t:"Evidence-Based Advisory",b:"Every recommendation is grounded in verified financial data, operational metrics, and clinical assessments — not market opinion."},
+];
+
+const SERVICES = [
+  {Icon:I.Finance,cat:"Finance · Compliance",title:"M&A Financial Advisory",body:"Institutional-grade financial advisory across the full M&A spectrum — buy-side, sell-side, and structured equity financing. Our CA team conducts forensic financial review, regulatory compliance, and audit-grade due diligence.",bullets:["Share Purchase Agreement (SPA) structuring","Forensic financial statement review","Regulatory & tax structuring for healthcare assets","Valuation benchmarking against sector comparables","Escrow and earnout mechanism design"]},
+  {Icon:I.Legal,cat:"Legal · Governance",title:"Corporate Governance & Documentation",body:"Our Company Secretaries handle the full legal architecture of every transaction — from initial term sheets to final executed agreements — ensuring every document withstands institutional and regulatory scrutiny.",bullets:["SHA, MOU, term sheet drafting & negotiation","Statutory compliance & regulatory approvals","Board resolution & governance structuring","SEBI-compliant transaction architecture","Post-merger integration legal framework"]},
+  {Icon:I.Medical,cat:"Clinical · Healthcare",title:"Clinical Due Diligence",body:"Medical professionals on our team conduct hands-on clinical assessments of target hospital assets — evaluating patient flows, staffing models, regulatory licenses, equipment condition, and clinical outcomes.",bullets:["Hospital operations & patient flow audit","Clinical team assessment & key person risk","Medical infrastructure & equipment valuation","NABH / NMC compliance review","Clinical revenue quality & sustainability analysis"]},
+  {Icon:I.AI,cat:"Technology · AI",title:"HealthTech Due Diligence & Advisory",body:"We assess healthcare technology assets as engineers who have built them — not consultants who study them. Our proprietary HMS, PACS, and EMR systems give us first-principles understanding of health IT infrastructure.",bullets:["Technical architecture & code-level review","HMS / PACS / EMR platform assessment","Data security & regulatory compliance audit","Integration complexity & cost modelling","Technology asset valuation for M&A pricing"]},
+];
+
+const PROCESS = [
+  {n:"01",t:"Initial Enquiry",d:"Confidential contact initiated"},
+  {n:"02",t:"NDA Execution",d:"Mutual NDA signed before any disclosure"},
+  {n:"03",t:"Mandate Brief",d:"Full asset dossier released to qualified party"},
+  {n:"04",t:"Management Intro",d:"Facilitated introduction to asset management"},
+  {n:"05",t:"Due Diligence",d:"Financial, clinical, legal & tech DD conducted"},
+  {n:"06",t:"Closure",d:"Term sheet, documentation, and deal execution"},
+];
+
+const MANDATES = [
+  {n:"01",title:"Revenue-Generating Multi-Specialty Hospital",body:"A fully operational multi-specialty hospital generating ₹3–4 Crores in monthly revenue. Established patient base across General Medicine, Orthopaedics, and Obstetrics. Licensed medical team of 60+ clinical staff. Consistent 4-year revenue track record. Available for strategic acquisition or majority stake.",tags:[{l:"Active",c:"chip-g"},{l:"South India",c:"chip-s"},{l:"₹3–4 Cr/Mo",c:"chip-b"}],ask:"Strategic Acquisition or Majority Stake",rev:"₹3–4 Cr/month",ebitda:"EBITDA Positive",beds:"80+ Beds",status:"Fully Operational"},
+  {n:"02",title:"Asset-Backed Hospital — ₹120+ Crore Asset Value",body:"A hospital mandate underpinned by significant hard asset value exceeding ₹120 Crores — comprising land parcels, purpose-built hospital building, medical infrastructure, and operational setup across a tier-2 city with strong healthcare demand fundamentals.",tags:[{l:"Active",c:"chip-g"},{l:"Asset-Backed",c:"chip-s"},{l:"₹120 Cr+",c:"chip-b"}],ask:"PE Fund or Strategic Acquirer",rev:"Asset Value ₹120 Cr+",ebitda:"Operational",beds:"120+ Beds",status:"Land + Building + Operations"},
+  {n:"03",title:"Profitable Diagnostic & Healthcare Setup — Expansion Ready",body:"An operational healthcare facility combining diagnostics and outpatient services. Profitable since inception, fully licensed, and structured for immediate geographic or vertical expansion. All regulatory approvals, staff, lab infrastructure, and operational systems in place — eliminating greenfield execution risk entirely.",tags:[{l:"Active",c:"chip-g"},{l:"Profitable",c:"chip-s"},{l:"Expansion-Ready",c:"chip-b"}],ask:"Growth Capital or Strategic Partner",rev:"Profitable — Verified",ebitda:"Positive EBITDA",beds:"Multi-Site",status:"Expansion Ready"},
+];
+
+const LEADER_EXP = [
+  {h:"M&A Transaction Leadership",b:"Personally originated, structured, and closed institutional M&A transactions across South Indian healthcare assets. Not advisory — actual execution."},
+  {h:"Equity Financing Structuring",b:"Structured and closed equity financing engagements for healthcare operators seeking growth capital from PE funds and institutional investors."},
+  {h:"Clinical Asset Intelligence",b:"Deep understanding of hospital operations, clinical metrics, and healthcare regulation — enabling due diligence that financial advisors alone cannot perform."},
+  {h:"AI & HealthTech Architecture",b:"Built six proprietary healthcare technology platforms from first principles — HMS, PACS, EMR — deployed and operated across 50+ institutions."},
+];
+
+const LEADER_PHI = [
+  {q:"On mandate selectivity:",a:"\"We decline more mandates than we accept. Every engagement we take carries our name. We do not accept mandates we cannot close with the rigour institutional buyers deserve.\""},
+  {q:"On network vs. relationships:",a:"\"Our PE relationships were built through completed transactions — not networking events or introductions. Every fund manager we work with has seen us deliver.\""},
+  {q:"On the firm's architecture:",a:"\"Most advisory firms outsource clinical intelligence. We have medical doctors on staff. Most consultants assess technology — we built the technology. That is the difference.\""},
+];
+
+const NETWORK = [
+  {type:"Type 01",title:"Healthcare PE Funds",sub:"South Asia · Southeast Asia",count:"Active co-advisory relationships"},
+  {type:"Type 02",title:"India Growth Capital",sub:"Pan-India · Mid-Market",count:"Ongoing deal flow engagement"},
+  {type:"Type 03",title:"Strategic Hospital Chains",sub:"South India Expansion",count:"Inorganic growth mandates"},
+  {type:"Type 04",title:"Family Offices",sub:"India · GCC · Singapore",count:"Direct co-investment platforms"},
+  {type:"Type 05",title:"UHNI & HNI Investors",sub:"Direct Deal Participation",count:"Pre-qualified deal flow"},
+  {type:"Type 06",title:"Corporate Healthcare Groups",sub:"Pan-India · Inorganic Growth",count:"Strategic acquisition pipeline"},
+];
+
+const NET_WHY = [
+  {n:"01",t:"Active, Not Archival",b:"We engage regularly with fund managers, family offices, and strategic investors — not through fund databases or referral directories, but through structured quarterly interactions and live deal flow sharing."},
+  {n:"02",t:"SEBI-Compliant Architecture",b:"All transaction structuring across fund types is SEBI-compliant. Our Company Secretaries ensure every co-advisory engagement, deal flow arrangement, and co-investment structure meets regulatory requirements."},
+  {n:"03",t:"Confidential Deal Pipeline",b:"Institutional partners receive structured deal flow updates under NDA. Our pipeline is shared with pre-qualified counterparties only — ensuring alignment between asset profile and investor mandate before any introduction."},
+];
+
+const DIFFS = [
+  {ico:"⚗️",t:"In-House Clinical Intelligence",b:"Medical Doctors on staff conduct hands-on hospital due diligence. We assess patient flows, clinical outcomes, staffing risk, and regulatory compliance — intelligence that generalist firms cannot replicate.",tag:"Medical Doctors · On-Staff"},
+  {ico:"🏗️",t:"Technology Built From Scratch",b:"Our HealthTech products — HMS, PACS, EMR, enterprise platforms — are live and deployed across 50+ institutions. We assess technology as engineers, not commentators. This changes the quality of technology DD fundamentally.",tag:"6+ Proprietary Platforms"},
+  {ico:"⚡",t:"Founder-Led, No Handoffs",b:"Vasanth S personally leads every engagement from origination to closure. No relationship managers. No junior associates handed a file. Institutional counterparties receive the same principal attention throughout.",tag:"Zero Delegation"},
+  {ico:"📐",t:"Full-Spectrum Execution",b:"We move from mandate origination through financial modelling, legal documentation, clinical assessment, technology evaluation, PE introduction, and deal closure — all in-house. No gaps. No outsourcing.",tag:"End-to-End · In-House"},
+  {ico:"🌏",t:"Pan-Asia Institutional Network",b:"PE fund relationships built through completed transactions — not introductions. We engage active fund managers deploying capital into South Asian healthcare. Our network is current, not historical.",tag:"Built Through Deals"},
+  {ico:"🔐",t:"NDA-First Protocol",b:"Absolute confidentiality is built into our operating model. No mandate is discussed, no data shared, and no introduction facilitated without full legal confidentiality architecture in place — protecting buyers and sellers alike.",tag:"Institutional Protocol"},
+];
+
+const NET_BULLETS = [
+  "Active co-advisory relationships with healthcare-focused PE funds across South and Southeast Asia",
+  "Ongoing engagement with India-focused growth capital and mid-market PE firms",
+  "Confidential deal flow pipeline shared with institutional partners on a structured, quarterly basis",
+  "Family office and UHNI platforms for direct co-investment participation in live mandates",
+  "SEBI-compliant transaction structuring experience across multiple fund types and structures",
+];
+
+/* ════════════ COMPONENTS ════════════ */
+
+function Navbar({active,go}){
+  const [sc,setSc]=useState(false);
+  const [open,setOpen]=useState(false);
+  useEffect(()=>{const h=()=>setSc(window.scrollY>10);window.addEventListener("scroll",h);return()=>window.removeEventListener("scroll",h);},[]);
+  const nav=p=>{go(p);setOpen(false)};
+  return(<>
+    <nav className={`nav${sc?" sc":""}`}>
+      <div className="nav-in">
+        <div className="nav-logo" onClick={()=>nav("home")}>
+          <div className="nav-mark"><I.Logo/></div>
+          <div><div className="nav-name">Insight Thinkers</div><div className="nav-sub">Strategic Advisory</div></div>
+        </div>
+        <div className="nav-links">
+          {NAV_ITEMS.map(n=><span key={n} className={`nl${active===n.toLowerCase()?" on":""}`} onClick={()=>nav(n.toLowerCase())}>{n}</span>)}
+        </div>
+        <button className="nav-cta" onClick={()=>nav("contact")}>Engage the Firm <I.Arr/></button>
+        <button className={`ham${open?" open":""}`} onClick={()=>setOpen(o=>!o)}><span/><span/><span/></button>
+      </div>
+    </nav>
+    <div className={`drawer${open?" open":""}`}>
+      {NAV_ITEMS.map(n=><div key={n} className={`drawer-link${active===n.toLowerCase()?" on":""}`} onClick={()=>nav(n.toLowerCase())}>{n}</div>)}
+      <button className="drawer-cta" onClick={()=>nav("contact")}>Engage the Firm →</button>
+    </div>
+  </>);
+}
+
+function Ticker(){
+  const items=[...TICKER_RAW,...TICKER_RAW];
+  return(
+    <div className="ticker">
+      <div className="ticker-inner">
+        {items.map((t,i)=><span key={i} className="t-item"><span className="t-dot"/>{t}</span>)}
+      </div>
+    </div>
+  );
+}
+
+function Hero({go}){
+  return(
+    <section id="home" className="hero">
+      <div className="hero-orb1"/><div className="hero-orb2"/><div className="hero-grid"/>
+      <div className="hero-in">
+        <div className="v0">
+          <div className="hero-tag"><span className="hero-tag-dot"/><span className="hero-tag-txt">Strategic Advisory · Healthcare · Technology</span></div>
+          <h1 className="display">Where Capital Meets<br/><em>Strategic Intelligence.</em></h1>
+          <p className="hero-desc mt20">Insight Thinkers Agency is a multi-disciplinary firm delivering <strong>institutional-grade M&A advisory, equity financing, and AI-powered healthcare technology</strong> — trusted by PE funds, hospital groups, and sophisticated investors across India and Asia.</p>
+          <div className="hero-btns">
+            <button className="btn btn-ink" onClick={()=>go("mandates")}>View Active Mandates <I.Arr/></button>
+            <button className="btn btn-ghost" onClick={()=>go("about")}>About the Firm <I.Arr/></button>
+          </div>
+          <div className="hero-proof">
+            {HERO_STATS.map(p=>(
+              <div key={p.val} className="hero-pstat">
+                <div className="hero-pval">{p.val}<em>{p.sfx}</em></div>
+                <div className="hero-plabel" style={{whiteSpace:"pre-line"}}>{p.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="v2">
+          <div className="snap">
+            <div className="snap-hd">
+              <span className="snap-hd-t">Live Engagement Snapshot</span>
+              <span className="live"><span className="live-dot"/><span className="live-txt">ACTIVE</span></span>
+            </div>
+            <div className="snap-grid">
+              {[{ico:"📈",val:"Active",lbl:"M&A Mandates in Healthcare",sub:"Running Hospitals · South India",dk:false},{ico:"✅",val:"Proven",lbl:"M&A Transactions Completed",sub:"Founder · Personally Executed",dk:true},{ico:"🏥",val:"50+",lbl:"Hospitals & Diagnostic Centers",sub:"Marketing Strategy · Served",dk:false},{ico:"🤖",val:"6+",lbl:"In-House AI HealthTech Products",sub:"HMS · PACS · EMR · Enterprise",dk:false}].map(c=>(
+                <div key={c.val} className={`sc${c.dk?" dk":""}`}>
+                  <div className="sc-ico">{c.ico}</div>
+                  <div className="sc-val">{c.val}</div>
+                  <div className="sc-lbl">{c.lbl}</div>
+                  <div className="sc-sub">{c.sub}</div>
+                </div>
+              ))}
+            </div>
+            <div className="snap-nda">
+              <span style={{fontSize:"1rem",flexShrink:0}}>🔒</span>
+              <div className="snap-nda-txt"><strong>NDA-First Engagement.</strong> All mandates shared exclusively under executed confidentiality agreements. No exceptions.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function About({go}){
+  return(
+    <section id="about" className="section section-alt">
+      <div className="wrap">
+        <div className="ab-intro v0">
+          <div className="eyebrow">The Firm</div>
+          <h2 className="display-sm">Not Just Advisory.<br/><em>Execution. Closure. Results.</em></h2>
+          <p className="body-lg mt20">Insight Thinkers Agency was built on a singular conviction: that the healthcare M&A market deserves a firm capable of operating with the discipline of a private investment bank, the sector depth of a clinical specialist, and the technological sophistication of an engineering firm — all in-house, under one mandate.</p>
+        </div>
+        <div className="pillars v1">
+          {PILLARS.map(p=>(
+            <div key={p.n} className="pillar">
+              <div className="pillar-ln"/>
+              <div className="pillar-n">{p.n}</div>
+              <div className="pillar-ico"><p.Icon/></div>
+              <div className="pillar-title">{p.title}</div>
+              <div className="pillar-body">{p.body}</div>
+            </div>
+          ))}
+        </div>
+        <div className="ab-story">
+          <div className="v2">
+            <div className="eyebrow">Our Story</div>
+            <h3 className="display-sm" style={{fontSize:"clamp(1.6rem,2.3vw,2.1rem)"}}>Built at the<br/><em>Intersection of Three Disciplines</em></h3>
+            <p className="body-lg mt20">Insight Thinkers Agency operates at the convergence of three domains that most firms treat as entirely separate disciplines: <strong>capital market transactions, healthcare sector intelligence, and enterprise technology.</strong></p>
+            <p className="body-md mt16">The conventional model in Indian M&A advisory is straightforward: a financial team models the deal, legal counsel drafts the documents, and a third-party consultant produces due diligence reports. Each party works in sequence. Communication is fragmented. The result is mandates that take longer to close, cost more, and expose buyers to blind spots that specialists in a single domain cannot see.</p>
+            <p className="body-md mt16">We built Insight Thinkers to eliminate those gaps. Our Chartered Accountants, Company Secretaries, Medical Doctors, and software engineers operate as a single integrated team on every mandate — enabling every dimension of a complex transaction to be addressed simultaneously, in-house, with institutional precision.</p>
+            <div className="pullquote">
+              <p>"We don't just advise on transactions. We originate, structure, and close them — with our name on every step of the process."</p>
+              <cite>— Vasanth S, Founder & Managing Director</cite>
+            </div>
+            <div style={{display:"flex",gap:12,flexWrap:"wrap",marginTop:26}}>
+              <button className="btn btn-ink" onClick={()=>go("services")}>Explore Our Services <I.Arr/></button>
+              <button className="btn btn-ghost" onClick={()=>go("leadership")}>Meet the Founder <I.Arr/></button>
+            </div>
+          </div>
+          <div className="v3">
+            <div className="eyebrow">Firm History</div>
+            <h4 className="display-sm" style={{fontSize:"clamp(1.4rem,2vw,1.75rem)",marginBottom:26}}>How We <em>Got Here</em></h4>
+            <div className="timeline">
+              {TIMELINE.map((t,i)=>(
+                <div key={i} className="tl">
+                  <div className="tl-spine"><div className="tl-dot"/>{i<TIMELINE.length-1&&<div className="tl-line"/>}</div>
+                  <div style={{flex:1}}>
+                    <div className="tl-yr">{t.yr}</div>
+                    <div className="tl-h">{t.h}</div>
+                    <div className="tl-p">{t.p}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="values v4">
+          {VALUES.map(v=>(
+            <div key={v.t} className="val-card">
+              <div className="val-ico">{v.ico}</div>
+              <div className="val-title">{v.t}</div>
+              <div className="val-body">{v.b}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Services({go}){
+  return(
+    <section id="services" className="section">
+      <div className="wrap">
+        <div className="svc-hero">
+          <div className="v0">
+            <div className="eyebrow">Our People & Services</div>
+            <h2 className="display-sm">Built for <em>Complex Mandates.</em></h2>
+            <p className="body-lg mt20">A deliberate combination of financial, legal, clinical, and technology expertise — enabling every dimension of a transaction to be addressed in-house, with institutional precision. Our team structure is not a differentiator by accident; it was designed this way.</p>
+            <p className="body-md mt16">Every service we provide is delivered by the relevant specialist on our team — not outsourced, not templated, and not handed to a junior associate. This is how we maintain the quality that institutional counterparties expect.</p>
+            <div style={{display:"flex",gap:12,flexWrap:"wrap",marginTop:30}}>
+              <button className="btn btn-ink" onClick={()=>go("contact")}>Request a Capability Brief <I.Arr/></button>
+              <button className="btn btn-ghost" onClick={()=>go("mandates")}>View Live Mandates <I.Arr/></button>
+            </div>
+          </div>
+          <div className="svc-cards v1">
+            {SERVICES.map(s=>(
+              <div key={s.title} className="svc-card">
+                <div className="svc-ico"><s.Icon/></div>
+                <div className="svc-cat">{s.cat}</div>
+                <div className="svc-title">{s.title}</div>
+                <div className="svc-body">{s.body}</div>
+                <ul className="svc-bullets">{s.bullets.map(b=><li key={b}>{b}</li>)}</ul>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div className="process-box v2">
+          <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-end",flexWrap:"wrap",gap:14,marginBottom:40}}>
+            <div>
+              <div style={{display:"flex",alignItems:"center",gap:10,fontFamily:"var(--ff-m)",fontSize:".61rem",letterSpacing:".26em",textTransform:"uppercase",color:"#94a3b8",marginBottom:14}}>
+                <span style={{display:"block",width:24,height:1.5,background:"rgba(255,255,255,.2)",flexShrink:0}}/>Transaction Process
+              </div>
+              <div className="process-title">From First Contact to <em style={{color:"#3b6ef5",fontFamily:"var(--ff-d)",fontStyle:"italic"}}>Closed Deal.</em></div>
+              <div className="process-sub">Every mandate follows the same institutional-grade process — no shortcuts, no bypassed stages.</div>
+            </div>
+            <button className="btn btn-ghost-w" onClick={()=>go("contact")}>Begin the Process <I.Arr/></button>
+          </div>
+          <div className="process-steps">
+            {PROCESS.map(s=>(
+              <div key={s.n} className="ps">
+                <div className="ps-n">{s.n}</div>
+                <div className="ps-t">{s.t}</div>
+                <div className="ps-d">{s.d}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Mandates({go}){
+  return(
+    <section id="mandates" className="section section-alt">
+      <div className="wrap">
+        <div className="mandate-layout">
+          <div className="v0">
+            <div className="eyebrow">Live Transactions</div>
+            <h2 className="display-sm">Active M&A <em>Mandate Portfolio</em></h2>
+            <p className="body-lg mt20">We hold <strong>exclusive advisory mandates</strong> on operational, revenue-generating hospital assets across South India. These are live, current mandates — not historical case studies or illustrative examples.</p>
+            <p className="body-md mt16">Full details — including financial statements, operational data, asset profiles, and management information — are released exclusively to pre-qualified counterparties following execution of a mutual NDA. There are no exceptions to this protocol.</p>
+            <div className="md-box">
+              <div className="md-badge"><span className="md-bdot"/><span className="md-btxt">3 Live Mandates · Active Advisory</span></div>
+              <div className="md-title">Engage Under NDA</div>
+              <div className="md-sub">All asset dossiers, financial data, and management information released only following executed mutual NDA with pre-qualified buyers.</div>
+              <div className="md-stats">
+                {[{v:"₹8 Cr+",l:"Combined monthly revenue"},{v:"₹120 Cr+",l:"Hard asset value across portfolio"},{v:"3",l:"Active exclusive mandates"},{v:"100%",l:"Operational — no greenfield risk"}].map(s=>(
+                  <div key={s.l} className="md-stat"><div className="md-sval">{s.v}</div><div className="md-slbl">{s.l}</div></div>
+                ))}
+              </div>
+              <div className="md-steps">
+                {["Sign mutual NDA","Receive full asset dossier","Participate in management Q&A","Submit indicative term sheet","Proceed to due diligence"].map(s=>(
+                  <div key={s} className="md-step">
+                    <div className="md-tick"><I.Chk/></div>
+                    <div className="md-step-t">{s}</div>
+                  </div>
+                ))}
+              </div>
+              <button className="btn btn-blue" style={{width:"100%",justifyContent:"center"}} onClick={()=>go("contact")}>Request NDA & Full Dossier <I.Arr/></button>
+            </div>
+          </div>
+          <div className="v1">
+            {MANDATES.map(m=>(
+              <div key={m.n} className="mc">
+                <div className="mc-top">
+                  <div className="mc-num">{m.n}</div>
+                  <div>
+                    <div className="mc-title">{m.title}</div>
+                    <div className="mc-body mt8">{m.body}</div>
+                  </div>
+                </div>
+                <div className="mc-foot">
+                  <div className="mc-tags">{m.tags.map(t=><span key={t.l} className={`chip ${t.c}`}>{t.l}</span>)}</div>
+                  <div className="mc-meta-grid mt8">
+                    {[{l:"Revenue",v:m.rev},{l:"EBITDA",v:m.ebitda},{l:"Capacity",v:m.beds},{l:"Status",v:m.status}].map(d=>(
+                      <div key={d.l} className="mc-meta-cell">
+                        <div className="mc-meta-lbl">{d.l}</div>
+                        <div className="mc-meta-val">{d.v}</div>
+                      </div>
+                    ))}
+                  </div>
+                  <div className="mc-ask mt8">Buy-Side: {m.ask}</div>
+                </div>
+              </div>
+            ))}
+            <div style={{background:"var(--slate2)",border:"1px solid var(--border)",borderRadius:12,padding:"18px 20px"}}>
+              <div className="lbl" style={{marginBottom:9}}>Advisory Note</div>
+              <p className="body-sm">All mandates listed are active and under exclusive advisory. Transaction details, financial summaries, and operational data are released only upon execution of a mutual NDA with pre-qualified parties. Insight Thinkers does not engage with unqualified enquiries.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Leadership(){
+  return(
+    <section id="leadership" className="section">
+      <div className="wrap">
+        <div className="eyebrow v0">Leadership</div>
+        <h2 className="display-sm v0" style={{marginBottom:44}}>A Founder Who Has <em>Closed the Deal.</em></h2>
+        <div className="leader-layout">
+          <div className="lc v1" style={{position:"relative"}}>
+            <div className="lc-bg"/>
+            <div className="lc-init">VS</div>
+            <div className="lc-name">Vasanth S</div>
+            <div className="lc-role">Founder & Managing Director</div>
+            <hr className="lc-hr"/>
+            <div className="lc-rows">
+              {[{s:"Completed",h:"M&A Transactions",sub:"Personally led and executed to closure"},{s:"Completed",h:"Equity Financing",sub:"Structured and successfully closed"},{s:"Active",h:"Live Mandates",sub:"Healthcare assets currently under advisory"},{s:"Pan-Asia",h:"PE Network",sub:"Active fund relationships across Asia"}].map(r=>(
+                <div key={r.h} className="lc-row">
+                  <div className="lc-status">{r.s}</div>
+                  <div><div className="lc-rh">{r.h}</div><div className="lc-rs">{r.sub}</div></div>
+                </div>
+              ))}
+            </div>
+            <div className="lc-creds">
+              {["Chartered Accountant — Institutional-Grade Financial Analysis","Company Secretary — Corporate Governance & Legal Structuring","HealthTech Founder — 6 AI Products Built & Deployed","50+ Hospitals & Diagnostic Centres Served"].map(c=>(
+                <div key={c} className="lc-cred"><span className="lc-cdot"/>{c}</div>
+              ))}
+            </div>
+          </div>
+          <div className="ldr-content v2">
+            <div className="ldr-sec">
+              <div className="ldr-sec-lbl">Biography</div>
+              <p className="body-lg">Vasanth S founded Insight Thinkers Agency to build a firm that operates with the discipline of a private investment bank, the sector depth of a healthcare specialist, and the agility of a technology company. His credentials are not theoretical — every capability the firm offers reflects skills Vasanth personally built and applied in live transactions.</p>
+              <p className="body-md mt16">His standing as a peer among institutional counterparties derives from one source: completed transactions. Vasanth has personally led and closed M&A transactions across South Indian hospital assets, structured and executed equity financing arrangements for healthcare operators seeking growth capital, and built a PE network across Asia through deals — not networking events.</p>
+              <p className="body-md mt16">Every mandate Insight Thinkers accepts receives Vasanth's personal attention from origination through to closure. He does not accept mandates he cannot personally see through to completion, and he does not delegate relationship management to junior associates or relationship managers.</p>
+            </div>
+            <div className="ldr-sec">
+              <div className="ldr-sec-lbl">Domain Expertise</div>
+              <div className="exp-grid">
+                {LEADER_EXP.map(e=>(
+                  <div key={e.h} className="exp-item"><div className="exp-h">{e.h}</div><div className="exp-b">{e.b}</div></div>
+                ))}
+              </div>
+            </div>
+            <div className="ldr-sec">
+              <div className="ldr-sec-lbl">Operating Philosophy</div>
+              <h3 className="display-sm" style={{fontSize:"clamp(1.3rem,1.8vw,1.6rem)"}}>How Vasanth <em>Approaches Every Mandate</em></h3>
+              <div className="phi-cards">
+                {LEADER_PHI.map(p=>(
+                  <div key={p.q} className="phi"><div className="phi-q">{p.q}</div><div className="phi-a">{p.a}</div></div>
+                ))}
+              </div>
+            </div>
+            <div className="ldr-sec">
+              <div className="ldr-sec-lbl">Transaction Spectrum</div>
+              <p className="body-md">Vasanth operates across the full transaction lifecycle — from identifying and approaching hospital promoters and institutional sellers, to engaging PE fund managers and strategic acquirers, through to term sheet negotiation, legal documentation, due diligence coordination, and final deal closure.</p>
+              <p className="body-md mt12">His relationships span PE firms across Asia and Indian capital markets, built through completed transactions. He engages institutional counterparties as a peer who has sat across the table — not as a facilitator managing introductions.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Network({go}){
+  return(
+    <section id="network" className="section section-alt">
+      <div className="wrap">
+        <div className="net-layout">
+          <div className="v0">
+            <div className="eyebrow">Institutional Network</div>
+            <h2 className="display-sm">Connected Capital<br/>Across <em>Asia.</em></h2>
+            <p className="body-lg mt20">Our PE and institutional relationships are <strong>active, not archival.</strong> We engage regularly with fund managers, family offices, and strategic investors actively deploying capital into healthcare and growth sectors across India and Southeast Asia.</p>
+            <p className="body-md mt16">These are not directory relationships or conference introductions. Every institutional partner in our network has engaged with us on a live mandate, participated in a structured deal flow arrangement, or co-invested alongside us in a healthcare transaction.</p>
+            <ul style={{listStyle:"none",marginTop:22,display:"flex",flexDirection:"column",gap:9}}>
+              {NET_BULLETS.map(b=>(
+                <li key={b} style={{display:"flex",alignItems:"flex-start",gap:10,fontSize:".87rem",color:"var(--muted)",lineHeight:1.65}}>
+                  <span style={{width:7,height:7,background:"var(--blue)",borderRadius:"50%",marginTop:7,flexShrink:0}}/>
+                  {b}
+                </li>
+              ))}
+            </ul>
+            <div style={{display:"flex",gap:12,flexWrap:"wrap",marginTop:28}}>
+              <button className="btn btn-ink" onClick={()=>go("contact")}>Explore Co-Advisory <I.Arr/></button>
+              <button className="btn btn-ghost" onClick={()=>go("contact")}>Join Our Network <I.Arr/></button>
+            </div>
+          </div>
+          <div className="v1">
+            <div className="net-grid">
+              {NETWORK.map(n=>(
+                <div key={n.type} className="nc">
+                  <div className="nc-type">{n.type}</div>
+                  <div className="nc-title">{n.title}</div>
+                  <div className="nc-sub">{n.sub}</div>
+                  <div className="nc-count"><span className="nc-cdot"/>{n.count}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+        <div className="net-why v2">
+          {NET_WHY.map(w=>(
+            <div key={w.n} className="nw">
+              <div className="nw-n">{w.n}</div>
+              <div className="nw-t">{w.t}</div>
+              <div className="nw-b">{w.b}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Differentiators(){
+  return(
+    <div className="diff">
+      <div className="diff-bg"/>
+      <div className="wrap diff-inner">
+        <div style={{display:"flex",justifyContent:"space-between",alignItems:"flex-end",flexWrap:"wrap",gap:18}}>
+          <div>
+            <div style={{display:"flex",alignItems:"center",gap:10,fontFamily:"var(--ff-m)",fontSize:".62rem",letterSpacing:".26em",textTransform:"uppercase",color:"rgba(99,146,255,.65)",marginBottom:18}}>
+              <span style={{display:"block",width:24,height:1.5,background:"rgba(99,146,255,.4)",flexShrink:0}}/>Why We're Different
+            </div>
+            <h2 className="display-sm" style={{color:"#fff",maxWidth:480}}>Capabilities That Cannot<br/><em style={{color:"#3b6ef5"}}>Be Replicated.</em></h2>
+          </div>
+          <p style={{fontSize:".88rem",color:"#64748b",maxWidth:340,lineHeight:1.75}}>Six structural advantages built into our operating model — demonstrated through completed mandates, not claimed as differentiators.</p>
+        </div>
+        <div className="diff-grid">
+          {DIFFS.map(d=>(
+            <div key={d.t} className="dc">
+              <div className="dc-ico">{d.ico}</div>
+              <div className="dc-title">{d.t}</div>
+              <div className="dc-body">{d.b}</div>
+              <div className="dc-tag">{d.tag}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+function Contact(){
+  const blank={name:"",org:"",email:"",phone:"",type:"",size:"",message:""};
+  const [form,setForm]=useState(blank);
+  const [errors,setErrors]=useState({});
+  const [status,setStatus]=useState("idle");
+  const set=e=>{setForm(f=>({...f,[e.target.name]:e.target.value}));setErrors(er=>({...er,[e.target.name]:""}))};
+  const validate=()=>{
+    const e={};
+    if(!form.name.trim())e.name="Full name required";
+    if(!form.email.trim())e.email="Email required";
+    else if(!/\S+@\S+\.\S+/.test(form.email))e.email="Valid email required";
+    if(!form.message.trim())e.message="Please describe your enquiry";
+    return e;
+  };
+  const submit=async()=>{
+    const e=validate();
+    if(Object.keys(e).length){setErrors(e);return}
+    setStatus("loading");
+    await new Promise(r=>setTimeout(r,1900));
+    setStatus("success");
+  };
+  return(
+    <section id="contact" className="section">
+      <div className="wrap">
+        <div className="contact-layout">
+          <div className="v0">
+            <div className="eyebrow">Get in Touch</div>
+            <h2 className="display-sm">Begin a <em>Confidential</em> Conversation.</h2>
+            <p className="body-lg mt20">Whether you are acquiring a healthcare asset, planning an exit, raising capital, deploying technology, or seeking a co-advisory arrangement — we welcome a discreet, no-obligation discussion. All enquiries are received by Vasanth S personally.</p>
+            <div style={{marginTop:28}}>
+              {[{lbl:"Email",Icon:I.Mail,val:"info@insightthinkersagency.com",sub:"Responds within 24 hours"},{lbl:"Phone / WhatsApp",Icon:I.Phone,val:"+91 95812 71590",sub:"Available for priority conversations"},{lbl:"Region",Icon:I.Globe,val:"South India · Pan-India · Asia",sub:"Active across all major markets"},{lbl:"Confidentiality",Icon:I.Shield,val:"All enquiries under strict NDA protocol",sub:"No exceptions. No third-party disclosure."}].map(c=>(
+                <div key={c.lbl} className="ci-block">
+                  <div className="ci-lbl">{c.lbl}</div>
+                  <div className="ci-row">
+                    <div className="ci-ico"><c.Icon/></div>
+                    <div><div className="ci-val">{c.val}</div><div className="ci-sub">{c.sub}</div></div>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <div className="promise mt24">
+              <div className="promise-t">Our Commitment to You</div>
+              <div className="promise-items">
+                {["Every enquiry is received by Vasanth S personally — not a contact centre or junior associate","All discussions held under strict confidentiality, with NDA executed before any asset data is shared","We acknowledge every enquiry within 24 business hours, with a substantive response within 48 hours","If your mandate is outside our current focus, we will tell you clearly — we will not waste your time"].map(p=>(
+                  <div key={p} className="pi">
+                    <div className="pi-chk"><I.Chk/></div>{p}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="v1">
+            <div className="form-wrap">
+              {status==="success"?(
+                <div className="success">
+                  <div className="success-ico">✅</div>
+                  <div className="success-h">Enquiry Received</div>
+                  <p className="success-p">Your enquiry has been logged under strict confidentiality. Vasanth will respond personally within 24 hours.<br/><br/>For urgent mandates, reach us directly at <strong>+91 95812 71590</strong>.</p>
+                  <button className="btn btn-ink mt32" onClick={()=>{setStatus("idle");setForm(blank)}}>Submit Another Enquiry</button>
+                </div>
+              ):(
+                <>
+                  <div className="form-title">Confidential Enquiry</div>
+                  <div className="form-sub">All fields marked * are required. Information is handled under our NDA protocol.</div>
+                  <div className="fg-grid">
+                    <div className="field">
+                      <label>Full Name *</label>
+                      <input name="name" placeholder="Your full name" value={form.name} onChange={set} className={errors.name?"err":""}/>
+                      {errors.name&&<span className="err-msg">{errors.name}</span>}
+                    </div>
+                    <div className="field">
+                      <label>Organisation</label>
+                      <input name="org" placeholder="Firm / Company / Fund" value={form.org} onChange={set}/>
+                    </div>
+                    <div className="field">
+                      <label>Email Address *</label>
+                      <input name="email" type="email" placeholder="your@email.com" value={form.email} onChange={set} className={errors.email?"err":""}/>
+                      {errors.email&&<span className="err-msg">{errors.email}</span>}
+                    </div>
+                    <div className="field">
+                      <label>Phone / WhatsApp</label>
+                      <input name="phone" placeholder="+91 00000 00000" value={form.phone} onChange={set}/>
+                    </div>
+                    <div className="field fg-full">
+                      <label>Nature of Enquiry</label>
+                      <select name="type" value={form.type} onChange={set}>
+                        <option value="">Select type of engagement</option>
+                        <option>M&A — Buy-Side Acquisition</option>
+                        <option>M&A — Sell-Side / Exit Planning</option>
+                        <option>Equity Financing / Growth Capital</option>
+                        <option>NDA Request — Mandate Dossier Access</option>
+                        <option>Technology Advisory (HMS / PACS / EMR)</option>
+                        <option>Co-Advisory / PE Network Engagement</option>
+                        <option>Clinical Due Diligence</option>
+                        <option>Other — Please describe below</option>
+                      </select>
+                    </div>
+                    <div className="field fg-full">
+                      <label>Transaction Size / Context</label>
+                      <select name="size" value={form.size} onChange={set}>
+                        <option value="">Select approximate transaction size</option>
+                        <option>Below ₹10 Crore</option>
+                        <option>₹10 – ₹50 Crore</option>
+                        <option>₹50 – ₹120 Crore</option>
+                        <option>₹120 – ₹500 Crore</option>
+                        <option>Above ₹500 Crore</option>
+                        <option>Prefer not to disclose</option>
+                      </select>
+                    </div>
+                    <div className="field fg-full">
+                      <label>Message *</label>
+                      <textarea name="message" placeholder="Please describe your requirements, the nature of the asset or transaction, your role (buyer / seller / fund), and any relevant context that will help us respond with precision…" value={form.message} onChange={set} className={errors.message?"err":""}/>
+                      {errors.message&&<span className="err-msg">{errors.message}</span>}
+                    </div>
+                  </div>
+                  <button className={`submit-btn${status==="loading"?" loading":""}`} onClick={submit} disabled={status==="loading"}>
+                    {status==="loading"?"Submitting Securely…":"Submit Enquiry — Strictly Confidential"}
+                  </button>
+                  <div className="form-note">🔒 Your information is protected under our NDA protocol and will not be shared with any third party.</div>
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function Footer({go}){
+  return(
+    <footer className="footer">
+      <div className="wrap">
+        <div className="footer-top">
+          <div>
+            <div className="ft-logo">
+              <div className="ft-mark"><I.Logo/></div>
+              <div><div className="ft-name">Insight Thinkers</div><div className="ft-sub">Strategic Advisory</div></div>
+            </div>
+            <p className="ft-desc">Institutional-grade M&A advisory, equity financing, and AI-powered healthcare technology across India and Asia. Founded on the conviction that complex healthcare transactions deserve multi-disciplinary expertise.</p>
+            <div className="ft-awards">
+              {["NDA-First Operating Protocol","Founder-Led Every Mandate","Chartered Accountants · Company Secretaries On-Staff","Medical Doctors · Software Engineers In-House"].map(a=>(
+                <div key={a} className="ft-award"><span className="ft-adot"/>{a}</div>
+              ))}
+            </div>
+          </div>
+          <div className="ft-col">
+            <h5>Navigation</h5>
+            <ul>
+              <li onClick={()=>go("home")}>Home</li>
+              {NAV_ITEMS.map(n=><li key={n} onClick={()=>go(n.toLowerCase())}>{n}</li>)}
+            </ul>
+          </div>
+          <div className="ft-col">
+            <h5>Services</h5>
+            <ul>{["M&A Financial Advisory","Equity Financing","Corporate Governance","Clinical Due Diligence","HealthTech Advisory","Co-Advisory"].map(s=><li key={s}>{s}</li>)}</ul>
+          </div>
+          <div className="ft-col">
+            <h5>Contact</h5>
+            <ul>
+              <li>info@insightthinkersagency.com</li>
+              <li>+91 95812 71590</li>
+              <li>South India · Pan-India · Asia</li>
+              <li className="acc" onClick={()=>go("contact")}>Begin a Confidential Dialogue →</li>
+            </ul>
+          </div>
+        </div>
+        <hr className="ft-hr"/>
+        <div className="ft-bottom">
+          <span className="ft-copy">© 2025 Insight Thinkers Agency. All rights reserved. All mandates subject to NDA.</span>
+          <div className="ft-chips">
+            <span className="ft-chip">NDA-First</span>
+            <span className="ft-chip">SEBI-Compliant</span>
+            <span className="ft-chip">Strictly Confidential</span>
+          </div>
+        </div>
+      </div>
+    </footer>
+  );
+}
+
+/* ════════════ APP ════════════ */
+export default function App(){
+  const [active,setActive]=useState("home");
+  const go=useCallback(id=>{
+    setActive(id);
+    setTimeout(()=>{const el=document.getElementById(id);if(el)el.scrollIntoView({behavior:"smooth",block:"start"});},60);
+  },[]);
+  useEffect(()=>{
+    const ids=["home","about","services","mandates","leadership","network","contact"];
+    const obs=new IntersectionObserver(entries=>entries.forEach(e=>{if(e.isIntersecting)setActive(e.target.id);}),{threshold:0.3});
+    ids.forEach(id=>{const el=document.getElementById(id);if(el)obs.observe(el);});
+    return()=>obs.disconnect();
+  },[]);
+  return(
+    <>
+      <style>{CSS}</style>
+      <Navbar active={active} go={go}/>
+      <Ticker/>
+      <Hero go={go}/>
+      <About go={go}/>
+      <Services go={go}/>
+      <Mandates go={go}/>
+      <Leadership/>
+      <Network go={go}/>
+      <Differentiators/>
+      <Contact/>
+      <Footer go={go}/>
+    </>
+  );
+}
