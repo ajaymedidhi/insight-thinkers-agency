@@ -36,7 +36,7 @@ export default function Hero({ go }: HeroProps) {
   } as any;
 
   return (
-    <section id="home" className="relative min-h-screen flex items-center pt-28 pb-16 md:pt-36 md:pb-[96px] bg-slate-brand overflow-hidden">
+    <section id="home" className="relative min-h-screen flex items-center pt-24 pb-12 md:pt-28 md:pb-16 bg-slate-brand overflow-x-hidden">
       {/* Background Radial Glows */}
       <div className="absolute top-[-10%] right-[-10%] w-[80vw] h-[80vw] max-w-[900px] max-h-[900px] rounded-full bg-[radial-gradient(circle,rgba(37,99,235,0.06)_0%,transparent_65%)] pointer-events-none" />
       <div className="absolute bottom-[-15%] left-[-5%] w-[60vw] h-[60vw] max-w-[700px] max-h-[700px] rounded-full bg-[radial-gradient(circle,rgba(201,168,76,0.035)_0%,transparent_65%)] pointer-events-none" />
@@ -63,7 +63,7 @@ export default function Hero({ go }: HeroProps) {
             {/* Tag chip */}
             <motion.div
               variants={itemVariants}
-              className="inline-flex items-center gap-2 bg-[#F1F5F9] border border-border-brand/80 rounded-full px-4 py-1.5 mb-[26px]"
+              className="inline-flex items-center gap-2 bg-[#F1F5F9] border border-border-brand/80 rounded-full px-4 py-1.5 mb-[18px]"
             >
               <span className="w-1.5 h-1.5 bg-blue-brand rounded-full animate-pulse-slow" />
               <span className="font-mono text-[0.62rem] tracking-[0.2em] uppercase text-muted-brand font-semibold">
@@ -78,12 +78,12 @@ export default function Hero({ go }: HeroProps) {
             </motion.h1>
 
             {/* Subtitle / Copy */}
-            <motion.p variants={itemVariants} className="body-lg mt-6 max-w-[540px]">
+            <motion.p variants={itemVariants} className="body-lg mt-4 max-w-[540px]">
               Insight Thinkers is a specialized advisory firm executing middle-market healthcare M&A and equity financing. We combine <strong>investment banking rigor</strong> with <strong>in-house clinical operations</strong> and <strong>proprietary technology audits</strong> to deliver completed transactions.
             </motion.p>
 
             {/* CTA Buttons */}
-            <motion.div variants={itemVariants} className="flex items-center gap-3.5 flex-wrap mt-[38px]">
+            <motion.div variants={itemVariants} className="flex items-center gap-3.5 flex-wrap mt-[26px]">
               <button
                 className="inline-flex items-center gap-2 bg-blue-brand hover:bg-blue-hover text-white font-semibold tracking-[0.05em] uppercase text-[0.82rem] px-7 py-4 rounded-[6px] transition-all duration-300 shadow-[0_4px_18px_rgba(37,99,235,0.22)] hover:-translate-y-[2px] hover:shadow-[0_8px_30px_rgba(37,99,235,0.32)]"
                 onClick={() => go("contact")}
@@ -102,7 +102,7 @@ export default function Hero({ go }: HeroProps) {
             {/* Institutional Stat Metrics */}
             <motion.div
               variants={itemVariants}
-              className="grid grid-cols-2 sm:grid-cols-4 gap-6 w-full mt-12 pt-10 border-t border-border-brand/80"
+              className="grid grid-cols-2 sm:grid-cols-4 gap-6 w-full mt-8 pt-6 border-t border-border-brand/80"
             >
               {HERO_STATS.map((s) => (
                 <div key={s.label} className="flex flex-col items-start border-l border-border-brand/80 pl-4 first:border-l-0 first:pl-0">

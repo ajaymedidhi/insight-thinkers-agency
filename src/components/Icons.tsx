@@ -2,11 +2,13 @@ import React from "react";
 
 export const Icons = {
   Logo: (props: React.SVGProps<SVGSVGElement>) => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" {...props}>
-      {/* Head Profile facing left */}
-      <path d="M16.5 21.5c.5-1.5.8-3.2.8-5 0-4.5-2.8-8-7-8-1 0-1.8.2-2.5.6C7.3 7 6.5 6 5.5 6c-1.5 0-2.5 1.8-2 3.5.2.7.5 1.3.5 2 0 .8-.5 1.5-1.2 1.8C2.3 13.5 2 14 2 14.5c0 1 .8 1.5 1.5 1.5.6 0 1.2.4 1.2 1 0 .6-.5 1.2-1.2 1.2-.5 0-1 .5-1 1 0 1 1 1.8 2 1.8.5 0 1 .4 1 1s-.5 1.2-1.2 1.2H12c1.8 0 3.5-.8 4.5-2.2" />
-      {/* Brain Icon inside head */}
-      <path d="M12 9.5a2 2 0 012 2c0 .4-.1.8-.3 1.1.4.2.6.6.6 1.1a1.5 1.5 0 01-1.5 1.5h-3.6a1.5 1.5 0 01-1.5-1.5c0-.5.2-.9.6-1.1-.2-.3-.3-.7-.3-1.1a2 2 0 012-2c.2 0 .4 0 .6.1.2.1.2.1.2.1" fill="currentColor" />
+    <svg viewBox="0 0 24 24" fill="none" {...props}>
+      {/* Logo Dark Navy Background Square (rx=4 for rounded corners) */}
+      <rect x="2" y="2" width="20" height="20" rx="4" fill="#07152B" />
+      {/* Head Profile facing left (Accent Blue #2563EB) */}
+      <path d="M14.5 17.5c0-1-.3-1.9-.8-2.6-.5-.8-1-1.2-1.5-1.7-.5-.5-.7-.9-.5-1.5.1-.4.3-.8.6-1.1.3-.4.7-.7 1.1-.9.4-.2.8-.3 1.3-.3.5 0 1 .2 1.4.5s.6.8.6 1.3v5.1H14.5zm-5.8-9c-.7 0-1.3.5-1.5 1.1-.2.8-.1 1.6-.5 2.2-.3.5-1 .7-1.5 1.1-.5.5-.3 1.3.3 1.7l.5.3c.3.2.4.6.2.9-.2.3-.5.5-.8.6l-.3.1c-.4.2-.6.7-.4 1.1.2.4.7.6 1.1.4l.5-.2c.3-.1.7.1.8.4.2.4.1.9-.3 1.2-.2.2-.3.6-.2 1 .2.3.5.5.9.5h2.5c.5 0 1-.3 1.1-.8l.2-.7a3.5 3.5 0 00-3.3-3.9" fill="#2563EB" />
+      {/* Brain Cutout inside head (Primary Navy #07152B) */}
+      <path d="M12.2 11c-.5 0-1 .4-1 1 0 .6.2 1.1.6 1.5.1.1.2.3.2.5s.2.5.5.5h1.5c.3 0 .5-.3.5-.5s.1-.4.2-.5c.4-.4.6-.9.6-1.5 0-.6-.5-1-1.1-1z" fill="#07152B" />
     </svg>
   ),
   Arr: (props: React.SVGProps<SVGSVGElement>) => (

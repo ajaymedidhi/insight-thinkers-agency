@@ -36,8 +36,8 @@ export default function Navbar({ active, go }: NavbarProps) {
         <div className="flex items-center justify-between wrap w-full">
           {/* Logo Mark & Text */}
           <div className="flex items-center gap-3.5 cursor-pointer select-none group" onClick={() => go("home")}>
-            <div className="w-[42px] h-[42px] bg-ink rounded-[8px] flex items-center justify-center text-white transition-all duration-300 group-hover:bg-blue-brand group-hover:shadow-[0_4px_20px_rgba(37,99,235,0.25)]">
-              <Icons.Logo className="w-[22px] h-[22px]" />
+            <div className="w-[42px] h-[42px] bg-ink rounded-[8px] flex items-center justify-center transition-all duration-300">
+              <Icons.Logo className="w-[24px] h-[24px]" />
             </div>
             <div>
               <div className="font-semibold text-[0.98rem] text-[#0F172A] tracking-[-0.015em] leading-[1.1] transition-colors duration-300 group-hover:text-blue-brand">
