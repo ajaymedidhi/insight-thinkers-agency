@@ -1,4 +1,5 @@
 import { Icons } from "./Icons";
+import { motion } from "framer-motion";
 
 const PILLARS = [
   {
@@ -73,116 +74,166 @@ const VALUES = [
 ];
 
 export default function About() {
+  const cardVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: (custom: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: {
+        delay: custom * 0.15,
+        duration: 0.8,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    }),
+  } as any;
+
   return (
     <section id="about" className="section bg-white border-t border-border-brand">
       <div className="wrap">
-        {/* Intro */}
-        <div className="max-w-[740px] mx-auto text-center pb-16 md:pb-[68px]">
+        
+        {/* Intro Header */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="max-w-[760px] mx-auto text-center pb-16 md:pb-[88px]"
+        >
           <div className="eyebrow justify-center">About Our Firm</div>
           <h2 className="display-sm">
-            A Multi-Disciplinary Firm for a <em>Complex Sector.</em>
+            A Multi-Disciplinary Firm for a <span className="font-display italic font-normal text-blue-brand">Complex Sector.</span>
           </h2>
-          <p className="body-lg mt-5">
+          <p className="body-lg mt-6">
             Insight Thinkers operates at the convergence of <strong>corporate finance</strong>, <strong>clinical medicine</strong>, and <strong>health technology</strong>. We do not outsource sector expertise because we believe healthcare transactions require specialized knowledge at every stage.
           </p>
-        </div>
+        </motion.div>
 
         {/* Pillars Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-[1px] bg-border-brand rounded-[16px] overflow-hidden mb-16 md:mb-[76px] shadow-sm">
-          {PILLARS.map((p) => {
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20 md:mb-[100px]">
+          {PILLARS.map((p, idx) => {
             const IconComp = p.Icon;
             return (
-              <div
+              <motion.div
                 key={p.n}
-                className="group bg-white p-8 md:p-[38px_32px] relative transition-colors duration-200 hover:bg-slate-brand"
+                custom={idx}
+                variants={cardVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, margin: "-100px" }}
+                whileHover={{ y: -6, transition: { duration: 0.2 } }}
+                className="group relative bg-[#F8FAFC] border border-border-brand/70 rounded-[12px] p-8 md:p-10 overflow-hidden shadow-sh1 transition-all duration-300 hover:bg-[#07152B] hover:text-white"
               >
-                {/* top animated highlight line */}
-                <div className="absolute top-0 left-0 right-0 h-[3px] bg-blue-brand scale-x-0 origin-left transition-transform duration-[380ms] ease-out group-hover:scale-x-100" />
-                <div className="font-display text-[3.2rem] font-bold text-blue-brand/7 leading-none mb-[18px]">
+                {/* Visual hover border line animation */}
+                <div className="absolute top-0 left-0 right-0 h-[2px] bg-blue-brand scale-x-0 origin-left transition-transform duration-[380ms] ease-out group-hover:scale-x-100" />
+                
+                <div className="font-display text-[2.8rem] font-bold text-blue-brand/12 group-hover:text-blue-brand/20 leading-none mb-5">
                   {p.n}
                 </div>
-                <div className="w-[46px] h-[46px] rounded-[10px] bg-slate-light flex items-center justify-center text-blue-brand mb-4">
+                <div className="w-[48px] h-[48px] rounded-[10px] bg-white group-hover:bg-white/10 flex items-center justify-center text-blue-brand group-hover:text-blue-light mb-5 shadow-sm transition-colors">
                   <IconComp className="w-5 h-5" />
                 </div>
-                <h3 className="font-display text-[1.18rem] font-semibold text-ink mb-[9px] group-hover:text-blue-brand transition-colors duration-200">
+                <h3 className="font-display text-[1.25rem] font-semibold text-ink group-hover:text-white mb-3 transition-colors duration-200">
                   {p.title}
                 </h3>
-                <p className="text-[0.84rem] text-muted-brand leading-[1.74]">
+                <p className="text-[0.875rem] text-muted-brand group-hover:text-slate-300 leading-relaxed font-light transition-colors">
                   {p.body}
                 </p>
-              </div>
+              </motion.div>
             );
           })}
         </div>
 
         {/* Story Section */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-[76px] items-start py-16 md:py-[68px] border-t border-border-brand">
-          <div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-[96px] items-start py-20 md:py-[100px] border-t border-border-brand/80">
+          
+          {/* Story Left Column */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
             <div className="eyebrow">Our Story</div>
             <h3 className="display-sm">
-              Re-Architecting M&A for a <em>Specialised Sector.</em>
+              Re-Architecting M&A for a <span className="font-display italic font-normal text-blue-brand">Specialised Sector.</span>
             </h3>
-            <p className="body-lg mt-5">
+            <p className="body-lg mt-6">
               Insight Thinkers was founded on a simple observation: <strong>traditional financial advisory firms are structured to be generalists.</strong> They rely on third-party databases, outsource clinical due diligence, and treat healthcare technology as a checklist item.
             </p>
-            <div className="border-l-3 border-l-gold-brand pl-5 py-3.5 my-[26px] bg-[linear-gradient(90deg,rgba(201,168,76,0.04),transparent)]">
-              <p className="font-display italic text-[1.1rem] leading-[1.7] text-ink">
+            
+            {/* Quote block */}
+            <div className="border-l-[3px] border-l-gold-brand pl-6 py-4 my-8 bg-gradient-to-r from-gold-brand/4 to-transparent">
+              <p className="font-display italic text-[1.15rem] leading-[1.7] text-ink font-medium">
                 "Healthcare assets cannot be valued on spreadsheets alone. Clinical quality, technology integration, and operational flow determine transaction outcome — not just EBITDA multiples."
               </p>
-              <cite className="block mt-[7px] font-mono text-[0.6rem] tracking-[0.14em] uppercase text-muted-light not-italic">
+              <cite className="block mt-2.5 font-mono text-[0.62rem] tracking-[0.16em] uppercase text-muted-light not-italic font-semibold">
                 Vasanth S, Founder
               </cite>
             </div>
-            <p className="body-md mt-4">
+
+            <p className="body-md">
               We built a firm that integrates these disciplines under one roof. Our team includes professionals with Chartered Accountancy expertise who understand transaction structuring, corporate secretaries who handle governance, medical advisors who audit clinical operations, and healthtech engineers who evaluate systems.
             </p>
-          </div>
+          </motion.div>
 
-          <div>
+          {/* Timeline Right Column */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="lg:mt-0 mt-8"
+          >
             <div className="eyebrow">Our Milestones</div>
-            <div className="flex flex-col gap-0">
+            <div className="flex flex-col gap-0 relative pl-1">
               {TIMELINE.map((t, idx) => (
-                <div key={t.h} className="flex gap-0 pb-7 last:pb-0">
-                  <div className="flex flex-col items-center w-2.5 shrink-0 mr-[18px] mt-1">
-                    <div className="w-2.5 h-2.5 rounded-full bg-blue-brand border-2 border-white ring-2 ring-blue-brand shrink-0" />
+                <div key={t.h} className="flex gap-0 pb-8 last:pb-0 group">
+                  <div className="flex flex-col items-center w-3 shrink-0 mr-6 mt-1.5">
+                    <div className="w-2.5 h-2.5 rounded-full bg-white border-[2.5px] border-blue-brand ring-[3px] ring-blue-brand/10 shrink-0 transition-all duration-300 group-hover:scale-125" />
                     {idx < TIMELINE.length - 1 && (
-                      <div className="w-[1px] flex-1 bg-border-brand mt-1.5" />
+                      <div className="w-[1.5px] flex-1 bg-border-brand mt-2" />
                     )}
                   </div>
                   <div>
-                    <div className="font-mono text-[0.62rem] tracking-[0.12em] text-blue-brand mb-1">
+                    <div className="font-mono text-[0.65rem] tracking-[0.12em] text-blue-brand mb-1 font-semibold">
                       {t.yr}
                     </div>
-                    <h4 className="text-[0.9rem] font-semibold text-ink mb-1">
+                    <h4 className="text-[0.95rem] font-semibold text-ink mb-1 group-hover:text-blue-brand transition-colors duration-200">
                       {t.h}
                     </h4>
-                    <p className="text-[0.81rem] text-muted-brand leading-[1.65]">
+                    <p className="text-[0.84rem] text-muted-brand leading-relaxed font-light">
                       {t.p}
                     </p>
                   </div>
                 </div>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
 
         {/* Values Section */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-[18px] pt-16 md:pt-[68px] border-t border-border-brand">
-          {VALUES.map((v) => (
-            <div
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-20 md:pt-[100px] border-t border-border-brand/80">
+          {VALUES.map((v, idx) => (
+            <motion.div
               key={v.t}
-              className="p-[26px_20px] border border-border-brand rounded-[12px] bg-white transition-all duration-200 hover:shadow-sh2 hover:-translate-y-1"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.1, duration: 0.6 }}
+              whileHover={{ y: -5 }}
+              className="p-8 border border-border-brand/75 rounded-[12px] bg-slate-brand transition-all duration-300 hover:shadow-sh2 hover:bg-white"
             >
-              <div className="text-[1.4rem] mb-3">{v.ico}</div>
-              <div className="text-[0.88rem] font-semibold text-ink mb-1.5">
+              <div className="text-[1.5rem] mb-4">{v.ico}</div>
+              <div className="text-[0.92rem] font-semibold text-[#0F172A] mb-2">
                 {v.t}
               </div>
-              <div className="text-[0.79rem] text-muted-brand leading-[1.65]">
+              <div className="text-[0.84rem] text-muted-brand leading-relaxed font-light">
                 {v.b}
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
+
       </div>
     </section>
   );

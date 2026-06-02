@@ -1,3 +1,5 @@
+import { motion } from "framer-motion";
+
 const DIFFS = [
   {
     ico: "⚗️",
@@ -38,55 +40,89 @@ const DIFFS = [
 ];
 
 export default function Differentiators() {
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
+  } as any;
+
   return (
-    <div className="bg-ink py-[96px] relative overflow-hidden">
-      {/* Grid Pattern */}
+    <div className="bg-[#07152B] py-[120px] relative overflow-hidden">
+      {/* Visual background grid pattern overlay */}
       <div
-        className="absolute inset-0 pointer-events-none"
+        className="absolute inset-0 pointer-events-none opacity-[0.04]"
         style={{
           backgroundImage:
-            "linear-gradient(rgba(255,255,255,0.015) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px)",
+            "linear-gradient(rgba(255,255,255,1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,1) 1px, transparent 1px)",
           backgroundSize: "60px 60px",
         }}
       />
+      {/* Decorative navy glows */}
+      <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-blue-brand/10 blur-[100px] rounded-full pointer-events-none" />
 
       <div className="wrap relative z-10">
-        <div className="flex justify-between items-end flex-wrap gap-[18px]">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="flex justify-between items-end flex-wrap gap-6 mb-16"
+        >
           <div>
-            <div className="flex items-center gap-2.5 font-mono text-[0.62rem] tracking-[0.26em] uppercase text-blue-light/65 mb-[18px]">
-              <span className="block w-6 h-[1.5px] bg-blue-brand/40 shrink-0" />
+            <div className="flex items-center gap-2.5 font-mono text-[0.62rem] tracking-[0.28em] uppercase text-blue-light font-semibold mb-5">
+              <span className="block w-6 h-[1.5px] bg-blue-brand/50 shrink-0" />
               Why We're Different
             </div>
             <h2 className="display-sm text-white max-w-[480px]">
               Capabilities That Cannot<br />
-              <em className="text-blue-light">Be Replicated.</em>
+              <span className="text-blue-light font-display italic font-normal">Be Replicated.</span>
             </h2>
           </div>
-          <p className="text-[0.88rem] text-slate-500 max-w-[340px] leading-[1.75]">
+          <p className="text-[0.92rem] text-slate-400 max-w-[340px] leading-relaxed font-light">
             Six structural advantages built into our operating model — demonstrated through completed mandates, not claimed as differentiators.
           </p>
-        </div>
+        </motion.div>
 
         {/* Differentiators Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-[1px] bg-white/7 rounded-[16px] overflow-hidden mt-[52px]">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: "-100px" }}
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
+        >
           {DIFFS.map((d) => (
-            <div
+            <motion.div
               key={d.t}
-              className="bg-ink p-[38px_34px] transition-colors duration-200 hover:bg-ink2"
+              variants={itemVariants}
+              whileHover={{ y: -5, transition: { duration: 0.2 } }}
+              className="bg-white/[0.02] border border-white/[0.06] rounded-[12px] p-8 transition-all duration-300 hover:bg-white/[0.04] hover:border-white/[0.12] shadow-[0_10px_30px_rgba(0,0,0,0.15)]"
             >
-              <div className="text-[1.7rem] mb-4">{d.ico}</div>
-              <h3 className="font-display text-[1.15rem] font-semibold text-white mb-[9px]">
+              <div className="text-[1.8rem] mb-5">{d.ico}</div>
+              <h3 className="font-display text-[1.2rem] font-semibold text-white mb-2.5">
                 {d.t}
               </h3>
-              <p className="text-[0.82rem] text-slate-400 leading-[1.74] mb-3">
+              <p className="text-[0.84rem] text-slate-400 leading-relaxed mb-5 font-light">
                 {d.b}
               </p>
-              <div className="inline-flex items-center gap-[5px] bg-blue-brand/18 border border-blue-brand/28 rounded-[4px] px-2.5 py-1 font-mono text-[0.58rem] tracking-[0.12em] uppercase text-blue-light">
+              <div className="inline-flex items-center gap-1.5 bg-blue-brand/10 border border-blue-brand/20 rounded-[4px] px-2.5 py-1 font-mono text-[0.58rem] tracking-[0.12em] uppercase text-blue-light font-semibold">
                 {d.tag}
               </div>
-            </div>
+            </motion.div>
           ))}
-        </div>
+        </motion.div>
       </div>
     </div>
   );

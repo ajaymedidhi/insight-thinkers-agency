@@ -1,4 +1,5 @@
 import { Icons } from "./Icons";
+import { motion } from "framer-motion";
 
 interface ServicesProps {
   go: (id: string) => void;
@@ -69,111 +70,160 @@ const PROCESS = [
 ];
 
 export default function Services({ go }: ServicesProps) {
+  const containerVariants = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: 0.1,
+      },
+    },
+  };
+
+  const itemVariants = {
+    hidden: { opacity: 0, y: 30 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
+  } as any;
+
   return (
-    <section id="services" className="section bg-slate-brand border-t border-border-brand">
+    <section id="services" className="section bg-slate-brand border-t border-border-brand/80">
       <div className="wrap">
-        {/* Services Split Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-12 lg:gap-[76px] items-start mb-[72px]">
-          <div>
+        
+        {/* Header Grid Section */}
+        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_1fr] gap-16 lg:gap-[96px] items-start mb-20 md:mb-[96px]">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+          >
             <div className="eyebrow">Our Capabilities</div>
             <h2 className="display-sm">
-              Integrated Services for <em>Frictionless Transactions.</em>
+              Integrated Services for <span className="font-display italic font-normal text-blue-brand">Frictionless Transactions.</span>
             </h2>
-            <p className="body-lg mt-5">
+            <p className="body-lg mt-6">
               Healthcare M&A fails when diligence is compartmentalized. We execute the full advisory spectrum under one roof — ensuring that financial models reflect clinical realities and technology audits align with SEBI-compliant transaction docs.
             </p>
             <p className="body-md mt-4">
               We do not act as mere brokers who introduce buyers and sellers. We act as co-engineers of the transaction — managing everything from forensics to post-merger integration frameworks.
             </p>
-            <div className="flex items-center gap-3 flex-wrap mt-8">
+            <div className="flex items-center gap-4 flex-wrap mt-8">
               <button
-                className="inline-flex items-center gap-2 cursor-pointer border-none font-medium tracking-[0.04em] rounded-[6px] transition-all duration-200 text-[0.85rem] bg-ink text-white px-[26px] py-[13px] shadow-[0_4px_16px_rgba(10,22,40,0.2)] hover:bg-ink2 hover:-translate-y-[2px] hover:shadow-[0_8px_28px_rgba(10,22,40,0.28)]"
+                className="inline-flex items-center gap-2 cursor-pointer border-none font-semibold tracking-[0.05em] uppercase text-[0.82rem] bg-ink hover:bg-blue-brand text-white px-7 py-4 rounded-[6px] transition-all duration-300 shadow-[0_4px_16px_rgba(7,21,43,0.15)] hover:-translate-y-[2px]"
                 onClick={() => go("contact")}
               >
                 Confidential Inquiry <Icons.Arr className="w-[13px] h-[13px]" />
               </button>
               <button
-                className="inline-flex items-center gap-2 cursor-pointer font-medium tracking-[0.04em] rounded-[6px] transition-all duration-200 text-[0.85rem] bg-transparent text-ink border-[1.5px] border-border-brand px-6 py-[12px] hover:border-ink hover:bg-ink hover:text-white"
+                className="inline-flex items-center gap-2 cursor-pointer font-semibold tracking-[0.05em] uppercase text-[0.82rem] bg-white text-ink border border-border-brand/80 px-7 py-4 rounded-[6px] transition-all duration-300 hover:border-ink hover:bg-ink hover:text-white shadow-sh1 hover:-translate-y-[2px]"
                 onClick={() => go("contact")}
               >
-                Request Credentials <Icons.Arr className="w-[13px] h-[13px]" />
+                Request Credentials
               </button>
             </div>
-          </div>
+          </motion.div>
 
           {/* Cards Grid */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-[18px]">
+          <motion.div
+            variants={containerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: "-100px" }}
+            className="grid grid-cols-1 sm:grid-cols-2 gap-5"
+          >
             {SERVICES.map((s) => {
               const IconComp = s.Icon;
               return (
-                <div
+                <motion.div
                   key={s.title}
-                  className="group bg-white border border-border-brand rounded-[13px] p-[30px_26px] relative overflow-hidden transition-all duration-200 hover:shadow-sh2 hover:-translate-y-1"
+                  variants={itemVariants}
+                  whileHover={{ y: -5, transition: { duration: 0.2 } }}
+                  className="group bg-white border border-border-brand/75 rounded-[12px] p-8 relative overflow-hidden shadow-sh1 transition-all duration-300"
                 >
-                  {/* top highlight line */}
+                  {/* Top line highlight indicator */}
                   <div className="absolute top-0 left-0 right-0 h-[2px] bg-blue-brand scale-x-0 origin-left transition-transform duration-[350ms] ease-out group-hover:scale-x-100" />
                   
-                  <div className="w-[46px] h-[46px] rounded-[10px] bg-gradient-to-br from-ink to-ink3 flex items-center justify-center text-white mb-4">
-                    <IconComp className="w-[21px] h-[21px]" />
+                  <div className="w-[46px] h-[46px] rounded-[8px] bg-ink flex items-center justify-center text-white mb-5 transition-colors group-hover:bg-blue-brand shadow-sm">
+                    <IconComp className="w-[20px] h-[20px]" />
                   </div>
 
-                  <div className="font-mono text-[0.59rem] tracking-[0.18em] uppercase text-blue-brand mb-[7px]">
+                  <div className="font-mono text-[0.58rem] tracking-[0.2em] uppercase text-blue-brand mb-2 font-semibold">
                     {s.cat}
                   </div>
 
-                  <h3 className="font-display text-[1.14rem] font-semibold text-ink mb-[9px] group-hover:text-blue-brand transition-colors duration-200">
+                  <h3 className="font-display text-[1.2rem] font-semibold text-[#0F172A] mb-3 group-hover:text-blue-brand transition-colors duration-200">
                     {s.title}
                   </h3>
 
-                  <p className="text-[0.82rem] text-muted-brand leading-[1.72] mb-4">
+                  <p className="text-[0.84rem] text-muted-brand leading-relaxed mb-5 font-light">
                     {s.body}
                   </p>
 
-                  <ul className="list-none flex flex-col gap-1.25">
+                  <ul className="list-none flex flex-col gap-2 border-t border-slate-100 pt-4">
                     {s.bullets.map((b) => (
                       <li
                         key={b}
-                        className="flex items-start gap-1.75 text-[0.77rem] text-muted-brand leading-relaxed"
+                        className="flex items-start gap-2 text-[0.78rem] text-muted-brand leading-relaxed font-light"
                       >
-                        <span className="text-blue-brand text-[0.7rem] mt-[2px] shrink-0">→</span>
+                        <span className="text-blue-brand text-[0.75rem] mt-[1px] shrink-0">→</span>
                         <span>{b}</span>
                       </li>
                     ))}
                   </ul>
-                </div>
+                </motion.div>
               );
             })}
-          </div>
+          </motion.div>
         </div>
 
-        {/* Process Box */}
-        <div className="bg-ink rounded-[18px] p-8 md:p-[52px] shadow-sh3">
-          <h3 className="font-display text-[1.9rem] font-semibold text-white mb-1.5">
+        {/* Workflow Box */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+          className="bg-ink rounded-[18px] p-8 md:p-[56px] shadow-sh3 relative overflow-hidden"
+        >
+          {/* subtle terminal card glow */}
+          <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-blue-brand/5 blur-[120px] rounded-full pointer-events-none" />
+
+          <h3 className="font-display text-[2rem] font-semibold text-white mb-2">
             Engagement Workflow
           </h3>
-          <p className="text-[0.88rem] text-slate-500 mb-11">
+          <p className="text-[0.88rem] text-slate-400 mb-12 font-light">
             A structured, NDA-protected protocol engineered to minimise noise and protect asset confidentiality.
           </p>
 
-          <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6 lg:gap-0">
-            {/* connecting line (only on desktop screen) */}
-            <div className="hidden lg:block absolute top-[19px] left-[8%] right-[8%] h-[1px] bg-white/10 pointer-events-none" />
+          <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-8 lg:gap-0">
+            {/* Connecting visual timeline line */}
+            <div className="hidden lg:block absolute top-[19px] left-[8%] right-[8%] h-[1px] bg-white/[0.08] pointer-events-none" />
 
-            {PROCESS.map((p) => (
-              <div key={p.n} className="flex flex-col items-center text-center gap-2.5 relative z-10">
-                <div className="w-[38px] h-[38px] rounded-full bg-blue-brand flex items-center justify-center font-mono text-[0.7rem] text-white shrink-0 shadow-md">
+            {PROCESS.map((p, idx) => (
+              <motion.div
+                key={p.n}
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: idx * 0.1, duration: 0.5 }}
+                className="flex flex-col items-center text-center gap-3 relative z-10 group"
+              >
+                <div className="w-[38px] h-[38px] rounded-full bg-blue-brand flex items-center justify-center font-mono text-[0.72rem] text-white shrink-0 shadow-md transition-all duration-300 group-hover:scale-110 group-hover:bg-blue-hover">
                   {p.n}
                 </div>
-                <div className="text-[0.77rem] font-semibold text-white leading-[1.3]">
+                <div className="text-[0.8rem] font-semibold text-white leading-relaxed group-hover:text-blue-light transition-colors">
                   {p.t}
                 </div>
-                <div className="text-[0.69rem] text-slate-500 leading-[1.4] max-w-[130px]">
+                <div className="text-[0.72rem] text-slate-500 leading-relaxed max-w-[130px] font-light">
                   {p.d}
                 </div>
-              </div>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
+        
       </div>
     </section>
   );

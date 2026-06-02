@@ -1,4 +1,5 @@
 import { Icons } from "./Icons";
+import { motion } from "framer-motion";
 
 interface NetworkProps {
   go: (id: string) => void;
@@ -70,77 +71,100 @@ const NET_WHY = [
 
 export default function Network({ go }: NetworkProps) {
   return (
-    <section id="network" className="section bg-white border-t border-border-brand">
+    <section id="network" className="section bg-white border-t border-border-brand/80">
       <div className="wrap">
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_520px] gap-[60px] items-start mb-16 md:mb-[68px]">
-          {/* Left Column: Description & Bullets */}
-          <div className="animate-fade-up">
-            <div className="eyebrow">Institutional Network</div>
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_520px] gap-16 lg:gap-[80px] items-start mb-20 md:mb-[96px]">
+          
+          {/* Left Column: Description */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8 }}
+            className="flex flex-col"
+          >
+            <div className="eyebrow">Our Global Reach</div>
             <h2 className="display-sm">
               Connected Capital<br />Across <em>Asia.</em>
             </h2>
-            <p className="body-lg mt-5">
+            <p className="body-lg mt-6">
               Our PE and institutional relationships are <strong>active, not archival.</strong> We engage regularly with fund managers, family offices, and strategic investors actively deploying capital into healthcare and growth sectors across India and Southeast Asia.
             </p>
             <p className="body-md mt-4">
               These are not directory relationships or conference introductions. Every institutional partner in our network has engaged with us on a live mandate, participated in a structured deal flow arrangement, or co-invested alongside us in a healthcare transaction.
             </p>
             
-            <ul className="list-none mt-[22px] flex flex-col gap-[9px]">
+            <ul className="list-none mt-6 flex flex-col gap-3">
               {NET_BULLETS.map((b) => (
-                <li key={b} className="flex items-start gap-2.5 text-[0.87rem] text-muted-brand leading-[1.65]">
-                  <span className="w-[7px] h-[7px] bg-blue-brand rounded-full mt-[7px] shrink-0" />
+                <li key={b} className="flex items-start gap-3 text-[0.875rem] text-muted-brand leading-relaxed font-light">
+                  <span className="w-1.5 h-1.5 bg-blue-brand rounded-full mt-[8px] shrink-0" />
                   <span>{b}</span>
                 </li>
               ))}
             </ul>
 
-            <div className="flex gap-3 flex-wrap mt-7">
+            <div className="flex gap-4 flex-wrap mt-8">
               <button
-                className="inline-flex items-center gap-2 cursor-pointer border-none font-medium tracking-[0.04em] rounded-[6px] transition-all duration-200 text-[0.85rem] bg-ink text-white px-[26px] py-[13px] shadow-[0_4px_16px_rgba(10,22,40,0.2)] hover:bg-ink2 hover:-translate-y-[2px]"
+                className="inline-flex items-center gap-2 cursor-pointer border-none font-semibold tracking-[0.05em] uppercase text-[0.82rem] bg-ink hover:bg-blue-brand text-white px-7 py-4 rounded-[6px] transition-all duration-300 shadow-sh2 hover:-translate-y-[2px]"
                 onClick={() => go("contact")}
               >
                 Explore Co-Advisory <Icons.Arr className="w-[13px] h-[13px]" />
               </button>
               <button
-                className="inline-flex items-center gap-2 cursor-pointer font-medium tracking-[0.04em] rounded-[6px] transition-all duration-200 text-[0.85rem] bg-transparent text-ink border-[1.5px] border-border-brand px-6 py-[12px] hover:border-ink hover:bg-ink hover:text-white"
+                className="inline-flex items-center gap-2 cursor-pointer font-semibold tracking-[0.05em] uppercase text-[0.82rem] bg-white text-ink border border-border-brand/80 px-7 py-4 rounded-[6px] transition-all duration-300 hover:border-ink hover:bg-ink hover:text-white shadow-sh1 hover:-translate-y-[2px]"
                 onClick={() => go("contact")}
               >
-                Join Our Network <Icons.Arr className="w-[13px] h-[13px]" />
+                Join Our Network
               </button>
             </div>
-          </div>
+          </motion.div>
 
-          {/* Right Column: Cards Grid */}
-          <div className="animate-fade-up delay-100">
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.25">
+          {/* Right Column: Grid */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, delay: 0.1 }}
+          >
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {NETWORK.map((n) => (
-                <div key={n.type} className="bg-white border border-border-brand rounded-[12px] p-5 md:p-[20px_21px] transition-all duration-200 hover:shadow-sh2 hover:-translate-y-0.75">
-                  <div className="font-mono text-[0.59rem] tracking-[0.18em] uppercase text-blue-brand mb-[6px]">
+                <motion.div
+                  key={n.type}
+                  whileHover={{ y: -4, transition: { duration: 0.2 } }}
+                  className="bg-slate-brand border border-border-brand/85 rounded-[12px] p-6 shadow-sm hover:shadow-sh1 transition-all duration-300 hover:bg-white"
+                >
+                  <div className="font-mono text-[0.6rem] tracking-[0.2em] uppercase text-blue-brand mb-2.5 font-semibold">
                     {n.type}
                   </div>
-                  <div className="text-[0.95rem] font-semibold text-ink mb-[3px]">{n.title}</div>
-                  <div className="text-[0.77rem] text-muted-light mb-2">{n.sub}</div>
-                  <div className="inline-flex items-center gap-1.25 font-mono text-[0.6rem] tracking-[0.1em] text-muted-brand">
-                    <span className="w-1.25 h-1.25 rounded-full bg-green-brand shrink-0 animate-pulse" />
+                  <div className="text-[0.98rem] font-semibold text-[#0F172A] mb-1">{n.title}</div>
+                  <div className="text-[0.8rem] text-muted-brand mb-4 font-light">{n.sub}</div>
+                  <div className="inline-flex items-center gap-2 font-mono text-[0.62rem] tracking-[0.1em] text-muted-light font-semibold">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#22c55e] shrink-0" />
                     {n.count}
                   </div>
-                </div>
+                </motion.div>
               ))}
             </div>
-          </div>
+          </motion.div>
         </div>
 
-        {/* Bottom Rule Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-[18px] pt-[60px] border-t border-border-brand">
-          {NET_WHY.map((w) => (
-            <div key={w.n} className="p-[26px_24px] border border-border-brand rounded-[12px] bg-white shadow-sm">
-              <div className="font-display text-[2.3rem] font-bold text-blue-brand/10 mb-[11px] leading-none">
+        {/* Bottom Stat Rule Blocks */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-16 border-t border-border-brand/80">
+          {NET_WHY.map((w, idx) => (
+            <motion.div
+              key={w.n}
+              initial={{ opacity: 0, y: 15 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: idx * 0.1, duration: 0.6 }}
+              className="p-8 border border-border-brand/75 rounded-[12px] bg-slate-brand shadow-[0_1px_3px_rgba(0,0,0,0.01)] hover:bg-white transition-colors duration-300"
+            >
+              <div className="font-display text-[2.5rem] font-bold text-blue-brand/12 mb-3.5 leading-none">
                 {w.n}
               </div>
-              <div className="text-[0.88rem] font-semibold text-ink mb-1.5">{w.t}</div>
-              <div className="text-[0.79rem] text-muted-brand leading-[1.7]">{w.b}</div>
-            </div>
+              <div className="text-[0.92rem] font-semibold text-[#0F172A] mb-2">{w.t}</div>
+              <div className="text-[0.84rem] text-muted-brand leading-relaxed font-light">{w.b}</div>
+            </motion.div>
           ))}
         </div>
       </div>

@@ -1,40 +1,37 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
 
 @import "tailwindcss";
 
 @theme {
-  --color-ink: #0a1628;
-  --color-ink2: #0f2040;
-  --color-ink3: #162d54;
-  --color-blue-brand: #1847c9;
-  --color-blue-hover: #2055d9;
-  --color-blue-light: #3b6ef5;
-  --color-gold-brand: #c9a84c;
+  --color-ink: #07152B; /* Primary Navy */
+  --color-ink2: #0a1b3a; /* Darker Navy Shade for highlights */
+  --color-ink3: #0c2045; /* Deep Navy shade */
+  --color-blue-brand: #2563EB; /* Accent Blue */
+  --color-blue-hover: #1d4ed8;
+  --color-blue-light: #3b82f6;
+  --color-gold-brand: #c9a84c; /* Gold Accent */
   --color-gold-hover: #b8922e;
-  --color-slate-brand: #f4f6fb;
-  --color-slate-light: #eaeffb;
-  --color-slate-border: #dde5f5;
-  --color-muted-brand: #5a6a8a;
-  --color-muted-light: #8494b0;
-  --color-border-brand: #d8e0f0;
-  --color-green-brand: #15803d;
-  --color-green-bg: #f0fdf4;
-  --color-green-border: #bbf7d0;
-
+  --color-slate-brand: #F8FAFC; /* Light Background */
+  --color-slate-light: #f1f5f9; /* Slate 100 */
+  --color-slate-border: #e2e8f0; /* Borders */
+  --color-muted-brand: #475569; /* Body Text (Slate 600) */
+  --color-muted-light: #64748b; /* Slate 500 */
+  --color-border-brand: #E2E8F0; /* Borders */
+  
   --font-display: 'Cormorant Garamond', Georgia, serif;
   --font-sans: Inter, system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
 
-  --shadow-sh1: 0 4px 20px rgba(10,22,40,.09);
-  --shadow-sh2: 0 12px 48px rgba(10,22,40,.14);
-  --shadow-sh3: 0 24px 80px rgba(10,22,40,.20);
+  --shadow-sh1: 0 4px 30px rgba(7, 21, 43, 0.04);
+  --shadow-sh2: 0 10px 40px rgba(7, 21, 43, 0.08);
+  --shadow-sh3: 0 20px 60px rgba(7, 21, 43, 0.12);
 
   --animate-fade-up: fadeUp 0.8s cubic-bezier(.22,1,.36,1) both;
   --animate-fade-in: fadeIn 0.5s ease both;
-  --animate-float: float 5s ease-in-out infinite;
+  --animate-float: float 6s ease-in-out infinite;
   --animate-pulse-slow: pulseScale 2s ease-in-out infinite;
-  --animate-shimmer: shimmer 1.6s linear infinite;
-  --animate-ticker: ticker 36s linear infinite;
+  --animate-shimmer: shimmer 2s linear infinite;
+  --animate-ticker: ticker 40s linear infinite;
 
   @keyframes fadeUp {
     0% { opacity: 0; transform: translateY(32px); }
@@ -46,11 +43,11 @@
   }
   @keyframes float {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-9px); }
+    50% { transform: translateY(-12px); }
   }
   @keyframes pulseScale {
     0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.7); opacity: 0.4; }
+    50% { transform: scale(1.6); opacity: 0.35; }
   }
   @keyframes shimmer {
     0% { background-position: 200% 0; }
@@ -67,76 +64,80 @@
     scroll-behavior: smooth;
   }
   body {
-    @apply font-sans bg-white text-ink antialiased overflow-x-hidden;
+    @apply font-sans bg-slate-brand text-muted-brand antialiased overflow-x-hidden;
   }
   button {
-    @apply font-sans;
+    @apply font-sans cursor-pointer transition-all duration-300;
   }
   ::-webkit-scrollbar {
-    width: 4px;
+    width: 6px;
   }
   ::-webkit-scrollbar-thumb {
-    @apply bg-blue-brand rounded-[2px];
+    @apply bg-ink/30 hover:bg-blue-brand/50 rounded-full transition-colors;
   }
 }
 
 @layer components {
   .display {
     font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: clamp(2.6rem, 4.8vw, 4.4rem);
+    font-size: clamp(2.8rem, 5.5vw, 5.25rem); /* Scaled to 72px-84px desktop */
     line-height: 1.08;
-    @apply font-semibold text-ink tracking-[-0.01em];
+    color: #0F172A; /* Headings color */
+    @apply font-semibold tracking-[-0.015em];
   }
   .display em {
-    @apply text-blue-brand not-italic font-normal;
+    @apply text-blue-brand not-italic font-normal font-display italic;
   }
   
   .display-sm {
     font-family: 'Cormorant Garamond', Georgia, serif;
-    font-size: clamp(1.9rem, 3vw, 2.75rem);
+    font-size: clamp(2.0rem, 3.8vw, 3.5rem); /* Scaled to 48px-56px */
     line-height: 1.15;
-    @apply font-semibold text-ink tracking-[-0.005em];
+    color: #0F172A; /* Headings color */
+    @apply font-semibold tracking-[-0.01em];
   }
   .display-sm em {
-    @apply text-blue-brand not-italic font-normal;
+    @apply text-blue-brand not-italic font-normal font-display italic;
   }
 
   .eyebrow {
-    @apply flex items-center gap-[10px] font-mono text-[0.62rem] tracking-[0.26em] uppercase text-blue-brand mb-5;
+    @apply flex items-center gap-[12px] font-mono text-[0.65rem] tracking-[0.3em] uppercase text-blue-brand mb-6 font-semibold;
   }
   .eyebrow::before {
     content: '';
-    @apply block w-6 h-[1.5px] bg-blue-brand shrink-0;
+    @apply block w-8 h-[1.5px] bg-blue-brand shrink-0;
   }
 
   .body-lg {
-    @apply text-[1.03rem] leading-[1.85] text-muted-brand;
+    @apply text-[1.125rem] leading-[1.85] text-muted-brand font-light; /* 18px body text */
   }
   .body-lg strong {
-    @apply text-ink font-semibold;
+    color: #0F172A; /* Headings color for strong emphasis */
+    @apply font-semibold;
   }
 
   .body-md {
-    @apply text-[0.92rem] leading-[1.78] text-muted-brand;
+    @apply text-[1rem] leading-[1.78] text-muted-brand font-light;
   }
   .body-md strong {
-    @apply text-ink font-semibold;
+    color: #0F172A;
+    @apply font-semibold;
   }
 
   .body-sm {
-    @apply text-[0.81rem] leading-[1.72] text-muted-light;
+    @apply text-[0.875rem] leading-[1.72] text-muted-light font-light;
   }
 
   .lbl {
-    @apply font-mono text-[0.6rem] tracking-[0.2em] uppercase text-muted-light;
+    @apply font-mono text-[0.62rem] tracking-[0.22em] uppercase text-muted-light font-semibold;
   }
 
   .wrap {
-    @apply max-w-[1280px] mx-auto px-5 sm:px-8 md:px-[64px];
+    @apply max-w-[1280px] mx-auto px-6 sm:px-10 md:px-[64px];
   }
 
   .section {
-    @apply py-16 md:py-[104px];
+    @apply py-24 md:py-[120px]; /* 120px section padding */
   }
 
   .section-alt {

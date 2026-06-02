@@ -2,8 +2,11 @@ import React from "react";
 
 export const Icons = {
   Logo: (props: React.SVGProps<SVGSVGElement>) => (
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" {...props}>
-      <path d="M12 2L2 7l10 5 10-5-10-5M2 17l10 5 10-5M2 12l10 5 10-5" />
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" {...props}>
+      {/* Head Profile facing left */}
+      <path d="M16.5 21.5c.5-1.5.8-3.2.8-5 0-4.5-2.8-8-7-8-1 0-1.8.2-2.5.6C7.3 7 6.5 6 5.5 6c-1.5 0-2.5 1.8-2 3.5.2.7.5 1.3.5 2 0 .8-.5 1.5-1.2 1.8C2.3 13.5 2 14 2 14.5c0 1 .8 1.5 1.5 1.5.6 0 1.2.4 1.2 1 0 .6-.5 1.2-1.2 1.2-.5 0-1 .5-1 1 0 1 1 1.8 2 1.8.5 0 1 .4 1 1s-.5 1.2-1.2 1.2H12c1.8 0 3.5-.8 4.5-2.2" />
+      {/* Brain Icon inside head */}
+      <path d="M12 9.5a2 2 0 012 2c0 .4-.1.8-.3 1.1.4.2.6.6.6 1.1a1.5 1.5 0 01-1.5 1.5h-3.6a1.5 1.5 0 01-1.5-1.5c0-.5.2-.9.6-1.1-.2-.3-.3-.7-.3-1.1a2 2 0 012-2c.2 0 .4 0 .6.1.2.1.2.1.2.1" fill="currentColor" />
     </svg>
   ),
   Arr: (props: React.SVGProps<SVGSVGElement>) => (
