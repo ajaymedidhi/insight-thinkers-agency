@@ -1,12 +1,13 @@
 const TICKER_RAW = [
   "Active M&A Mandates — South India Healthcare",
   "NDA-First Engagement Protocol",
-  "Chartered Accountants · Company Secretaries · Medical Doctors · Software Engineers",
+  "Forbes 30 Under 30 Asia Semi-Finalist · Vasanth Sabavath",
   "₹120 Crore+ Asset Value Under Advisory",
+  "HMS · PACS · EMR · Enterprise HealthTech Products",
+  "Google-Udacity Scholar · Harvard Business School Online",
   "PE Network Across South Asia & Southeast Asia",
-  "Institutional-Grade Due Diligence",
-  "Founder-Led Every Mandate — No Handoffs",
-  "HMS · PACS · EMR · Enterprise HealthTech",
+  "Gandhi Fellowship · Amani Institute Fellowship",
+  "Founder-Led Every Mandate — Zero Handoffs",
 ];
 
 export default function Ticker() {

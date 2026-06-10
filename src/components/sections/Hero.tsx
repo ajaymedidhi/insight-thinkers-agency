@@ -78,7 +78,7 @@ export default function Hero() {
 
             {/* Subtitle / Copy */}
             <motion.p variants={itemVariants} className="body-lg mt-4 max-w-[540px]">
-              Insight Thinkers is a specialized advisory firm executing middle-market healthcare M&A and equity financing. We combine <strong>investment banking rigor</strong> with <strong>in-house clinical operations</strong> and <strong>proprietary technology audits</strong> to deliver completed transactions.
+              Insight Thinkers Agency is a multi-disciplinary firm delivering <strong>institutional-grade M&A advisory, equity financing, AI-powered healthcare technology, and digital marketing</strong> — trusted by PE funds, hospital groups, and sophisticated investors across India and Asia.
             </motion.p>
 
             {/* CTA Buttons */}
@@ -147,39 +147,38 @@ export default function Hero() {
               <div className="grid grid-cols-2 border-b border-white/[0.06]">
                 {/* Cell 1 */}
                 <div className="p-6 border-r border-b border-white/[0.06] hover:bg-white/[0.01] transition-colors">
-                  <div className="text-[1.2rem] mb-2">🏥</div>
-                  <div className="font-display text-[1.55rem] font-semibold text-white leading-none">₹3.5 Cr</div>
-                  <div className="text-[0.7rem] text-slate-500 mt-2 font-mono tracking-wider uppercase">Target Monthly Revenue</div>
-                  <div className="text-[0.66rem] text-slate-400 mt-1 font-light">South India Hospital</div>
+                  <div className="text-[1.2rem] mb-2">📈</div>
+                  <div className="font-display text-[1.55rem] font-semibold text-white leading-none">Active</div>
+                  <div className="text-[0.7rem] text-slate-500 mt-2 font-mono tracking-wider uppercase">M&A Mandates in Healthcare</div>
+                  <div className="text-[0.66rem] text-slate-400 mt-1 font-light">Running Hospitals · South India</div>
                 </div>
                 {/* Cell 2 (Accent Dark/Highlights) */}
                 <div className="p-6 border-b border-white/[0.06] bg-[#0c2045]/30 hover:bg-[#0c2045]/40 transition-colors">
-                  <div className="text-[1.2rem] mb-2">🩺</div>
-                  <div className="font-display text-[1.55rem] font-semibold text-white leading-none">₹120 Cr+</div>
-                  <div className="text-[0.7rem] text-blue-light/70 mt-2 font-mono tracking-wider uppercase">Asset Advisory Value</div>
-                  <div className="text-[0.66rem] text-slate-300 mt-1 font-light">Hard Asset Value</div>
+                  <div className="text-[1.2rem] mb-2">✅</div>
+                  <div className="font-display text-[1.55rem] font-semibold text-white leading-none">Proven</div>
+                  <div className="text-[0.7rem] text-blue-light/70 mt-2 font-mono tracking-wider uppercase">M&A Transactions Completed</div>
+                  <div className="text-[0.66rem] text-slate-300 mt-1 font-light">Founder · Personally Executed</div>
                 </div>
                 {/* Cell 3 */}
                 <div className="p-6 border-r border-white/[0.06] hover:bg-white/[0.01] transition-colors">
-                  <div className="text-[1.2rem] mb-2">🛡️</div>
-                  <div className="font-display text-[1.55rem] font-semibold text-white leading-none">NDA-1st</div>
-                  <div className="text-[0.7rem] text-slate-500 mt-2 font-mono tracking-wider uppercase">Compliance Protocol</div>
-                  <div className="text-[0.66rem] text-slate-400 mt-1 font-light">Strict Confidentiality</div>
+                  <div className="text-[1.2rem] mb-2">🏥</div>
+                  <div className="font-display text-[1.55rem] font-semibold text-white leading-none">50+</div>
+                  <div className="text-[0.7rem] text-slate-500 mt-2 font-mono tracking-wider uppercase">Hospitals & Diagnostic Centers</div>
+                  <div className="text-[0.66rem] text-slate-400 mt-1 font-light">Marketing Strategy · Served</div>
                 </div>
                 {/* Cell 4 */}
                 <div className="p-6 hover:bg-white/[0.01] transition-colors">
-                  <div className="text-[1.2rem] mb-2">⚙️</div>
-                  <div className="font-display text-[1.55rem] font-semibold text-white leading-none">6+ AI</div>
-                  <div className="text-[0.7rem] text-slate-500 mt-2 font-mono tracking-wider uppercase">HealthTech Deployed</div>
-                  <div className="text-[0.66rem] text-slate-400 mt-1 font-light">In-House Products</div>
+                  <div className="text-[1.2rem] mb-2">🤖</div>
+                  <div className="font-display text-[1.55rem] font-semibold text-white leading-none">6+</div>
+                  <div className="text-[0.7rem] text-slate-500 mt-2 font-mono tracking-wider uppercase">In-House AI HealthTech Products</div>
+                  <div className="text-[0.66rem] text-slate-400 mt-1 font-light">HMS · PACS · EMR · Enterprise</div>
                 </div>
               </div>
 
-              {/* Bottom Notice Panel */}
               <div className="flex items-center gap-3.5 p-5 bg-[#0a1628]">
-                <span className="text-[16px] shrink-0">🔐</span>
+                <span className="text-[16px] shrink-0">🔒</span>
                 <div className="text-[0.73rem] text-slate-400 leading-relaxed font-light">
-                  <strong className="text-white font-semibold font-mono">NDA ENFORCED:</strong> Qualified credentials and proof of capital capacity required for mandate dossier verification.
+                  <strong className="text-white font-semibold font-mono">NDA-First Engagement.</strong> All mandates shared exclusively under executed confidentiality agreements. No exceptions.
                 </div>
               </div>
             </motion.div>

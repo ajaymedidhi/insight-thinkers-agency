@@ -4,13 +4,12 @@ import { Icons } from "../Icons";
 import { motion, AnimatePresence } from "framer-motion";
 
 const NAV_ITEMS = [
-  { name: "Home", path: "/" },
   { name: "About", path: "/about" },
   { name: "Services", path: "/services" },
   { name: "Leadership", path: "/leadership" },
   { name: "Mandates", path: "/mandates" },
   { name: "Network", path: "/network" },
-  { name: "Contact", path: "/contact" },
+  { name: "Insights", path: "/insights" },
 ];
 
 export default function Navbar() {
@@ -37,12 +36,9 @@ export default function Navbar() {
           {/* Logo Mark & Text */}
           <Link to="/" className="flex items-center gap-3.5 select-none no-underline">
             <Icons.Logo className="w-[46px] h-[46px] rounded-[4px] shadow-sm shrink-0" />
-            <div className="flex flex-col justify-center">
+            <div className="flex items-center">
               <div className="font-semibold text-[0.98rem] text-[#0F172A] tracking-[-0.015em] leading-[1.1]">
-                Insight Thinkers
-              </div>
-              <div className="font-mono text-[0.58rem] tracking-[0.24em] uppercase text-blue-brand font-semibold mt-0.5">
-                Advisory
+                Insight Thinkers Agency
               </div>
             </div>
           </Link>

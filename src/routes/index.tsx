@@ -7,6 +7,9 @@ import Leadership from "../pages/Leadership";
 import Contact from "../pages/Contact";
 import Mandates from "../pages/Mandates";
 import Network from "../pages/Network";
+import Insights from "../pages/Insights";
+import InsightsDetail from "../pages/Insights/Detail";
+import Resources from "../pages/Resources";
 
 export const router = createBrowserRouter([
   {
@@ -44,6 +47,18 @@ export const router = createBrowserRouter([
       {
         path: "networks",
         element: <Network />,
+      },
+      {
+        path: "insights",
+        element: <Insights />,
+      },
+      {
+        path: "insights/:slug",
+        element: <InsightsDetail />,
+      },
+      {
+        path: "resources",
+        element: <Resources />,
       },
       {
         path: "contact",

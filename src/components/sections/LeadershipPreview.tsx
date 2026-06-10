@@ -29,14 +29,31 @@ export default function LeadershipPreview() {
               <div className="relative text-center z-10 select-none">
                 <span className="font-display italic text-[6.5rem] font-bold text-white/5 tracking-tighter block leading-none">VS</span>
                 <span className="font-mono text-[0.55rem] tracking-[0.24em] uppercase text-blue-light/60 font-semibold block mt-[-10px]">EXECUTIVE PROFILE</span>
+                <div className="mb-6">
+                  <h3 className="font-display text-[2rem] font-semibold text-white tracking-tight mb-1">
+                    Vasanth Sabavath
+                  </h3>
+                  <div className="text-[0.85rem] font-mono tracking-wider uppercase text-gold-brand mb-4">
+                    Founder & Managing Partner
+                  </div>
+                  
+                  {/* Profile Meta Info */}
+                  <div className="flex flex-col gap-2 text-[0.65rem] text-slate-300 font-light text-left max-w-[240px] mx-auto">
+                    <div className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-gold-brand shrink-0"></span>
+                      <span>Forbes 30 Under 30 Asia Semi-Finalist</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-gold-brand shrink-0"></span>
+                      <span>Harvard Business School Online Alumnus</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <span className="w-1.5 h-1.5 rounded-full bg-gold-brand shrink-0"></span>
+                      <span>Google–Udacity Scholar & Gandhi Fellow</span>
+                    </div>
+                  </div>
+                </div>
               </div>
-            </div>
-
-            <h3 className="font-display text-[1.8rem] font-semibold text-white mb-[3px]">
-              Vasanth S
-            </h3>
-            <div className="font-mono text-[0.61rem] tracking-[0.22em] uppercase text-slate-500 font-semibold">
-              Founder & Managing Director
             </div>
           </motion.div>
 
@@ -53,10 +70,10 @@ export default function LeadershipPreview() {
               <span className="font-display italic font-normal text-blue-brand">No Delegation.</span>
             </h2>
             <p className="body-lg">
-              Vasanth S founded Insight Thinkers to address a structural gap: traditional transaction advisory firms are generalists. They rely on outsourced clinical due diligence and treat healthcare technology as a checklist item.
+              Vasanth Sabavath founded Insight Thinkers Agency to address a structural gap: traditional advisory firms are generalists. They rely on outsourced technical due diligence and treat digital marketing as an afterthought.
             </p>
             <p className="body-md mt-4 text-muted-brand">
-              With credentials as a Chartered Accountant and Company Secretary, and having built and scaled six proprietary healthcare technology platforms, Vasanth brings an integrated perspective to middle-market M&A and corporate finance that is unique in the sector.
+              With a multi-disciplinary background spanning software engineering, strategic management, and digital marketing, Vasanth brings an integrated perspective to M&A advisory, healthcare technology, and enterprise growth that is unique in the sector.
             </p>
 
             <div className="mt-8">

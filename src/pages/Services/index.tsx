@@ -6,67 +6,143 @@ const DETAILED_SERVICES = [
   {
     Icon: Icons.Finance,
     cat: "M&A Advisory",
-    title: "Healthcare M&A",
-    desc: "Rigorous execution of middle-market healthcare buy-side and sell-side mandates, providing promoters and strategic corporate acquirers with valuation benchmarking and transition planning.",
+    title: "Mergers & Acquisitions",
+    desc: "End-to-end M&A advisory across buy-side, sell-side, and structured equity transactions in the South India healthcare sector. We originate, structure, and close. Every mandate is personally led by Vasanth Sabavath.",
     benefits: [
-      "Mitigate valuation gap through verified clinical operations metrics",
-      "Draft SEBI-compliant transaction parameters for majority stakes",
-      "Structure secure escrow accounts and milestone-based earnouts",
+      "Active Mandates: 3 live exclusive mandates currently under advisory in South India",
+      "Asset Value: ₹120 Crore+ aggregate hard asset value across current portfolio",
+      "Deal Structure: Acquisitions, majority stakes, equity infusions, and structured exits",
+      "Geography: South India primary; Pan-India and South East Asia for PE-backed deals"
     ],
     deliverables: [
-      "Comprehensive Valuation Benchmarking Report",
-      "Information Memorandum (IM) & Asset Dossiers",
-      "Letters of Intent (LOI) & Term Sheet negotiation framework",
+      "Buy-side and sell-side mandate management",
+      "SPA, SHA, MOU drafting and negotiation",
+      "Financial modelling and valuation",
+      "Management Q&A coordination",
+      "Due diligence orchestration",
+      "Term sheet negotiation and closure"
     ],
   },
   {
     Icon: Icons.Globe,
-    cat: "Growth Capital",
+    cat: "Equity & Finance",
     title: "Equity Financing",
-    desc: "Assisting healthcare promoters and systems in raising growth capital from private equity funds and institutional investors across Asia.",
+    desc: "Structured equity financing for healthcare operators seeking growth capital — from PE funds, family offices, UHNI investors, and strategic co-investors.",
     benefits: [
-      "Access pre-qualified PE fund relationships actively looking for healthcare deals",
-      "Structure financing that aligns founder controls with investor requirements",
-      "Optimize cost of capital through tailored debt/equity structuring",
+      "Investor Network: Healthcare PE funds, family offices, UHNI platforms across India, GCC, Singapore",
+      "Deal Sizes: ₹5 Crore growth equity to ₹120 Crore+ PE transactions",
+      "Structures: Minority equity, majority stake, structured debt-equity, convertible instruments",
+      "Compliance: SEBI-compliant structuring across multiple fund and investor types"
     ],
     deliverables: [
-      "Financial Modeling & Growth Projections",
-      "Investor Presentation Materials",
-      "Co-investment Term Sheet Architecture",
-    ],
-  },
-  {
-    Icon: Icons.Shield,
-    cat: "Strategic Corporate Planning",
-    title: "Strategic Advisory",
-    desc: "Structuring corporate governance models, joint ventures, regulatory strategy, and long-term inorganic expansion plans.",
-    benefits: [
-      "Ensure statutory compliance across South Indian healthcare boards",
-      "Mitigate regulatory risks related to NMC/NABH guidelines",
-      "Design joint venture structures with clinical counterparties",
-    ],
-    deliverables: [
-      "Corporate Restructuring Assessment",
-      "Expansion Planning Roadmap",
-      "Post-Merger Integration Governance Guide",
+      "Investor-ready pitch deck & financial model",
+      "Information Memorandum (IM) preparation",
+      "Investor identification and mapping",
+      "Term sheet structuring and negotiation",
+      "SEBI-compliant deal architecture",
+      "Closing support and documentation"
     ],
   },
   {
     Icon: Icons.AI,
-    cat: "Technology Due Diligence",
-    title: "Technology Advisory",
-    desc: "Auditing enterprise health systems, proprietary codebases, PACS systems, EMR software, and cybersecurity standards for acquirers.",
+    cat: "Software Development",
+    title: "Healthcare Software & AI",
+    desc: "Custom hospital management systems, patient engagement platforms, diagnostic tools, and enterprise health software — built from first principles by our engineering team.",
     benefits: [
-      "Identify hidden architectural bottlenecks inside hospital software platforms",
-      "Audit EMR databases for compliance with data residency standards",
-      "Determine transition complexity and cost parameters post-acquisition",
+      "Live Products: 6+ proprietary AI HealthTech products deployed across 50+ institutions",
+      "Tech Stack: Modern, scalable architecture built for healthcare compliance and data security",
+      "Integration: Integration with existing hospital workflows, lab equipment, and third-party systems",
+      "Support: Ongoing maintenance, upgrades, and dedicated technical support post-deployment"
     ],
     deliverables: [
-      "Software Code & Architecture Diligence Audit",
-      "HMS/EMR Security Vulnerability Assessment",
-      "Technology Integration Cost Projection",
+      "Hospital Management Systems (HMS)",
+      "PACS & Radiology Information Systems",
+      "Electronic Medical Records (EMR)",
+      "Patient engagement & appointment platforms",
+      "Lab Information Management Systems (LIMS)",
+      "Custom AI/ML diagnostic tools"
     ],
   },
+  {
+    Icon: Icons.Medical,
+    cat: "Marketing",
+    title: "Healthcare Marketing",
+    desc: "Go-to-market strategies, patient acquisition, digital presence, and brand building for hospitals, clinics, diagnostic centres, and healthcare brands across India.",
+    benefits: [
+      "Hospitals Served: 50+ hospitals and diagnostic centres across South India and beyond",
+      "Capabilities: SEO, SEM, Social Media, Content, Account-Based Marketing, Email Campaigns",
+      "Analytics: Full-funnel reporting: traffic, leads, appointment conversions, and patient retention",
+      "Experience: Deep understanding of healthcare consumer behaviour and hospital referral dynamics"
+    ],
+    deliverables: [
+      "Go-to-market strategy for new services/departments",
+      "Digital presence: SEO, Google Ads, social media",
+      "Content marketing & thought leadership",
+      "Patient acquisition funnel design",
+      "Healthcare brand identity & messaging",
+      "Social Media Management (Instagram, LinkedIn, Facebook)"
+    ],
+  },
+  {
+    Icon: Icons.Shield,
+    cat: "Procurement",
+    title: "Medical Equipment Procurement",
+    desc: "End-to-end procurement advisory for hospitals and diagnostic centres — from equipment specification and vendor identification through negotiation, import, and commissioning.",
+    benefits: [
+      "Equipment Types: Radiology (CT, MRI, X-Ray), Lab equipment, OT equipment, ICU systems",
+      "Vendor Network: Established relationships with domestic and international manufacturers",
+      "Financing: Advisory on equipment financing, leasing, and hire-purchase structures",
+      "Clinical Validation: Equipment assessed by medical professionals on our team"
+    ],
+    deliverables: [
+      "Equipment specification and needs assessment",
+      "Vendor identification and shortlisting",
+      "Comparative pricing and technical evaluation",
+      "Negotiation support and contract structuring",
+      "Import logistics and customs advisory",
+      "Installation, commissioning, and staff training coordination"
+    ],
+  },
+  {
+    Icon: Icons.Finance,
+    cat: "Audit & Compliance",
+    title: "Financial Audit & Compliance",
+    desc: "Forensic financial review, regulatory compliance assessment, statutory audit support, and income & expenditure certification for healthcare operators and M&A transactions.",
+    benefits: [
+      "Standards: All financial documentation prepared to institutional and regulatory audit standards",
+      "M&A Context: Audit and compliance work integrated directly into M&A due diligence process",
+      "Regulatory: SEBI, RBI, and MCA compliance documentation across corporate structures",
+      "Healthcare-Specific: Understanding of healthcare revenue recognition, NABH compliance"
+    ],
+    deliverables: [
+      "Forensic financial statement review",
+      "Income & Expenditure (I&E) certification",
+      "Regulatory compliance assessment",
+      "Statutory documentation preparation",
+      "Tax structuring for healthcare transactions",
+      "Transaction audit for M&A due diligence"
+    ],
+  },
+  {
+    Icon: Icons.AI,
+    cat: "Reports & Decks",
+    title: "DPR & Pitch Deck Preparation",
+    desc: "Investor-grade Detailed Project Reports, pitch decks, Information Memoranda, and business plan documents for healthcare operators, startups, and M&A transactions.",
+    benefits: [
+      "Format Standards: Documents prepared to PE fund, banker, and institutional investor expectations",
+      "Financial Depth: 5-year P&L, balance sheet, and cash flow projections with scenario analysis",
+      "Visual Quality: Professionally designed, branded documents — not template-based output",
+      "M&A Integration: DPRs and pitch decks integrated with live mandate process where applicable"
+    ],
+    deliverables: [
+      "Detailed Project Report (DPR) for healthcare projects",
+      "Investor pitch deck (10–20 slides, institutional format)",
+      "Information Memorandum (IM) for equity raises",
+      "Financial model with 5-year projections",
+      "Executive summary and one-pager",
+      "Bank and NBFC loan documentation packages"
+    ],
+  }
 ];
 
 export default function Services() {
@@ -85,10 +161,10 @@ export default function Services() {
         <div className="wrap relative z-10 text-center max-w-[800px]">
           <div className="eyebrow justify-center">What We Do</div>
           <h1 className="display tracking-[-0.01em]">
-            Healthcare Advisory <span className="font-display italic font-normal text-blue-brand">Services</span>
+            Integrated Growth <span className="font-display italic font-normal text-blue-brand">Services</span>
           </h1>
           <p className="body-lg mt-6 max-w-[680px] mx-auto">
-            We provide full-suite advisory services engineered specifically for healthcare systems, hospitals, promoters, and institutional capital partners.
+            Multi-disciplinary advisory and execution for healthcare enterprises. From M&A structuring to digital marketing and technology deployment.
           </p>
         </div>
       </section>

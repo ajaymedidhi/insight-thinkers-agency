@@ -1,60 +1,92 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { motion } from "framer-motion";
+import SEO from "../../components/shared/SEO";
 
 const EXPERTISES = [
   {
-    title: "Healthcare M&A",
-    desc: "Structuring buy-side and sell-side mandates, valuation benchmarking, and transaction documentation execution."
+    title: "Digital Strategy & Go-To-Market",
+    desc: "Led go-to-market strategies, digital marketing campaigns, and brand building for 50+ healthcare institutions across South India — the intelligence foundation of ITA's M&A practice."
   },
   {
-    title: "Corporate Finance",
-    desc: "Private equity structured finance, growth capital access, and transaction capital modeling."
+    title: "Healthcare M&A & Deal Advisory",
+    desc: "Originated, structured, and closed M&A transactions in South India healthcare — personally leading mandates from first approach through final documentation and closure."
   },
   {
-    title: "Healthcare Technology",
-    desc: "Software architecture audit, EMR/HMS platform assessments, and security compliance diligence."
+    title: "AI HealthTech Product Development",
+    desc: "Built six proprietary healthcare technology platforms from first principles — HMS, PACS, EMR — deployed across 50+ hospitals and diagnostic centres, still actively operated."
   },
   {
-    title: "Strategic Growth",
-    desc: "Corporate restructuring advisory, joint venture formulation, and post-merger integration planning."
+    title: "Equity Financing & Investor Relations",
+    desc: "Structured equity financing arrangements for healthcare operators, connecting them with PE funds, family offices, and institutional investors across India and Southeast Asia."
   }
 ];
 
 const PHILOSOPHIES = [
   {
-    topic: "On Selectivity",
-    quote: '"We decline more mandates than we accept. Every transaction carries our name. We do not accept mandates we cannot close with the rigour institutional buyers deserve."'
+    topic: "On mandate selectivity:",
+    quote: '"We decline more mandates than we accept. Every engagement carries our name. We do not accept mandates we cannot close with the rigour institutional buyers deserve."'
   },
   {
-    topic: "On Relationships",
-    quote: '"Our PE and institutional network was built through completed transactions — not networking events. Fund managers work with us because they have seen us deliver."'
+    topic: "On network vs. relationships:",
+    quote: '"Our PE relationships were built through completed transactions — not networking events. Every fund manager we work with has seen us deliver."'
   },
   {
-    topic: "On In-House Depth",
-    quote: '"Most generalist firms outsource clinical intelligence and tech reviews. We do everything under one roof. Our medical advisors and software engineers audit everything directly."'
+    topic: "On the firm's architecture:",
+    quote: '"Most advisory firms outsource clinical intelligence. We have medical doctors on our team. Most consultants assess technology — we built the technology. That is the difference."'
   }
 ];
 
 const TIMELINE = [
   {
     year: "Founded",
-    title: "Insight Thinkers advisory desk founded by Vasanth S.",
+    title: "Insight Thinkers Agency Established",
+    desc: "Vasanth Sabavath founded ITA with a singular thesis: healthcare M&A deserves simultaneous mastery of capital markets, clinical operations, and enterprise technology."
   },
   {
-    year: "Year 1–2",
-    title: "First major hospital M&A transactions closed across South Indian healthcare assets.",
+    year: "Year 1",
+    title: "Digital & Marketing Foundation",
+    desc: "Established deep digital marketing and go-to-market capabilities across 50+ hospitals and healthcare brands — building the sector intelligence base that underpins M&A advisory today."
   },
   {
-    year: "Year 2–3",
-    title: "AI HealthTech product suite launched, deploying EMR/PACS platforms to 50+ clinics.",
+    year: "Year 2",
+    title: "AI HealthTech Products Launched",
+    desc: "Built and deployed HMS, PACS, and EMR platforms across 50+ institutions. Products are actively operated — providing first-principles technology intelligence."
   },
   {
-    year: "Year 3–4",
-    title: "Pan-Asia private equity network established for direct mid-market co-investments.",
+    year: "Year 3",
+    title: "M&A Advisory Practice Opened",
+    desc: "First institutional M&A mandates originated and closed in South India hospital sector. PE network expanded across South and Southeast Asia."
   },
   {
     year: "Present",
-    title: "Active live transaction advisory mandates on operational healthcare assets.",
+    title: "Live Mandates — Active Advisory",
+    desc: "Exclusive advisory mandates on operational hospital assets with combined monthly revenues exceeding ₹8 Crores. All mandates are live."
+  }
+];
+
+const PERSPECTIVES = [
+  {
+    title: "Hospital Valuation Multiples in India",
+    type: "Industry Briefing",
+    link: "/insights/hospital-valuation-multiples-india"
+  },
+  {
+    title: "How Private Equity Evaluates Healthcare Assets",
+    type: "Diligence Report",
+    link: "/insights/private-equity-evaluates-healthcare-assets"
+  }
+];
+
+const MEDIA_SPEAKING = [
+  {
+    event: "Healthcare Investor Summit 2026",
+    topic: "Panel: Multiples consolidation in Indian hospital consolidations",
+    type: "Keynote Panel"
+  },
+  {
+    event: "HealthTech Dealmakers Podcast",
+    topic: "Episode 12: Auditing HMS systems prior to buy-side exits",
+    type: "Podcast Guest"
   }
 ];
 
@@ -63,6 +95,11 @@ export default function Leadership() {
 
   return (
     <div className="bg-white animate-fade-in">
+      <SEO
+        title="Vasanth S - Founder Profile"
+        description="Credentials and executive timeline of Vasanth S, Managing Director of Insight Thinkers Agency, specializing in hospital transaction structuring and technology due diligence."
+        keywords="Vasanth S, Healthcare M&A Director, Hospital Deal advisory"
+      />
       {/* Leadership Hero */}
       <section className="relative py-20 md:py-24 bg-slate-brand overflow-hidden border-b border-border-brand/80">
         <div className="wrap">
@@ -93,18 +130,18 @@ export default function Leadership() {
               </div>
 
               <h3 className="font-display text-[1.8rem] font-semibold text-white mb-[3px]">
-                Vasanth S
+                Vasanth Sabavath
               </h3>
               <div className="font-mono text-[0.61rem] tracking-[0.22em] uppercase text-slate-500 mb-6 font-semibold">
-                Founder & Managing Director
+                Founder & Managing Partner
               </div>
 
               <div className="flex flex-col gap-2 mt-6 pt-5 border-t border-white/[0.08]">
                 {[
-                  "Chartered Accountant — Financial Forensics",
-                  "Company Secretary — Governance & Structuring",
-                  "HealthTech Founder — 6 AI Platforms Scaled",
-                  "Advisory across South Indian Hospital Markets",
+                  "Forbes 30 Under 30 Asia Semi-Finalist",
+                  "Harvard Business School Online Alumnus",
+                  "Gandhi Fellowship & Amani Institute Fellow",
+                  "Google–Udacity Scholar",
                 ].map((c) => (
                   <div key={c} className="flex items-center gap-2 text-[0.76rem] text-slate-400">
                     <span className="w-1 h-1 rounded-full bg-gold-brand shrink-0" />
@@ -121,16 +158,16 @@ export default function Leadership() {
               viewport={{ once: true }}
               transition={{ duration: 0.8 }}
             >
-              <div className="eyebrow">Managing Director</div>
-              <h1 className="display-sm text-[#0F172A] mb-6">Founder & Managing Director</h1>
+              <div className="eyebrow">Managing Partner</div>
+              <h1 className="display-sm text-[#0F172A] mb-6">Founder & Managing Partner</h1>
               <p className="body-lg text-muted-brand">
-                Vasanth S founded Insight Thinkers to build an advisory firm that operates with the rigor of a boutique investment bank and the deep domain specialization of a healthcare provider.
+                Vasanth Sabavath founded Insight Thinkers Agency to build a firm that operates with the rigor of a boutique investment bank, the growth capabilities of a performance marketing agency, and the deep engineering of a software company.
               </p>
               <p className="body-md mt-4 text-muted-brand">
-                His credentials derived directly from hands-on execution. He has personally led and closed hospital transaction structures, formulated private equity partnerships, and scaled clinical healthcare software deployed across 50+ clinics and medical institutions.
+                His credentials derived directly from hands-on execution. He has personally led hospital transaction structures, formulated private equity partnerships, scaled digital marketing campaigns, and built clinical healthcare software deployed across 50+ medical institutions.
               </p>
               <p className="body-md mt-4 text-muted-brand">
-                Every mandate accepted by the firm receives Vasanth's personal direction from initial diligence through to final SPA execution, ensuring that promoter interest and corporate secretarial rigor are maintained at every stage.
+                Every mandate accepted by the firm receives Vasanth's personal direction, ensuring that growth targets, technological integrations, and financial structuring are seamlessly aligned to maximize enterprise value.
               </p>
             </motion.div>
           </div>
@@ -196,7 +233,7 @@ export default function Leadership() {
       </section>
 
       {/* Professional Journey timeline */}
-      <section className="section wrap">
+      <section className="section wrap border-b border-border-brand/60">
         <div className="max-w-[700px] mx-auto text-center mb-16">
           <div className="eyebrow justify-center">Milestones</div>
           <h2 className="display-sm">Professional Journey</h2>
@@ -220,8 +257,60 @@ export default function Leadership() {
               <h4 className="text-[1rem] font-semibold text-ink">
                 {t.title}
               </h4>
+              <p className="text-[0.82rem] text-muted-brand mt-1.5 leading-relaxed font-light">
+                {t.desc}
+              </p>
             </motion.div>
           ))}
+        </div>
+      </section>
+
+      {/* Published Perspectives & Media & Speaking */}
+      <section className="section wrap">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+          {/* Perspectives */}
+          <div>
+            <h3 className="font-display text-[1.5rem] font-semibold text-[#0F172A] mb-6">
+              Published Perspectives
+            </h3>
+            <div className="flex flex-col gap-4">
+              {PERSPECTIVES.map((p) => (
+                <div key={p.title} className="p-5 border border-border-brand bg-slate-brand rounded-[10px]">
+                  <span className="font-mono text-[0.58rem] tracking-[0.1em] text-blue-brand uppercase font-semibold">
+                    {p.type}
+                  </span>
+                  <h4 className="font-display text-[1.1rem] font-semibold text-ink mt-1.5 mb-3">
+                    {p.title}
+                  </h4>
+                  <Link to={p.link} className="text-[0.76rem] text-blue-brand hover:text-blue-hover font-semibold uppercase no-underline">
+                    Read Report →
+                  </Link>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* Media & Speaking */}
+          <div>
+            <h3 className="font-display text-[1.5rem] font-semibold text-[#0F172A] mb-6">
+              Media & Speaking appearances
+            </h3>
+            <div className="flex flex-col gap-4">
+              {MEDIA_SPEAKING.map((m) => (
+                <div key={m.event} className="p-5 border border-border-brand bg-slate-brand rounded-[10px]">
+                  <span className="font-mono text-[0.58rem] tracking-[0.1em] text-gold-brand uppercase font-semibold">
+                    {m.type}
+                  </span>
+                  <h4 className="text-[0.94rem] font-semibold text-ink mt-1.5 mb-1">
+                    {m.event}
+                  </h4>
+                  <p className="text-[0.8rem] text-muted-brand font-light">
+                    {m.topic}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 

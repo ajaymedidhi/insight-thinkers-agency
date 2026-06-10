@@ -15,15 +15,15 @@ const ECOSYSTEM_NODES = [
 ];
 
 const STAKEHOLDERS_INVESTORS = [
-  { title: "Growth Capital Investors", desc: "Specialist funds looking for minority equity placements in mid-market hospital rollouts." },
-  { title: "Private Equity Firms", desc: "Pan-Asia buyout and growth equity funds deploying ticket sizes of ₹50–200 Crore." },
-  { title: "Healthcare Focused Funds", desc: "Niche sector venture capital and private equity targeting clinical diagnostics and healthtech scaleups." },
-  { title: "Strategic Capital Partners", desc: "Corporate Venture Capital (CVC) desks of large hospital networks and pharmaceuticals." },
+  { title: "Healthcare PE Funds", desc: "Active co-advisory relationships for South Asia and Southeast Asia." },
+  { title: "India Growth Capital", desc: "Ongoing deal flow engagement for pan-India mid-market investments." },
+  { title: "Family Offices", desc: "Direct co-investment platforms across India, GCC, and Singapore." },
+  { title: "UHNI & HNI Investors", desc: "Pre-qualified deal flow for direct deal participation and co-investments." },
 ];
 
 const STAKEHOLDERS_OPERATORS = [
-  { title: "Hospital Groups", desc: "Promoters of multi-specialty setups looking for majority SPA liquidity or expansion cash." },
-  { title: "Specialty Clinics", desc: "Boutique clinic hubs, IVF chains, and oncology units seeking joint venture capital." },
+  { title: "Strategic Hospital Chains", desc: "Inorganic growth mandates for South India expansion and regional consolidation." },
+  { title: "Corporate Healthcare Groups", desc: "Strategic acquisition pipeline for pan-India inorganic growth." },
   { title: "Diagnostics Networks", desc: "Diagnostic lab promoters planning to integrate lab operations with institutional partners." },
   { title: "Healthcare Platforms", desc: "Digital health hubs seeking co-development and technology joint ventures." },
 ];
@@ -36,11 +36,9 @@ const STAKEHOLDERS_TECH = [
 ];
 
 const COLLAB_STEPS = [
-  { step: "01", title: "Understand Objectives", desc: "Map promoter objectives, debt structures, and operational goals." },
-  { step: "02", title: "Identify Opportunities", desc: "Screen asset valuations, software stacks, and clinical files." },
-  { step: "03", title: "Activate Network", desc: "Direct outreach to pre-screened healthcare PE desks." },
-  { step: "04", title: "Facilitate Engagement", desc: "Organize principal meetings under strict bilateral NDAs." },
-  { step: "05", title: "Support Execution", desc: "Provide corporate secretarial approvals and close." },
+  { step: "01", title: "Active, Not Archival", desc: "We engage regularly with fund managers, family offices, and strategic investors through structured interactions and live deal flow sharing." },
+  { step: "02", title: "SEBI-Compliant Structure", desc: "All transaction structuring across fund types is SEBI-compliant. Our team ensures every co-advisory arrangement meets regulatory requirements." },
+  { step: "03", title: "Confidential Deal Pipeline", desc: "Institutional partners receive structured deal flow updates under NDA. Pipeline is shared with pre-qualified counterparties only." },
 ];
 
 const STRENGTHS = [
@@ -98,7 +96,7 @@ export default function Network() {
             className="z-20 w-[90px] h-[90px] md:w-[120px] md:h-[120px] rounded-full bg-ink flex flex-col items-center justify-center text-center p-3 border border-white/10 shadow-sh3"
           >
             <span className="font-semibold text-white text-[0.74rem] md:text-[0.88rem] tracking-tight leading-tight">
-              Insight Thinkers
+              Insight Thinkers Agency
             </span>
             <span className="font-mono text-[0.46rem] text-blue-light tracking-[0.16em] uppercase mt-1 font-semibold">
               Hub

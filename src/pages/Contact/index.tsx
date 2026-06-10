@@ -58,8 +58,8 @@ export default function Contact() {
           <h1 className="display tracking-[-0.01em]">
             Begin a <span className="font-display italic font-normal text-blue-brand">Confidential Inquiry</span>
           </h1>
-          <p className="body-lg mt-6 max-w-[600px] mx-auto">
-            All transaction conversations are initiated directly with our Managing Director under strict NDA protocols.
+          <p className="body-lg mt-6 max-w-[700px] mx-auto">
+            Whether you are acquiring a healthcare asset, planning an exit, raising capital, deploying technology, or seeking a co-advisory arrangement — we welcome a discreet, no-obligation discussion. All enquiries are received by Vasanth Sabavath personally.
           </p>
         </div>
       </section>
@@ -82,9 +82,10 @@ export default function Contact() {
 
             <div className="flex flex-col gap-6">
               {[
-                { label: "Advisory Desk Email", val: "info@insightthinkers.com", sub: "Responds within 24 hours", icon: Icons.Mail },
-                { label: "Secure Hotline / WhatsApp", val: "+91 95812 71590", sub: "Available for priority calls", icon: Icons.Phone },
-                { label: "Confidentiality Protocols", val: "All inquiries handled under NDA protocol", sub: "Executed prior to sharing dossier metrics", icon: Icons.Shield },
+                { label: "Email", val: "info@insightthinkersagency.com", sub: "Responds within 24 hours", icon: Icons.Mail },
+                { label: "Phone / WhatsApp", val: "+91 95812 71590", sub: "Available for priority conversations", icon: Icons.Phone },
+                { label: "Region", val: "South India · Pan-India · Asia", sub: "Active across all major markets", icon: Icons.Globe },
+                { label: "Confidentiality", val: "All enquiries under strict NDA protocol", sub: "No exceptions. No third-party disclosure.", icon: Icons.Shield },
               ].map((c) => {
                 const Icon = c.icon;
                 return (
@@ -118,7 +119,7 @@ export default function Contact() {
                 <div className="text-[3rem] mb-4">✅</div>
                 <h3 className="font-display text-[1.6rem] font-semibold text-ink mb-3">Enquiry Logged</h3>
                 <p className="text-[0.92rem] text-muted-brand leading-relaxed max-w-[340px] mx-auto font-light">
-                  Your details are secured under strict NDA protocols. Vasanth S will respond to you personally within 24 hours.
+                  Your details are secured under strict NDA protocols. Vasanth Sabavath will respond to you personally within 24 hours.
                 </p>
                 <button
                   className="inline-flex items-center gap-2 cursor-pointer border-none font-semibold tracking-[0.05em] uppercase text-[0.82rem] bg-ink hover:bg-blue-brand text-white px-7 py-3.5 mt-8 rounded-[6px] shadow-sm"
@@ -200,6 +201,24 @@ export default function Contact() {
                       className="p-3 border border-border-brand focus:border-blue-brand rounded-[8px] font-sans text-[0.88rem] outline-none transition-all focus:ring-2 focus:ring-blue-brand/10"
                     />
                   </div>
+                </div>
+
+                <div className="flex flex-col gap-1">
+                  <label className="font-mono text-[0.6rem] tracking-[0.16em] uppercase text-slate-500 font-semibold">
+                    Strategic Focus Area
+                  </label>
+                  <select
+                    name="advisoryType"
+                    className="p-3 border border-border-brand focus:border-blue-brand rounded-[8px] font-sans text-[0.88rem] outline-none bg-white focus:ring-2 focus:ring-blue-brand/10"
+                  >
+                    <option>Mergers & Acquisitions</option>
+                    <option>Equity Financing</option>
+                    <option>Healthcare Software & AI</option>
+                    <option>Healthcare Marketing</option>
+                    <option>Medical Equipment Procurement</option>
+                    <option>Financial Audit & Compliance</option>
+                    <option>DPR & Pitch Deck Preparation</option>
+                  </select>
                 </div>
 
                 <div className="flex flex-col gap-1">

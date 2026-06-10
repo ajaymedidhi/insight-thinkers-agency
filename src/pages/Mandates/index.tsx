@@ -47,43 +47,27 @@ const TX_TYPES = [
 const SAMPLE_MANDATES = [
   {
     n: "01",
-    title: "Multi-Specialty Hospital",
+    title: "Revenue-Generating Multi-Specialty Hospital",
     region: "South India",
-    revenue: "₹50–100 Cr",
-    objective: "Majority Share Purchase Agreement (SPA) / Growth Capital Raise",
-    status: "Active Mandate"
+    revenue: "₹3–4 Cr/mo",
+    objective: "Strategic Acquisition or Majority Stake. A fully operational hospital generating ₹3–4 Crores in monthly revenue. Consistent 4-year track record.",
+    status: "Active"
   },
   {
     n: "02",
-    title: "Regional Diagnostic Chain",
-    region: "Pan-India",
-    revenue: "₹20–50 Cr",
-    objective: "Strategic Investor Introduction & Minority Equity Sale",
-    status: "Active Mandate"
+    title: "Asset-Backed Hospital",
+    region: "Tier-2 City",
+    revenue: "₹120 Cr+ Assets",
+    objective: "PE Fund or Strategic Acquirer. A mandate underpinned by significant hard asset value exceeding ₹120 Crores including land and building.",
+    status: "Active"
   },
   {
     n: "03",
-    title: "AI-Powered HealthTech EMR Platform",
-    region: "Asia-Pacific Reach",
-    revenue: "High Growth",
-    objective: "Advisory on Cross-Border Expansion Strategy & Capital Structuring",
-    status: "Active Mandate"
-  },
-  {
-    n: "04",
-    title: "Specialized Orthopedic Hospital",
-    region: "South India City Hub",
-    revenue: "₹15–30 Cr",
-    objective: "Strategic Partnership Formulation / Exit Advisory",
-    status: "Under Due Diligence"
-  },
-  {
-    n: "05",
-    title: "Medical Device Infrastructure Setup",
-    region: "Tier-2 Markets",
-    revenue: "Asset Heavy",
-    objective: "Structuring Joint Venture for Institutional Rollout",
-    status: "Active Mandate"
+    title: "Profitable Diagnostic & Healthcare Setup",
+    region: "Multi-Site",
+    revenue: "Profitable",
+    objective: "Growth Capital or Strategic Partner. An operational facility combining diagnostics and outpatient services. Expansion ready.",
+    status: "Active"
   }
 ];
 
@@ -98,11 +82,12 @@ const PROCESS_STEPS = [
 ];
 
 const WHY_DIFFS = [
-  { title: "Healthcare Specialization", desc: "We advise hospitals, diagnostics, and healthtech platforms exclusively. No generalist distraction." },
-  { title: "Founder-Led Engagement", desc: "Our MD, Vasanth S (CA, CS), oversees every audit, term sheet, and capital pitch personally." },
-  { title: "Technology Understanding", desc: "As actual builders of HMS & PACS software, we audit target codebases from an engineering perspective." },
-  { title: "Investor Relationships", desc: "Bilateral relationships with mid-market PE funds deploying capital across Asia." },
-  { title: "Execution Focus", desc: "We only onboard mandates we are confident we can see through to legal and financial closure." },
+  { title: "In-House Clinical Intelligence", desc: "Medical Doctors on staff conduct hands-on hospital due diligence — patient flows, clinical outcomes, staffing risk, regulatory compliance. Intelligence generalist firms cannot replicate." },
+  { title: "Technology Built From Scratch", desc: "HMS, PACS, EMR, and enterprise platforms — live and deployed across 50+ institutions. We assess technology as engineers, not commentators. This fundamentally changes the quality of tech DD." },
+  { title: "Founder-Led, No Handoffs", desc: "Vasanth Sabavath personally leads every engagement from origination to closure. No relationship managers. No junior associates handed a file. Principal attention throughout." },
+  { title: "Full-Spectrum Execution", desc: "Financial modelling, legal documentation, clinical assessment, technology evaluation, PE introduction, and deal closure — all in-house. No gaps. No outsourcing of critical intelligence." },
+  { title: "Pan-Asia PE Network", desc: "PE fund relationships built through completed transactions, not introductions. Active fund managers deploying capital into South Asian healthcare — current, not archival." },
+  { title: "NDA-First Protocol", desc: "Absolute confidentiality is built into our operating model. No mandate discussed, no data shared, no introduction facilitated without full legal confidentiality architecture in place." },
 ];
 
 export default function Mandates() {
@@ -292,7 +277,7 @@ export default function Mandates() {
           <h2 className="display-sm">Why Partner With Us?</h2>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {WHY_DIFFS.map((diff, idx) => (
             <motion.div
               key={diff.title}

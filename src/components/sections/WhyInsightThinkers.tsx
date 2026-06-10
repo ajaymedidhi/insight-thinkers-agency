@@ -3,25 +3,25 @@ import { Icons } from "../Icons";
 
 const VALUES = [
   {
-    ico: Icons.Medical,
-    title: "Healthcare Specialization",
-    desc: "We do not advise generalist companies. Our entire focus is on hospital operators, clinical assets, diagnostics, and healthcare-related products.",
-  },
-  {
     ico: Icons.Finance,
-    title: "Advisory Experience",
-    desc: "Rigorous transaction execution spanning buy-side advisory, exit strategy, valuation benchmarking, and SEBI-compliant structural designs.",
-  },
-  {
-    ico: Icons.AI,
-    title: "In-House Technology",
-    desc: "We are healthtech builders with proprietary HMS, PACS, and EMR platforms deployed across 50+ facilities. We run technical audits as software engineers.",
+    title: "Institutional Rigour",
+    desc: "Every deliverable is prepared to standards institutional counterparties demand — financial models, legal documents, clinical reports alike."
   },
   {
     ico: Icons.Shield,
-    title: "Founder-Led Execution",
-    desc: "Every mandate is handled directly by our Founder, Vasanth S (CA, CS), from onboarding to closure. Zero hand-offs to junior associates.",
+    title: "Absolute Confidentiality",
+    desc: "NDA-first engagement is a philosophy, not a protocol. No mandate is discussed without mutual legal protection in place."
   },
+  {
+    ico: Icons.Medical,
+    title: "Completion Over Commission",
+    desc: "We accept only mandates we are confident we can close. Pipeline breadth is never prioritised over execution depth."
+  },
+  {
+    ico: Icons.AI,
+    title: "Evidence-Based Advisory",
+    desc: "Every recommendation is grounded in verified financial data, operational metrics, and clinical assessments — not market opinion."
+  }
 ];
 
 export default function WhyInsightThinkers() {

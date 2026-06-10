@@ -4,56 +4,56 @@ const VALUES = [
   {
     ico: "⚖️",
     t: "Integrity",
-    b: "Every financial model, legal structure, and clinical diligence document is prepared to absolute professional standards. Transparency is non-negotiable.",
+    b: "Every financial model, marketing campaign, and technology deployment is executed to absolute professional standards. Transparency is non-negotiable.",
   },
   {
     ico: "🔒",
     t: "Confidentiality",
-    b: "Strict NDA protection governs all asset dialogues. We operate on a need-to-know basis, ensuring zero leakages to protect promoters and operators.",
+    b: "Strict NDA protection governs all our engagements. We operate on a need-to-know basis to protect our clients' strategic initiatives.",
   },
   {
     ico: "🎯",
     t: "Long-Term Relationships",
-    b: "We engage selectively on mandates we are confident we can close. We prioritize depth of strategic execution over the volume of deals in our pipeline.",
+    b: "We engage selectively on projects we are confident we can scale. We prioritize depth of strategic execution over the volume of clients.",
   },
   {
     ico: "🔬",
     t: "Execution Excellence",
-    b: "Our team integrates accounting, corporate law, clinical operations, and software engineering to coordinate institutional-grade closures.",
+    b: "Our team integrates corporate finance, digital marketing, and software engineering to deliver institutional-grade results.",
   },
 ];
 
 const APPROACH = [
   {
-    step: "Understand",
-    title: "Clinical & Operational Assessment",
-    body: "We begin by auditing the physical infrastructure, clinical metrics, patient workflows, and licensing compliance to establish a realistic baseline.",
-  },
-  {
-    step: "Evaluate",
-    title: "Financial Forensics",
-    body: "Our Chartered Accountants inspect financial statements, model debt capacity, analyze revenue quality, and benchmark against sector comps.",
+    step: "Audit",
+    title: "Comprehensive Enterprise Assessment",
+    body: "We begin by auditing the physical infrastructure, digital presence, technology stack, and financial metrics to establish a realistic baseline.",
   },
   {
     step: "Strategize",
-    title: "Structure Formulation",
-    body: "Our Company Secretaries structure SEBI-compliant deal architectures, draft term sheets, and plan SPAs and SHAs with counterparties.",
+    title: "Multi-Disciplinary Roadmap",
+    body: "We align financial models with digital marketing KPIs and technology requirements to create a unified growth or transaction strategy.",
   },
   {
-    step: "Execute",
-    title: "PE Network Alignment",
-    body: "We pitch the transaction dossier directly to pre-qualified institutional PE funds and strategic buyers, coordinating due diligence and closure.",
+    step: "Deploy",
+    title: "In-House Execution",
+    body: "Our team deploys necessary AI tools, executes performance marketing campaigns, and structures financial agreements without outsourcing.",
+  },
+  {
+    step: "Scale/Exit",
+    title: "Institutional Value Realization",
+    body: "We continuously optimize operations for scale or pitch the transaction dossier to pre-qualified PE funds for a successful exit.",
   },
 ];
 
 const MISSION_PILLARS = [
   {
-    title: "To Institutionalize Mid-Market M&A",
-    desc: "Bringing the same financial and legal rigor typical of multi-billion dollar investment bank transactions to the healthcare middle-market."
+    title: "To Institutionalize Healthcare Growth & M&A",
+    desc: "Bringing the same strategic, financial, and marketing rigor typical of multi-billion dollar enterprises to the healthcare middle-market."
   },
   {
-    title: "To Provide Specialized Clinical Diligence",
-    desc: "Unlocking actual operational values by utilizing certified medical practitioners and software engineers in-house, rather than generalist consultants."
+    title: "To Provide Integrated Digital Innovation",
+    desc: "Unlocking actual enterprise value by deploying proprietary technology and performance marketing strategies in-house, rather than relying on fragmented vendors."
   }
 ];
 
@@ -71,10 +71,10 @@ export default function About() {
         <div className="wrap relative z-10 text-center max-w-[800px]">
           <div className="eyebrow justify-center">Who We Are</div>
           <h1 className="display tracking-[-0.01em]">
-            About <span className="font-display italic font-normal text-blue-brand">Insight Thinkers</span>
+            About <span className="font-display italic font-normal text-blue-brand">Insight Thinkers Agency</span>
           </h1>
           <p className="body-lg mt-6 max-w-[680px] mx-auto">
-            Insight Thinkers operates at the convergence of corporate finance, clinical medicine, and health technology. We believe specialized sectors demand specialized transaction structures.
+            Insight Thinkers Agency operates at the convergence of corporate finance, digital marketing, and health technology. We believe specialized sectors demand specialized growth and transaction structures.
           </p>
         </div>
       </section>
@@ -90,13 +90,13 @@ export default function About() {
           >
             <div className="eyebrow">Our Origin</div>
             <h2 className="display-sm">
-              Re-Architecting M&A for a <span className="font-display italic font-normal text-blue-brand">Complex Industry.</span>
+              Re-Architecting Growth & M&A for a <span className="font-display italic font-normal text-blue-brand">Complex Industry.</span>
             </h2>
             <p className="body-lg mt-6">
-              Insight Thinkers was founded to solve a major gap in the transaction market: <strong>traditional financial advisory firms are structured to be generalists.</strong> They rely on databases, outsource clinical due diligence, and treat technology as a checklist item.
+              Insight Thinkers Agency was founded to solve a major gap: <strong>traditional advisory firms are structured in silos.</strong> Financiers don't understand digital marketing, marketers don't understand clinical workflows, and developers don't understand transaction structuring.
             </p>
             <p className="body-md mt-4">
-              We built an integrated advisory model. Our team includes professionals with Chartered Accountancy expertise who understand transaction structuring, corporate secretaries who handle governance, medical advisors who audit clinical operations, and healthtech engineers who evaluate enterprise software.
+              We built an integrated agency model. Our multi-disciplinary team brings together investment banking rigor, performance marketing strategies, and robust software engineering to deliver end-to-end institutional value.
             </p>
           </motion.div>
 
@@ -108,10 +108,10 @@ export default function About() {
             className="bg-slate-brand border border-border-brand rounded-[16px] p-8 md:p-10 shadow-sh1"
           >
             <div className="font-display italic text-[1.4rem] leading-[1.7] text-[#0F172A] font-medium border-l-[3px] border-l-gold-brand pl-6">
-              "Healthcare assets cannot be valued on spreadsheets alone. Clinical quality, technology integration, and operational flow determine transaction outcome — not just EBITDA multiples."
+              "Healthcare and institutional growth cannot be siloed. Financial structures, patient acquisition strategies, and technology integrations must work in unison to create sustainable asset value."
             </div>
             <cite className="block mt-4 font-mono text-[0.62rem] tracking-[0.16em] uppercase text-muted-light not-italic font-semibold">
-              Vasanth S, Founder
+              Vasanth Sabavath, Founder
             </cite>
           </motion.div>
         </div>
@@ -152,10 +152,10 @@ export default function About() {
         <div className="max-w-[760px] mx-auto text-center mb-16">
           <div className="eyebrow justify-center">Sector Dedication</div>
           <h2 className="display-sm">
-            Why Healthcare <span className="font-display italic font-normal text-blue-brand">Advisory?</span>
+            Why Integrated <span className="font-display italic font-normal text-blue-brand">Advisory?</span>
           </h2>
           <p className="body-lg mt-6">
-            Healthcare transactions are highly regulated and operationally intensive. Patient health systems, EMR software infrastructure, medical practitioner agreements, and clinical licensing represent massive values and operational risks that generalist advisors fail to value properly.
+            Enterprise success requires more than just capital or a website. It requires a unified approach. By combining M&A advisory, healthcare technology, and digital marketing under one roof, we eliminate vendor friction and align every strategy directly with your valuation and revenue goals.
           </p>
         </div>
       </section>
