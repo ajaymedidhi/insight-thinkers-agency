@@ -4,13 +4,13 @@
 
 @theme {
   --color-ink: #07152B; /* Primary Navy */
-  --color-ink2: #0a1b3a; /* Darker Navy Shade for highlights */
-  --color-ink3: #0c2045; /* Deep Navy shade */
-  --color-blue-brand: #2563EB; /* Accent Blue */
-  --color-blue-hover: #1d4ed8;
-  --color-blue-light: #3b82f6;
-  --color-gold-brand: #c9a84c; /* Gold Accent */
-  --color-gold-hover: #b8922e;
+  --color-ink2: #0B1220; /* Dark Sections */
+  --color-ink3: #111a2e; /* Deep Navy shade */
+  --color-blue-brand: #334155; /* Secondary Slate */
+  --color-blue-hover: #1e293b;
+  --color-blue-light: #475569;
+  --color-gold-brand: #C8A96B; /* Champagne Gold Accent */
+  --color-gold-hover: #b49354;
   --color-slate-brand: #F8FAFC; /* Light Background */
   --color-slate-light: #f1f5f9; /* Slate 100 */
   --color-slate-border: #e2e8f0; /* Borders */
@@ -26,15 +26,15 @@
   --shadow-sh2: 0 10px 40px rgba(7, 21, 43, 0.08);
   --shadow-sh3: 0 20px 60px rgba(7, 21, 43, 0.12);
 
-  --animate-fade-up: fadeUp 0.8s cubic-bezier(.22,1,.36,1) both;
-  --animate-fade-in: fadeIn 0.5s ease both;
-  --animate-float: float 6s ease-in-out infinite;
-  --animate-pulse-slow: pulseScale 2s ease-in-out infinite;
-  --animate-shimmer: shimmer 2s linear infinite;
+  --animate-fade-up: fadeUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-fade-in: fadeIn 0.8s ease both;
+  --animate-float: float 8s ease-in-out infinite;
+  --animate-pulse-slow: pulseScale 3s ease-in-out infinite;
+  --animate-shimmer: shimmer 3s linear infinite;
   --animate-ticker: ticker 40s linear infinite;
 
   @keyframes fadeUp {
-    0% { opacity: 0; transform: translateY(32px); }
+    0% { opacity: 0; transform: translateY(16px); }
     100% { opacity: 1; transform: translateY(0); }
   }
   @keyframes fadeIn {
@@ -43,11 +43,11 @@
   }
   @keyframes float {
     0%, 100% { transform: translateY(0); }
-    50% { transform: translateY(-12px); }
+    50% { transform: translateY(-8px); }
   }
   @keyframes pulseScale {
     0%, 100% { transform: scale(1); opacity: 1; }
-    50% { transform: scale(1.6); opacity: 0.35; }
+    50% { transform: scale(1.2); opacity: 0.5; }
   }
   @keyframes shimmer {
     0% { background-position: 200% 0; }

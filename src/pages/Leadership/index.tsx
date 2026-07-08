@@ -21,20 +21,6 @@ const EXPERTISES = [
   }
 ];
 
-const PHILOSOPHIES = [
-  {
-    topic: "On mandate selectivity:",
-    quote: '"We decline more mandates than we accept. Every engagement carries our name. We do not accept mandates we cannot close with the rigour institutional buyers deserve."'
-  },
-  {
-    topic: "On network vs. relationships:",
-    quote: '"Our PE relationships were built through completed transactions — not networking events. Every fund manager we work with has seen us deliver."'
-  },
-  {
-    topic: "On the firm's architecture:",
-    quote: '"Most advisory firms outsource clinical intelligence. We have medical doctors on our team. Most consultants assess technology — we built the technology. That is the difference."'
-  }
-];
 
 const TIMELINE = [
   {
@@ -94,91 +80,131 @@ export default function Leadership() {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-white animate-fade-in">
+    <div className="bg-[#07152B] min-h-screen text-white animate-fade-in">
       <SEO
         title="Vasanth S - Founder Profile"
         description="Credentials and executive timeline of Vasanth S, Managing Director of Insight Thinkers Agency, specializing in hospital transaction structuring and technology due diligence."
         keywords="Vasanth S, Healthcare M&A Director, Hospital Deal advisory"
       />
+      
       {/* Leadership Hero */}
-      <section className="relative py-20 md:py-24 bg-slate-brand overflow-hidden border-b border-border-brand/80">
-        <div className="wrap">
-          <div className="grid grid-cols-1 lg:grid-cols-[380px_1fr] gap-12 lg:gap-20 items-center">
+      <section className="relative py-32 md:py-40 bg-[#07152B] overflow-hidden text-white border-b border-white/[0.05]">
+        <div className="absolute inset-0 z-0">
+          <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,rgba(200,169,107,0.08),transparent_50%)]" />
+          <div className="absolute bottom-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom_left,rgba(51,65,85,0.4),transparent_50%)]" />
+          <div 
+            className="absolute inset-0 opacity-[0.03]"
+            style={{
+              backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+              backgroundSize: "80px 80px",
+            }}
+          />
+        </div>
+        
+        <div className="wrap relative z-10 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.2fr_0.8fr] gap-16 items-center">
             
-            {/* Founder Card */}
+            {/* Biography */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+            >
+              <div className="flex items-center gap-4 mb-8">
+                <span className="w-12 h-[1px] bg-gold-brand" />
+                <span className="font-mono text-[0.7rem] tracking-[0.3em] uppercase text-gold-brand font-semibold">
+                  Executive Leadership
+                </span>
+              </div>
+              <h1 className="font-display text-[clamp(3.2rem,5vw,5.5rem)] leading-[1.05] font-semibold mb-8 text-white tracking-[-0.02em]">
+                Vasanth <br />
+                <span className="font-display italic font-light text-gold-brand">Sabavath.</span>
+              </h1>
+              <p className="text-[1.1rem] leading-[1.7] text-slate-300 font-light mt-6 max-w-[600px] mb-6">
+                Vasanth Sabavath founded Insight Thinkers Agency to build a firm that operates with the rigour of a boutique investment bank, the growth capabilities of a performance marketing agency, and the deep engineering of a software company.
+              </p>
+              <p className="text-[1rem] text-slate-400 font-light leading-relaxed max-w-[600px] mb-8">
+                His credentials derived directly from hands-on execution. He has personally led hospital transaction structures, formulated private equity partnerships, scaled digital marketing campaigns, and built clinical healthcare software deployed across 50+ medical institutions.
+              </p>
+              
+              <div className="flex flex-col sm:flex-row items-center gap-5 mt-10 w-full sm:w-auto">
+                <button
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-gold-brand text-[#07152B] border border-gold-brand font-semibold tracking-[0.1em] uppercase text-[0.75rem] px-10 py-4.5 transition-all duration-300 hover:bg-white hover:border-white shadow-[0_0_20px_rgba(200,169,107,0.2)] cursor-pointer rounded-[2px]"
+                  onClick={() => navigate("/contact")}
+                >
+                  Confidential Engagement
+                </button>
+              </div>
+            </motion.div>
+
+            {/* Premium Credentials Card */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-              className="relative bg-ink rounded-[20px] p-8 overflow-hidden text-white shadow-sh3 border border-white/[0.06]"
+              transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              className="relative bg-white/[0.02] border border-white/[0.08] backdrop-blur-md rounded-[4px] p-8 md:p-10"
             >
-              <div className="absolute top-[-60px] right-[-60px] w-[240px] h-[240px] rounded-full bg-[radial-gradient(circle,rgba(37,99,235,0.15)_0%,transparent_70%)] pointer-events-none" />
-              
-              <div className="relative w-full h-[220px] rounded-[12px] bg-gradient-to-br from-[#0c2045] to-ink overflow-hidden border border-white/[0.08] mb-6 flex items-center justify-center">
-                <div 
-                  className="absolute inset-0 opacity-15"
-                  style={{
-                    backgroundImage: "linear-gradient(rgba(255,255,255,0.15) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.15) 1px, transparent 1px)",
-                    backgroundSize: "20px 20px"
-                  }}
-                />
-                <div className="relative text-center z-10 select-none">
-                  <span className="font-display italic text-[6.5rem] font-bold text-white/5 tracking-tighter block leading-none">VS</span>
-                  <span className="font-mono text-[0.55rem] tracking-[0.24em] uppercase text-blue-light/60 font-semibold block mt-[-10px]">EXECUTIVE PROFILE</span>
-                </div>
-              </div>
-
-              <h3 className="font-display text-[1.8rem] font-semibold text-white mb-[3px]">
-                Vasanth Sabavath
-              </h3>
-              <div className="font-mono text-[0.61rem] tracking-[0.22em] uppercase text-slate-500 mb-6 font-semibold">
+              <div className="font-mono text-[0.65rem] tracking-[0.2em] uppercase text-slate-400 font-semibold mb-8 pb-4 border-b border-white/[0.08]">
                 Founder & Managing Partner
               </div>
-
-              <div className="flex flex-col gap-2 mt-6 pt-5 border-t border-white/[0.08]">
+              <div className="flex flex-col gap-5">
                 {[
                   "Forbes 30 Under 30 Asia Semi-Finalist",
                   "Harvard Business School Online Alumnus",
                   "Gandhi Fellowship & Amani Institute Fellow",
                   "Google–Udacity Scholar",
                 ].map((c) => (
-                  <div key={c} className="flex items-center gap-2 text-[0.76rem] text-slate-400">
-                    <span className="w-1 h-1 rounded-full bg-gold-brand shrink-0" />
-                    <span className="font-light">{c}</span>
+                  <div key={c} className="flex items-start gap-3 text-slate-300">
+                    <span className="w-[14px] h-[14px] mt-[4px] flex items-center justify-center rounded-full border border-gold-brand/40 bg-gold-brand/10 shrink-0">
+                      <span className="w-[4px] h-[4px] bg-gold-brand rounded-full" />
+                    </span>
+                    <span className="text-[0.95rem] font-light leading-snug">{c}</span>
                   </div>
                 ))}
               </div>
             </motion.div>
 
-            {/* Biography */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.8 }}
-            >
-              <div className="eyebrow">Managing Partner</div>
-              <h1 className="display-sm text-[#0F172A] mb-6">Founder & Managing Partner</h1>
-              <p className="body-lg text-muted-brand">
-                Vasanth Sabavath founded Insight Thinkers Agency to build a firm that operates with the rigor of a boutique investment bank, the growth capabilities of a performance marketing agency, and the deep engineering of a software company.
-              </p>
-              <p className="body-md mt-4 text-muted-brand">
-                His credentials derived directly from hands-on execution. He has personally led hospital transaction structures, formulated private equity partnerships, scaled digital marketing campaigns, and built clinical healthcare software deployed across 50+ medical institutions.
-              </p>
-              <p className="body-md mt-4 text-muted-brand">
-                Every mandate accepted by the firm receives Vasanth's personal direction, ensuring that growth targets, technological integrations, and financial structuring are seamlessly aligned to maximize enterprise value.
-              </p>
-            </motion.div>
           </div>
+        </div>
+      </section>
+
+      {/* Editorial Quote Section */}
+      <section className="py-32 bg-[#07152B] border-b border-white/[0.05]">
+        <div className="wrap max-w-[900px] mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <span className="font-display text-[6rem] text-gold-brand/10 leading-none block h-[40px]">"</span>
+            <h2 className="font-display text-[2.4rem] md:text-[3.2rem] leading-[1.3] text-white font-medium tracking-tight mb-10">
+              We decline more mandates than we accept. Every engagement carries our name. We do not accept mandates we cannot close with the rigour institutional buyers deserve.
+            </h2>
+            <div className="flex items-center justify-center gap-4">
+              <span className="w-8 h-[1px] bg-white/20" />
+              <span className="font-mono text-[0.7rem] tracking-[0.2em] uppercase text-slate-400 font-semibold">
+                Vasanth Sabavath
+              </span>
+              <span className="w-8 h-[1px] bg-white/20" />
+            </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Expertise Section */}
       <section className="section wrap">
         <div className="max-w-[700px] mx-auto text-center mb-16">
-          <div className="eyebrow justify-center">Specialized Fields</div>
-          <h2 className="display-sm">Domain Expertise</h2>
+          <div className="flex items-center gap-3 justify-center mb-4">
+            <span className="w-6 h-[1px] bg-gold-brand" />
+            <span className="font-mono text-[0.65rem] tracking-[0.25em] uppercase text-gold-brand font-semibold">
+              Specialized Fields
+            </span>
+            <span className="w-6 h-[1px] bg-gold-brand" />
+          </div>
+          <h2 className="font-display text-[2.5rem] text-white">Domain Expertise</h2>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -189,12 +215,12 @@ export default function Leadership() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1, duration: 0.6 }}
-              className="p-8 border border-border-brand bg-slate-brand rounded-[12px] shadow-sm hover:bg-white hover:shadow-sh1 transition-all duration-300"
+              className="p-8 bg-transparent border border-white/10 rounded-[2px] group hover:border-gold-brand/50 transition-all duration-300 flex flex-col"
             >
-              <h3 className="font-display text-[1.2rem] font-semibold text-[#0F172A] mb-3">
+              <h3 className="font-display text-[1.3rem] font-medium text-white mb-4 group-hover:text-gold-brand transition-colors duration-300">
                 {e.title}
               </h3>
-              <p className="text-[0.84rem] text-muted-brand leading-relaxed font-light">
+              <p className="text-[0.9rem] text-slate-300 leading-relaxed font-light">
                 {e.desc}
               </p>
             </motion.div>
@@ -202,87 +228,73 @@ export default function Leadership() {
         </div>
       </section>
 
-      {/* Leadership Philosophy */}
-      <section className="section bg-slate-brand border-y border-border-brand/80">
-        <div className="wrap">
-          <div className="max-w-[700px] mx-auto text-center mb-16">
-            <div className="eyebrow justify-center">Philosophy</div>
-            <h2 className="display-sm">Operating Philosophy</h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-[1000px] mx-auto">
-            {PHILOSOPHIES.map((p, idx) => (
-              <motion.div
-                key={p.topic}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: idx * 0.1, duration: 0.6 }}
-                className="bg-white border border-border-brand/80 border-l-[3px] border-l-blue-brand rounded-r-[10px] p-6 shadow-sm"
-              >
-                <div className="font-mono text-[0.62rem] tracking-[0.14em] uppercase text-slate-500 font-semibold mb-3">
-                  {p.topic}
-                </div>
-                <div className="font-display italic text-[1.1rem] leading-[1.6] text-ink font-medium">
-                  {p.quote}
-                </div>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Professional Journey timeline */}
-      <section className="section wrap border-b border-border-brand/60">
+      <section className="section wrap border-t border-white/[0.05]">
         <div className="max-w-[700px] mx-auto text-center mb-16">
-          <div className="eyebrow justify-center">Milestones</div>
-          <h2 className="display-sm">Professional Journey</h2>
+          <div className="flex items-center gap-3 justify-center mb-4">
+            <span className="w-6 h-[1px] bg-gold-brand" />
+            <span className="font-mono text-[0.65rem] tracking-[0.25em] uppercase text-gold-brand font-semibold">
+              Milestones
+            </span>
+            <span className="w-6 h-[1px] bg-gold-brand" />
+          </div>
+          <h2 className="font-display text-[2.5rem] text-white">Professional Journey</h2>
         </div>
 
-        <div className="max-w-[800px] mx-auto flex flex-col gap-0 relative pl-4 border-l border-border-brand/80">
+        <div className="max-w-[800px] mx-auto flex flex-col gap-0 relative pl-4 md:pl-0">
+          {/* Desktop central line */}
+          <div className="hidden md:block absolute top-0 bottom-0 left-1/2 w-[1px] bg-white/[0.08] transform -translate-x-1/2" />
+          
+          {/* Mobile left line */}
+          <div className="md:hidden absolute top-0 bottom-0 left-[15px] w-[1px] bg-white/[0.08]" />
+
           {TIMELINE.map((t, idx) => (
             <motion.div
               key={t.year}
-              initial={{ opacity: 0, x: -10 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1, duration: 0.6 }}
-              className="relative pb-10 last:pb-0 pl-6 group"
+              className={`relative pb-16 last:pb-0 md:flex ${idx % 2 === 0 ? 'md:flex-row' : 'md:flex-row-reverse'} items-center justify-between group pl-8 md:pl-0`}
             >
               {/* marker */}
-              <div className="absolute left-[-24px] top-[4px] w-2.5 h-2.5 rounded-full bg-white border-[2.5px] border-blue-brand ring-[3px] ring-blue-brand/10 transition-all duration-300 group-hover:scale-125" />
-              <div className="font-mono text-[0.68rem] tracking-[0.14em] text-blue-brand font-semibold mb-1">
-                {t.year}
+              <div className="absolute left-[-24px] md:left-1/2 top-[4px] md:top-1/2 w-[9px] h-[9px] rounded-full bg-[#07152B] border border-gold-brand transform md:-translate-x-1/2 md:-translate-y-1/2 group-hover:scale-150 group-hover:bg-gold-brand shadow-[0_0_10px_rgba(200,169,107,0.5)] transition-all duration-500 z-10" />
+              
+              <div className={`md:w-[45%] ${idx % 2 === 0 ? 'md:text-right md:pr-10' : 'md:text-left md:pl-10'}`}>
+                <div className="font-mono text-[0.65rem] tracking-[0.15em] text-gold-brand uppercase font-semibold mb-2">
+                  {t.year}
+                </div>
+                <h4 className="text-[1.2rem] font-display font-medium text-white mb-3">
+                  {t.title}
+                </h4>
+                <p className="text-[0.9rem] text-slate-300 leading-relaxed font-light">
+                  {t.desc}
+                </p>
               </div>
-              <h4 className="text-[1rem] font-semibold text-ink">
-                {t.title}
-              </h4>
-              <p className="text-[0.82rem] text-muted-brand mt-1.5 leading-relaxed font-light">
-                {t.desc}
-              </p>
+              <div className="hidden md:block md:w-[45%]" />
             </motion.div>
           ))}
         </div>
       </section>
 
       {/* Published Perspectives & Media & Speaking */}
-      <section className="section wrap">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <section className="section bg-[#0B1220] border-y border-white/[0.05]">
+        <div className="wrap grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24">
           {/* Perspectives */}
           <div>
-            <h3 className="font-display text-[1.5rem] font-semibold text-[#0F172A] mb-6">
+            <h3 className="font-display text-[1.8rem] font-medium text-white mb-8 pb-4 border-b border-white/[0.08]">
               Published Perspectives
             </h3>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-8">
               {PERSPECTIVES.map((p) => (
-                <div key={p.title} className="p-5 border border-border-brand bg-slate-brand rounded-[10px]">
-                  <span className="font-mono text-[0.58rem] tracking-[0.1em] text-blue-brand uppercase font-semibold">
+                <div key={p.title} className="group cursor-pointer">
+                  <span className="font-mono text-[0.6rem] tracking-[0.1em] text-gold-brand uppercase font-semibold">
                     {p.type}
                   </span>
-                  <h4 className="font-display text-[1.1rem] font-semibold text-ink mt-1.5 mb-3">
+                  <h4 className="font-display text-[1.4rem] font-medium text-white mt-3 mb-4 group-hover:text-gold-brand transition-colors duration-300">
                     {p.title}
                   </h4>
-                  <Link to={p.link} className="text-[0.76rem] text-blue-brand hover:text-blue-hover font-semibold uppercase no-underline">
+                  <Link to={p.link} className="inline-flex items-center gap-2 text-[0.76rem] text-slate-400 font-medium uppercase no-underline hover:text-white transition-colors duration-300">
                     Read Report →
                   </Link>
                 </div>
@@ -292,19 +304,19 @@ export default function Leadership() {
 
           {/* Media & Speaking */}
           <div>
-            <h3 className="font-display text-[1.5rem] font-semibold text-[#0F172A] mb-6">
-              Media & Speaking appearances
+            <h3 className="font-display text-[1.8rem] font-medium text-white mb-8 pb-4 border-b border-white/[0.08]">
+              Media Appearances
             </h3>
-            <div className="flex flex-col gap-4">
+            <div className="flex flex-col gap-8">
               {MEDIA_SPEAKING.map((m) => (
-                <div key={m.event} className="p-5 border border-border-brand bg-slate-brand rounded-[10px]">
-                  <span className="font-mono text-[0.58rem] tracking-[0.1em] text-gold-brand uppercase font-semibold">
+                <div key={m.event}>
+                  <span className="font-mono text-[0.6rem] tracking-[0.1em] text-slate-500 uppercase font-semibold">
                     {m.type}
                   </span>
-                  <h4 className="text-[0.94rem] font-semibold text-ink mt-1.5 mb-1">
+                  <h4 className="font-display text-[1.4rem] font-medium text-white mt-3 mb-3">
                     {m.event}
                   </h4>
-                  <p className="text-[0.8rem] text-muted-brand font-light">
+                  <p className="text-[0.95rem] text-slate-300 font-light">
                     {m.topic}
                   </p>
                 </div>
@@ -316,18 +328,19 @@ export default function Leadership() {
 
       {/* Bottom CTA */}
       <section className="section bg-[#07152B] text-white relative overflow-hidden">
+        <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.03] mix-blend-overlay" />
         <div className="wrap relative z-10 text-center max-w-[700px]">
-          <h3 className="font-display text-[2rem] font-semibold text-white mb-4">
-            Schedule a Conversation
+          <h3 className="font-display text-[2.5rem] font-medium text-white mb-6">
+            Initiate a Confidential Dialogue
           </h3>
-          <p className="text-[0.9rem] text-slate-300 leading-relaxed mb-8 max-w-[500px] mx-auto font-light">
-            If you represent a capital fund or are planning an exit structure, schedule a confidential consultation.
+          <p className="text-[1.05rem] text-slate-300 leading-relaxed mb-10 max-w-[500px] mx-auto font-light">
+            If you represent a capital fund or are planning an exit structure, schedule a confidential consultation with our managing partner.
           </p>
           <button
             onClick={() => navigate("/contact")}
-            className="inline-flex items-center gap-2 bg-blue-brand hover:bg-blue-hover text-white font-semibold tracking-[0.05em] uppercase text-[0.82rem] px-8 py-4.5 rounded-[6px] transition-all duration-300 hover:-translate-y-[2px]"
+            className="inline-flex items-center gap-3 bg-white/5 text-white border border-white/20 font-medium tracking-[0.1em] uppercase text-[0.75rem] px-10 py-4.5 transition-all duration-500 hover:bg-white/10 hover:border-gold-brand hover:text-gold-brand cursor-pointer rounded-[2px]"
           >
-            Schedule Session
+            Schedule Consultation
           </button>
         </div>
       </section>

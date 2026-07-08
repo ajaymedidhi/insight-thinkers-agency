@@ -1,190 +1,164 @@
 import { useNavigate } from "react-router-dom";
-import { Icons } from "../Icons";
 import { motion } from "framer-motion";
+import { Icons } from "../Icons";
 
 const HERO_STATS = [
-  { val: "50", sfx: "+", label: "Healthcare institutions\nserved across India" },
-  { val: "6", sfx: "+", label: "Proprietary AI health-\ntech products built" },
-  { val: "₹120", sfx: "Cr+", label: "Gross asset value\nunder active advisory" },
-  { val: "Pan", sfx: "-Asia", label: "Institutional PE\nnetwork coverage" },
+  { val: "₹120", sfx: "Cr+", label: "Active Mandates" },
+  { val: "50", sfx: "+", label: "Healthcare Institutions Served" },
+  { val: "50", sfx: "+", label: "Hospitals Supported" },
+  { val: "Multi", sfx: "-disciplinary", label: "Advisory Platform" },
+];
+
+const PILLARS = [
+  { icon: Icons.Finance, label: "M&A", delay: 0 },
+  { icon: Icons.Globe, label: "Capital", delay: 0.2 },
+  { icon: Icons.Medical, label: "Healthcare", delay: 0.4 },
+  { icon: Icons.AI, label: "Technology", delay: 0.6 },
 ];
 
 export default function Hero() {
   const navigate = useNavigate();
 
-  // Animation Variants
   const containerVariants = {
     hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.1,
-      },
-    },
+    visible: { transition: { staggerChildren: 0.15 } },
   };
 
   const itemVariants = {
-    hidden: { opacity: 0, y: 24 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.8,
-        ease: "easeOut",
-      },
-    },
+    hidden: { opacity: 0, y: 30 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.22, 1, 0.36, 1] } },
   } as any;
 
   return (
-    <section className="relative min-h-[90vh] flex items-center pt-6 pb-16 md:pt-8 md:pb-24 bg-slate-brand">
-      {/* Background Radial Glows */}
-      <div className="absolute top-[-10%] right-[-10%] w-[80vw] h-[80vw] max-w-[900px] max-h-[900px] rounded-full bg-[radial-gradient(circle,rgba(37,99,235,0.06)_0%,transparent_65%)] pointer-events-none" />
-      <div className="absolute bottom-[-15%] left-[-5%] w-[60vw] h-[60vw] max-w-[700px] max-h-[700px] rounded-full bg-[radial-gradient(circle,rgba(201,168,76,0.035)_0%,transparent_65%)] pointer-events-none" />
+    <section className="relative min-h-screen flex flex-col justify-center pt-32 pb-16 md:pt-40 md:pb-24 bg-[#07152B] overflow-hidden">
+      {/* Sophisticated Background Layers */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,rgba(200,169,107,0.08),transparent_50%)]" />
+        <div className="absolute bottom-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom_left,rgba(51,65,85,0.4),transparent_50%)]" />
+        {/* Architectural Grid System */}
+        <div 
+          className="absolute inset-0 opacity-[0.03]"
+          style={{
+            backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+            backgroundSize: "80px 80px",
+          }}
+        />
+      </div>
 
-      {/* Grid Pattern with subtle opacity */}
-      <div
-        className="absolute inset-0 pointer-events-none opacity-40"
-        style={{
-          backgroundImage: `linear-gradient(rgba(7,21,43,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(7,21,43,0.025) 1px, transparent 1px)`,
-          backgroundSize: "64px 64px",
-        }}
-      />
-
-      <div className="relative z-10 wrap w-full">
-        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_450px] gap-12 lg:gap-[80px] items-center">
+      <div className="relative z-10 wrap w-full flex-grow flex flex-col justify-center">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-20 items-center">
           
-          {/* Left Column: Headings & Text */}
-          <motion.div
-            variants={containerVariants}
-            initial="hidden"
-            animate="visible"
-            className="flex flex-col items-start"
-          >
-            {/* Tag chip */}
-            <motion.div
-              variants={itemVariants}
-              className="inline-flex items-center gap-2 bg-[#F1F5F9] border border-border-brand/80 rounded-full px-4 py-1.5 mb-[18px]"
-            >
-              <span className="w-1.5 h-1.5 bg-blue-brand rounded-full animate-pulse-slow" />
-              <span className="font-mono text-[0.62rem] tracking-[0.2em] uppercase text-muted-brand font-semibold">
-                NDA-First Transaction Protocol
+          {/* Left Column - Text Content */}
+          <motion.div variants={containerVariants} initial="hidden" animate="visible" className="flex flex-col items-start text-white">
+            <motion.div variants={itemVariants} className="flex items-center gap-4 mb-8">
+              <span className="w-12 h-[1px] bg-gold-brand" />
+              <span className="font-mono text-[0.7rem] tracking-[0.3em] uppercase text-gold-brand font-semibold">
+                Institutional Advisory
               </span>
             </motion.div>
 
-            {/* Display Title */}
-            <motion.h1 variants={itemVariants} className="display tracking-[-0.02em]">
-              We Architect Healthcare <br />
-              <span className="font-display italic font-normal text-blue-brand">Transactions to Close.</span>
+            <motion.h1 variants={itemVariants} className="font-display text-[clamp(3.2rem,5vw,5.5rem)] leading-[1.05] font-medium tracking-[-0.02em] text-white">
+              Executing <br />
+              <span className="font-display italic font-light text-gold-brand">High-Value</span><br />
+              Transactions.
             </motion.h1>
 
-            {/* Subtitle / Copy */}
-            <motion.p variants={itemVariants} className="body-lg mt-4 max-w-[540px]">
-              Insight Thinkers Agency is a multi-disciplinary firm delivering <strong>institutional-grade M&A advisory, equity financing, AI-powered healthcare technology, and digital marketing</strong> — trusted by PE funds, hospital groups, and sophisticated investors across India and Asia.
+            <motion.p variants={itemVariants} className="text-[1.1rem] leading-[1.7] text-slate-300 font-light mt-8 max-w-[500px]">
+              Integrating corporate finance, clinical operations, and digital strategy to execute premium healthcare mandates.
             </motion.p>
 
-            {/* CTA Buttons */}
-            <motion.div variants={itemVariants} className="flex items-center gap-3.5 flex-wrap mt-[26px]">
+            <motion.div variants={itemVariants} className="flex flex-col sm:flex-row items-center gap-5 mt-10 w-full sm:w-auto">
               <button
-                className="inline-flex items-center gap-2 bg-blue-brand hover:bg-blue-hover text-white font-semibold tracking-[0.05em] uppercase text-[0.82rem] px-7 py-4 rounded-[6px] transition-all duration-300 shadow-[0_4px_18px_rgba(37,99,235,0.22)] hover:-translate-y-[2px] hover:shadow-[0_8px_30px_rgba(37,99,235,0.32)]"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-gold-brand text-[#07152B] border border-gold-brand font-semibold tracking-[0.1em] uppercase text-[0.75rem] px-10 py-4.5 transition-all duration-300 hover:bg-white hover:border-white shadow-[0_0_20px_rgba(200,169,107,0.2)] cursor-pointer rounded-[2px]"
                 onClick={() => navigate("/contact")}
               >
-                Confidential Inquiry
-                <Icons.Arr className="w-[13px] h-[13px] transition-transform group-hover:translate-x-1" />
+                Confidential Engagement
               </button>
               <button
-                className="inline-flex items-center gap-2 bg-white text-ink border border-border-brand/80 font-semibold tracking-[0.05em] uppercase text-[0.82rem] px-7 py-4 rounded-[6px] transition-all duration-300 hover:border-ink hover:bg-ink hover:text-white shadow-sh1 hover:-translate-y-[2px]"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-transparent text-slate-300 font-medium tracking-[0.1em] uppercase text-[0.75rem] px-4 py-4.5 transition-all duration-300 hover:text-white cursor-pointer relative group"
                 onClick={() => navigate("/services")}
               >
-                Explore Services
+                Explore Divisions
+                <span className="absolute bottom-3 left-4 right-4 h-[1px] bg-slate-300/30 group-hover:bg-white transition-colors duration-500" />
               </button>
             </motion.div>
-
-            {/* Institutional Stat Metrics */}
-            <motion.div
-              variants={itemVariants}
-              className="grid grid-cols-2 sm:grid-cols-4 gap-6 w-full mt-10 pt-8 border-t border-border-brand/80"
-            >
-              {HERO_STATS.map((s) => (
-                <div key={s.label} className="flex flex-col items-start border-l border-border-brand/80 pl-4 first:border-l-0 first:pl-0">
-                  <div className="font-display text-[2.2rem] font-bold text-ink leading-none mb-1">
-                    {s.val}
-                    <span className="text-blue-brand italic font-normal font-display">{s.sfx}</span>
-                  </div>
-                  <div className="text-[0.74rem] text-muted-brand leading-relaxed whitespace-pre-line font-light">
-                    {s.label}
-                  </div>
-                </div>
-              ))}
-            </motion.div>
           </motion.div>
 
-          {/* Right Column: Terminal Panel Card */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ duration: 1, ease: [0.22, 1, 0.36, 1], delay: 0.2 }}
-            className="hidden lg:block relative"
+          {/* Right Column - Visual Focal Point */}
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 1, delay: 0.5 }}
+            className="hidden lg:flex relative w-full h-[500px] items-center justify-center"
           >
-            {/* Soft decorative glow behind the terminal card */}
-            <div className="absolute inset-0 bg-blue-brand/5 blur-[80px] rounded-full pointer-events-none" />
-
-            <motion.div
-              whileHover={{ y: -6, transition: { duration: 0.3 } }}
-              className="relative bg-ink rounded-[20px] shadow-sh3 border border-white/[0.08] overflow-hidden backdrop-blur-md"
-            >
-              {/* Terminal Title Bar */}
-              <div className="flex items-center justify-between px-5 py-4 border-b border-white/[0.06] bg-white/[0.02]">
-                <div className="flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-white/10" />
-                  <span className="text-[0.8rem] font-medium text-slate-300 font-mono tracking-wider">TRANSACTION DESK</span>
-                </div>
-                <span className="flex items-center gap-2 bg-[#15803d]/20 border border-[#bbf7d0]/10 rounded-full px-3 py-1">
-                  <span className="w-1.5 h-1.5 bg-[#22c55e] rounded-full animate-pulse-slow" />
-                  <span className="font-mono text-[0.58rem] tracking-[0.14em] text-[#22c55e] uppercase font-semibold">Live Feed</span>
-                </span>
-              </div>
-
-              {/* Grid Content */}
-              <div className="grid grid-cols-2 border-b border-white/[0.06]">
-                {/* Cell 1 */}
-                <div className="p-6 border-r border-b border-white/[0.06] hover:bg-white/[0.01] transition-colors">
-                  <div className="text-[1.2rem] mb-2">📈</div>
-                  <div className="font-display text-[1.55rem] font-semibold text-white leading-none">Active</div>
-                  <div className="text-[0.7rem] text-slate-500 mt-2 font-mono tracking-wider uppercase">M&A Mandates in Healthcare</div>
-                  <div className="text-[0.66rem] text-slate-400 mt-1 font-light">Running Hospitals · South India</div>
-                </div>
-                {/* Cell 2 (Accent Dark/Highlights) */}
-                <div className="p-6 border-b border-white/[0.06] bg-[#0c2045]/30 hover:bg-[#0c2045]/40 transition-colors">
-                  <div className="text-[1.2rem] mb-2">✅</div>
-                  <div className="font-display text-[1.55rem] font-semibold text-white leading-none">Proven</div>
-                  <div className="text-[0.7rem] text-blue-light/70 mt-2 font-mono tracking-wider uppercase">M&A Transactions Completed</div>
-                  <div className="text-[0.66rem] text-slate-300 mt-1 font-light">Founder · Personally Executed</div>
-                </div>
-                {/* Cell 3 */}
-                <div className="p-6 border-r border-white/[0.06] hover:bg-white/[0.01] transition-colors">
-                  <div className="text-[1.2rem] mb-2">🏥</div>
-                  <div className="font-display text-[1.55rem] font-semibold text-white leading-none">50+</div>
-                  <div className="text-[0.7rem] text-slate-500 mt-2 font-mono tracking-wider uppercase">Hospitals & Diagnostic Centers</div>
-                  <div className="text-[0.66rem] text-slate-400 mt-1 font-light">Marketing Strategy · Served</div>
-                </div>
-                {/* Cell 4 */}
-                <div className="p-6 hover:bg-white/[0.01] transition-colors">
-                  <div className="text-[1.2rem] mb-2">🤖</div>
-                  <div className="font-display text-[1.55rem] font-semibold text-white leading-none">6+</div>
-                  <div className="text-[0.7rem] text-slate-500 mt-2 font-mono tracking-wider uppercase">In-House AI HealthTech Products</div>
-                  <div className="text-[0.66rem] text-slate-400 mt-1 font-light">HMS · PACS · EMR · Enterprise</div>
+            {/* Center Core */}
+            <div className="absolute w-[240px] h-[240px] rounded-full border-[1px] border-gold-brand/20 flex items-center justify-center">
+              <div className="w-[160px] h-[160px] rounded-full border-[1px] border-white/10 flex items-center justify-center">
+                <div className="w-[80px] h-[80px] rounded-full bg-gold-brand/10 border-[1px] border-gold-brand/30 shadow-[0_0_30px_rgba(200,169,107,0.15)] flex items-center justify-center">
+                  <div className="w-2 h-2 rounded-full bg-gold-brand animate-pulse" />
                 </div>
               </div>
+            </div>
 
-              <div className="flex items-center gap-3.5 p-5 bg-[#0a1628]">
-                <span className="text-[16px] shrink-0">🔒</span>
-                <div className="text-[0.73rem] text-slate-400 leading-relaxed font-light">
-                  <strong className="text-white font-semibold font-mono">NDA-First Engagement.</strong> All mandates shared exclusively under executed confidentiality agreements. No exceptions.
-                </div>
-              </div>
-            </motion.div>
+            {/* Orbiting Pillars */}
+            {PILLARS.map((pillar, i) => {
+              const Icon = pillar.icon;
+              const angle = (i * 90) * (Math.PI / 180);
+              const radius = 160;
+              const x = Math.cos(angle) * radius;
+              const y = Math.sin(angle) * radius;
+
+              return (
+                <motion.div
+                  key={pillar.label}
+                  initial={{ opacity: 0, scale: 0, x: 0, y: 0 }}
+                  animate={{ opacity: 1, scale: 1, x, y }}
+                  transition={{ 
+                    duration: 1, 
+                    delay: 0.8 + pillar.delay,
+                    type: "spring",
+                    stiffness: 50
+                  }}
+                  className="absolute flex flex-col items-center justify-center gap-3"
+                >
+                  <div className="w-14 h-14 rounded-full bg-[#0B1220] border border-white/10 flex items-center justify-center text-gold-brand shadow-[0_4px_20px_rgba(0,0,0,0.5)]">
+                    <Icon className="w-5 h-5" />
+                  </div>
+                  <span className="font-mono text-[0.6rem] tracking-[0.2em] uppercase text-slate-300 font-medium bg-[#07152B]/80 px-2 py-1 rounded backdrop-blur-sm border border-white/5">
+                    {pillar.label}
+                  </span>
+                </motion.div>
+              );
+            })}
+
+            {/* Connecting Lines */}
+            <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20" style={{ zIndex: -1 }}>
+              <line x1="50%" y1="20%" x2="50%" y2="80%" stroke="#C8A96B" strokeWidth="1" strokeDasharray="4 4" />
+              <line x1="20%" y1="50%" x2="80%" y2="50%" stroke="#C8A96B" strokeWidth="1" strokeDasharray="4 4" />
+            </svg>
           </motion.div>
-
         </div>
+
+        {/* Institutional Credibility Bar */}
+        <motion.div 
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6, duration: 0.8 }}
+          className="mt-20 lg:mt-24 pt-12 border-t border-white/[0.08]"
+        >
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4">
+            {HERO_STATS.map((s, idx) => (
+              <div key={idx} className="flex flex-col items-start relative before:content-[''] md:before:absolute md:before:left-0 md:before:top-2 md:before:bottom-2 md:before:w-[1px] md:before:bg-white/[0.08] first:before:hidden md:pl-8 first:pl-0">
+                <div className="font-display text-[2rem] md:text-[2.5rem] font-medium text-white leading-none mb-2">
+                  {s.val}<span className="text-gold-brand italic font-normal font-display text-[1.8rem] md:text-[2.2rem]">{s.sfx}</span>
+                </div>
+                <div className="text-[0.7rem] text-slate-400 uppercase tracking-[0.1em] font-medium max-w-[140px] leading-[1.4]">
+                  {s.label}
+                </div>
+              </div>
+            ))}
+          </div>
+        </motion.div>
       </div>
     </section>
   );

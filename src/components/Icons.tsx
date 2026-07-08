@@ -2,82 +2,131 @@ import React from "react";
 
 export const Icons = {
   Logo: (props: React.SVGProps<SVGSVGElement>) => (
-    <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
-      {/* Dark Navy Square Background */}
-      <rect width="200" height="200" fill="#0D2146" />
+    <svg viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg" {...props}>
+      {/* Dark Navy Background */}
+      <rect width="400" height="400" fill="#020B1A" />
       
-      {/* Head Profile facing left (Accent Blue #2563EB) */}
+      {/* Lightbulb / Head Silhouette */}
       <path 
-        d="M 132,115 
-           C 132,108 128,96 128,88 
-           C 128,74 138,64 138,50 
-           C 138,29 122,15 102,15 
-           C 81,15 72,29 72,50 
-           C 72,55 73,58 75,62 
-           L 67,65 
-           L 73,69 
-           L 69,72 
-           L 74,75 
-           L 71,78 
-           C 75,84 81,88 88,88 
-           L 95,88 
-           L 95,115 
+        d="M 160,200 
+           C 160,180 150,150 150,130 
+           C 150,90 175,60 215,60 
+           C 255,60 280,90 280,130 
+           C 280,160 260,180 255,200
+           L 255,215
+           L 245,215
+           L 245,225
+           L 255,225
+           L 255,235
+           L 220,235
+           L 220,215
+           L 180,215
+           L 180,235
+           L 165,235
            Z" 
-        fill="#2563EB" 
-      />
-      
-      {/* Brain Cutout inside head (Dark Navy #0D2146) */}
-      <path 
-        d="M 94,40 
-           C 90,38 90,32 94,29 
-           C 98,25 104,25 106,29 
-           C 109,25 115,25 117,29 
-           C 121,32 121,38 117,41 
-           C 121,45 121,50 116,53 
-           C 112,55 106,55 104,51 
-           C 102,55 96,55 93,51 
-           C 90,49 90,44 94,40 
-           Z" 
-        fill="#0D2146" 
-      />
-      
-      {/* Framed Text Box */}
-      {/* Outer Border */}
-      <rect x="12" y="128" width="176" height="52" fill="none" stroke="#FFFFFF" strokeWidth="2.5" />
-      
-      {/* Divider line */}
-      <line x1="12" y1="162" x2="188" y2="162" stroke="#FFFFFF" strokeWidth="2.5" />
-      
-      {/* Bottom Compartment Background (White) */}
-      <rect x="13.25" y="163.25" width="173.5" height="15.5" fill="#FFFFFF" />
-      
-      {/* Top Text: "Insight Thinkers Agency" */}
-      <text 
-        x="100" 
-        y="151.5" 
         fill="#FFFFFF" 
+      />
+
+      {/* Lightbulb Right Outline & Brain area (Blue) */}
+      <path 
+        d="M 215,60 
+           C 255,60 280,90 280,130 
+           C 280,160 260,180 255,200
+           L 255,235
+           L 220,235
+           L 220,215
+           L 215,215
+           Z" 
+        fill="transparent"
+        stroke="#1877F2"
+        strokeWidth="6"
+      />
+
+      {/* Brain Icon Inside (Blue) */}
+      <path 
+        d="M 185,120 
+           C 175,115 175,100 185,95 
+           C 195,85 210,85 215,95 
+           C 220,85 235,85 245,95 
+           C 255,100 255,115 245,120 
+           C 255,130 255,145 245,150 
+           C 235,155 220,155 215,145 
+           C 210,155 195,155 185,150 
+           C 175,145 175,130 185,120 
+           Z" 
+        fill="transparent" 
+        stroke="#1877F2"
+        strokeWidth="4"
+        strokeLinejoin="round"
+      />
+      {/* Brain Lines */}
+      <line x1="215" y1="95" x2="215" y2="145" stroke="#1877F2" strokeWidth="4" />
+      <path d="M 195,120 Q 205,120 215,115" stroke="#1877F2" strokeWidth="3" fill="none" />
+      <path d="M 235,120 Q 225,120 215,115" stroke="#1877F2" strokeWidth="3" fill="none" />
+
+      {/* Lightbulb Base Details */}
+      <rect x="225" y="240" width="30" height="5" rx="2" fill="#1877F2" />
+      <rect x="228" y="248" width="24" height="5" rx="2" fill="#1877F2" />
+      
+      {/* Text: INSIGHT THINKERS */}
+      <text 
+        x="200" 
+        y="290" 
+        fill="#F4F6FB" 
         fontFamily="Georgia, serif" 
-        fontSize="14.5" 
+        fontSize="34" 
         textAnchor="middle" 
         fontWeight="bold"
-        letterSpacing="0.2"
+        letterSpacing="0.1em"
       >
-        Insight Thinkers Agency
+        INSIGHT
+      </text>
+      <text 
+        x="200" 
+        y="330" 
+        fill="#F4F6FB" 
+        fontFamily="Georgia, serif" 
+        fontSize="34" 
+        textAnchor="middle" 
+        fontWeight="bold"
+        letterSpacing="0.1em"
+      >
+        THINKERS
+      </text>
+
+      {/* Text: AGENCY with lines */}
+      <line x1="100" y1="350" x2="150" y2="350" stroke="#1877F2" strokeWidth="2" />
+      <text 
+        x="200" 
+        y="355" 
+        fill="#1877F2" 
+        fontFamily="Inter, system-ui, sans-serif" 
+        fontSize="16" 
+        textAnchor="middle" 
+        fontWeight="600"
+        letterSpacing="0.3em"
+      >
+        AGENCY
+      </text>
+      <line x1="250" y1="350" x2="300" y2="350" stroke="#1877F2" strokeWidth="2" />
+
+      {/* Text: TURNING INSIGHT INTO IMPACT */}
+      <text 
+        x="200" 
+        y="385" 
+        fill="#FFFFFF" 
+        fontFamily="Inter, system-ui, sans-serif" 
+        fontSize="14" 
+        textAnchor="middle" 
+        fontWeight="500"
+        letterSpacing="0.1em"
+      >
+        TURNING <tspan fill="#1877F2">INSIGHT</tspan> INTO <tspan fill="#1877F2">IMPACT</tspan>
       </text>
       
-      {/* Bottom Text: "Marketing with a Thinker's Touch" */}
-      <text 
-        x="100" 
-        y="174" 
-        fill="#0D2146" 
-        fontFamily="Inter, system-ui, sans-serif" 
-        fontSize="7.5" 
-        textAnchor="middle" 
-        fontWeight="800"
-        letterSpacing="0.4"
-      >
-        Marketing with a Thinker's Touch
-      </text>
+      {/* Arrow Arc */}
+      <path d="M 120,395 Q 200,385 280,395" fill="none" stroke="#1877F2" strokeWidth="1.5" />
+      <polygon points="280,395 275,392 278,390" fill="#1877F2" />
     </svg>
   ),
   Arr: (props: React.SVGProps<SVGSVGElement>) => (

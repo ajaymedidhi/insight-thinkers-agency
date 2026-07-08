@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Icons } from "../Icons";
 
 const NAV_ITEMS = [
   { name: "Home", path: "/" },
@@ -38,10 +37,9 @@ export default function Footer() {
           
           {/* Logo & Narrative Column */}
           <div className="flex flex-col items-start">
-            <Link to="/" className="flex items-center gap-3.5 mb-5 select-none no-underline">
-              <Icons.Logo className="w-[48px] h-[48px] rounded-[4px] shadow-sm shrink-0" />
-              <div className="flex items-center">
-                <div className="font-semibold text-[0.94rem] text-white leading-[1.1]">Insight Thinkers Agency</div>
+            <Link to="/" className="flex items-center mb-6 select-none no-underline group">
+              <div className="font-display text-[1.4rem] text-white tracking-wide font-medium leading-none group-hover:text-gold-brand transition-colors duration-500">
+                Insight Thinkers
               </div>
             </Link>
             <p className="text-[0.84rem] text-slate-400 leading-[1.8] max-w-[290px] mb-6 font-light">
@@ -73,7 +71,7 @@ export default function Footer() {
                 <li key={n.name}>
                   <Link
                     to={n.path}
-                    className="text-[0.84rem] text-slate-400 no-underline cursor-pointer transition-all duration-300 hover:text-blue-light hover:translate-x-1 font-light inline-block"
+                    className="text-[0.84rem] text-slate-400 no-underline cursor-pointer transition-all duration-300 hover:text-white hover:translate-x-1 font-light inline-block"
                   >
                     {n.name}
                   </Link>
@@ -100,7 +98,7 @@ export default function Footer() {
                 <li key={s}>
                   <Link
                     to="/services"
-                    className="text-[0.84rem] text-slate-400 no-underline cursor-pointer transition-all duration-300 hover:text-blue-light hover:translate-x-1 font-light inline-block"
+                    className="text-[0.84rem] text-slate-400 no-underline cursor-pointer transition-all duration-300 hover:text-white hover:translate-x-1 font-light inline-block"
                   >
                     {s}
                   </Link>
@@ -120,7 +118,7 @@ export default function Footer() {
               <li className="text-[0.84rem] text-slate-400 font-light font-mono text-[0.74rem]">NDA Enforced</li>
               <li>
                 <button
-                  className="text-[0.84rem] text-blue-light/75 cursor-pointer bg-transparent border-none p-0 transition-all duration-300 hover:text-blue-light font-medium text-left"
+                  className="text-[0.84rem] text-gold-brand/80 cursor-pointer bg-transparent border-none p-0 transition-all duration-300 hover:text-gold-brand font-medium text-left"
                   onClick={() => navigate("/contact")}
                 >
                   Confidential Inquiry →
@@ -138,7 +136,7 @@ export default function Footer() {
               Quarterly reports on healthcare valuations, transactions, and PE flows.
             </p>
             {subscribed ? (
-              <div className="text-[0.84rem] text-[#22c55e] bg-[#22c55e]/10 border border-[#22c55e]/20 p-3.5 rounded-[6px] font-light">
+              <div className="text-[0.84rem] text-gold-brand bg-gold-brand/5 border border-gold-brand/20 p-3.5 rounded-[2px] font-light">
                 ✓ Registered for Quarterly Briefings.
               </div>
             ) : (
@@ -152,11 +150,11 @@ export default function Footer() {
                       setError("");
                     }}
                     placeholder="corporate@email.com"
-                    className="flex-1 p-2.5 border border-white/10 rounded-[6px] bg-white/5 text-[0.84rem] text-white outline-none focus:border-blue-brand focus:ring-1 focus:ring-blue-brand/20 transition-all"
+                    className="flex-1 p-2.5 border border-white/10 rounded-[2px] bg-transparent text-[0.84rem] text-white outline-none focus:border-gold-brand focus:ring-1 focus:ring-gold-brand/20 transition-all"
                   />
                   <button
                     type="submit"
-                    className="bg-blue-brand hover:bg-blue-hover text-white px-4 rounded-[6px] text-[0.78rem] font-semibold uppercase tracking-[0.06em] border-none cursor-pointer"
+                    className="bg-white/5 border border-white/20 hover:border-gold-brand hover:text-gold-brand text-white px-5 rounded-[2px] text-[0.7rem] font-semibold uppercase tracking-[0.1em] cursor-pointer transition-all duration-300"
                   >
                     Join
                   </button>

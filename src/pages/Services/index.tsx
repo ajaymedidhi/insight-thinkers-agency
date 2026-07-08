@@ -149,23 +149,72 @@ export default function Services() {
   const navigate = useNavigate();
 
   return (
-    <div className="bg-white animate-fade-in">
+    <div className="bg-[#07152B] text-white animate-fade-in">
       {/* Services Hero */}
-      <section className="relative py-28 md:py-32 bg-slate-brand overflow-hidden border-b border-border-brand/80">
-        <div className="absolute inset-0 pointer-events-none opacity-30"
-          style={{
-            backgroundImage: "linear-gradient(rgba(7,21,43,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(7,21,43,0.02) 1px, transparent 1px)",
-            backgroundSize: "64px 64px"
-          }}
-        />
-        <div className="wrap relative z-10 text-center max-w-[800px]">
-          <div className="eyebrow justify-center">What We Do</div>
-          <h1 className="display tracking-[-0.01em]">
-            Integrated Growth <span className="font-display italic font-normal text-blue-brand">Services</span>
-          </h1>
-          <p className="body-lg mt-6 max-w-[680px] mx-auto">
-            Multi-disciplinary advisory and execution for healthcare enterprises. From M&A structuring to digital marketing and technology deployment.
-          </p>
+      <section className="relative py-32 md:py-40 bg-[#07152B] overflow-hidden border-b border-white/[0.05]">
+        <div className="absolute inset-0 z-0">
+          <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,rgba(200,169,107,0.08),transparent_50%)]" />
+          <div className="absolute bottom-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom_left,rgba(51,65,85,0.4),transparent_50%)]" />
+          <div 
+            className="absolute inset-0 opacity-[0.03]"
+            style={{
+              backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+              backgroundSize: "80px 80px",
+            }}
+          />
+        </div>
+
+        <div className="wrap relative z-10 w-full">
+          <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-20 items-center">
+            
+            {/* Left Column */}
+            <motion.div initial={{ opacity: 0, y: 30 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }} className="flex flex-col items-start text-white">
+              <div className="flex items-center gap-4 mb-8">
+                <span className="w-12 h-[1px] bg-gold-brand" />
+                <span className="font-mono text-[0.7rem] tracking-[0.3em] uppercase text-gold-brand font-semibold">
+                  What We Do
+                </span>
+              </div>
+
+              <h1 className="font-display text-[clamp(3.2rem,5vw,5.5rem)] leading-[1.05] font-medium tracking-[-0.02em] text-white">
+                Integrated <br />
+                <span className="font-display italic font-light text-gold-brand">Growth</span><br />
+                Services.
+              </h1>
+
+              <p className="text-[1.1rem] leading-[1.7] text-slate-300 font-light mt-8 max-w-[500px]">
+                Multi-disciplinary advisory and execution for healthcare enterprises. From M&A structuring to digital marketing and technology deployment.
+              </p>
+
+              <div className="flex flex-col sm:flex-row items-center gap-5 mt-10 w-full sm:w-auto">
+                <button
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-3 bg-gold-brand text-[#07152B] border border-gold-brand font-semibold tracking-[0.1em] uppercase text-[0.75rem] px-10 py-4.5 transition-all duration-300 hover:bg-white hover:border-white shadow-[0_0_20px_rgba(200,169,107,0.2)] cursor-pointer rounded-[2px]"
+                  onClick={() => navigate("/contact")}
+                >
+                  Confidential Engagement
+                </button>
+              </div>
+            </motion.div>
+
+            {/* Right Column - Visual Focal Point */}
+            <motion.div 
+              initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1, delay: 0.5 }}
+              className="hidden lg:flex relative w-full h-[400px] items-center justify-center"
+            >
+              {/* Abstract Rings for Services */}
+              <div className="absolute w-[280px] h-[280px] rounded-full border-[1px] border-gold-brand/20 animate-[spin_40s_linear_infinite]" />
+              <div className="absolute w-[200px] h-[200px] rounded-full border-[1px] border-white/10 animate-[spin_30s_linear_infinite_reverse]" />
+              <div className="absolute w-[120px] h-[120px] rounded-full border-[1px] border-gold-brand/40 bg-gold-brand/5 shadow-[0_0_40px_rgba(200,169,107,0.1)] flex items-center justify-center backdrop-blur-sm">
+                <Icons.Finance className="w-8 h-8 text-gold-brand" />
+              </div>
+              
+              <svg className="absolute inset-0 w-full h-full pointer-events-none opacity-20" style={{ zIndex: -1 }}>
+                <line x1="10%" y1="50%" x2="90%" y2="50%" stroke="#C8A96B" strokeWidth="1" strokeDasharray="2 4" />
+                <line x1="50%" y1="10%" x2="50%" y2="90%" stroke="#C8A96B" strokeWidth="1" strokeDasharray="2 4" />
+                <circle cx="50%" cy="50%" r="4" fill="#C8A96B" />
+              </svg>
+            </motion.div>
+          </div>
         </div>
       </section>
 
@@ -181,36 +230,36 @@ export default function Services() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1, duration: 0.8 }}
-                className="bg-slate-brand border border-border-brand/80 rounded-[16px] p-8 md:p-10 shadow-sm flex flex-col justify-between"
+                className="bg-transparent border border-white/10 rounded-[4px] p-8 md:p-10 flex flex-col justify-between group hover:border-gold-brand/50 transition-colors duration-500"
               >
                 <div>
                   <div className="flex items-center gap-4 mb-6">
-                    <div className="w-12 h-12 rounded-[8px] bg-ink flex items-center justify-center text-white shadow-sm">
+                    <div className="w-12 h-12 rounded-[2px] bg-white/5 border border-white/10 flex items-center justify-center text-gold-brand shadow-sm">
                       <Icon className="w-5 h-5" />
                     </div>
                     <div>
-                      <div className="font-mono text-[0.62rem] tracking-[0.2em] uppercase text-blue-brand font-semibold">
+                      <div className="font-mono text-[0.62rem] tracking-[0.2em] uppercase text-slate-400 font-semibold group-hover:text-gold-brand transition-colors duration-300">
                         {s.cat}
                       </div>
-                      <h3 className="font-display text-[1.4rem] font-semibold text-[#0F172A] mt-0.5">
+                      <h3 className="font-display text-[1.5rem] font-medium text-white mt-0.5">
                         {s.title}
                       </h3>
                     </div>
                   </div>
 
-                  <p className="text-[0.92rem] text-muted-brand leading-relaxed font-light mb-8">
+                  <p className="text-[0.95rem] text-slate-300 leading-relaxed font-light mb-8">
                     {s.desc}
                   </p>
 
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-border-brand/60">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pt-6 border-t border-white/10">
                     <div>
-                      <h4 className="font-mono text-[0.65rem] tracking-[0.16em] uppercase text-ink font-semibold mb-3">
+                      <h4 className="font-mono text-[0.65rem] tracking-[0.16em] uppercase text-slate-400 font-semibold mb-4">
                         Strategic Benefits
                       </h4>
-                      <ul className="list-none pl-0 flex flex-col gap-2.5">
+                      <ul className="list-none pl-0 flex flex-col gap-3">
                         {s.benefits.map((b) => (
-                          <li key={b} className="flex items-start gap-2.5 text-[0.8rem] text-muted-brand leading-relaxed font-light">
-                            <span className="text-blue-brand text-[0.7rem] mt-[3px]">→</span>
+                          <li key={b} className="flex items-start gap-2.5 text-[0.8rem] text-slate-300 leading-relaxed font-light">
+                            <span className="text-gold-brand text-[0.6rem] mt-[5px]">◆</span>
                             <span>{b}</span>
                           </li>
                         ))}
@@ -218,13 +267,13 @@ export default function Services() {
                     </div>
 
                     <div>
-                      <h4 className="font-mono text-[0.65rem] tracking-[0.16em] uppercase text-ink font-semibold mb-3">
+                      <h4 className="font-mono text-[0.65rem] tracking-[0.16em] uppercase text-slate-400 font-semibold mb-4">
                         Key Deliverables
                       </h4>
-                      <ul className="list-none pl-0 flex flex-col gap-2.5">
+                      <ul className="list-none pl-0 flex flex-col gap-3">
                         {s.deliverables.map((d) => (
-                          <li key={d} className="flex items-start gap-2.5 text-[0.8rem] text-muted-brand leading-relaxed font-light">
-                            <span className="text-gold-brand text-[0.7rem] mt-[3px]">✦</span>
+                          <li key={d} className="flex items-start gap-2.5 text-[0.8rem] text-slate-300 leading-relaxed font-light">
+                            <span className="text-gold-brand text-[0.6rem] mt-[5px]">◆</span>
                             <span>{d}</span>
                           </li>
                         ))}
@@ -239,18 +288,18 @@ export default function Services() {
       </section>
 
       {/* BOTTOM CTA */}
-      <section className="section bg-[#07152B] text-white relative overflow-hidden border-t border-white/[0.04]">
-        <div className="absolute inset-0 bg-blue-brand/5 blur-[100px] rounded-full pointer-events-none" />
+      <section className="section bg-[#0B1220] text-white relative overflow-hidden border-t border-white/[0.05]">
+        <div className="absolute inset-0 bg-[url('/noise.png')] opacity-[0.02] mix-blend-overlay" />
         <div className="wrap relative z-10 text-center max-w-[700px]">
-          <h3 className="font-display text-[2rem] font-semibold text-white mb-4">
+          <h3 className="font-display text-[2.5rem] font-semibold text-white mb-4 tracking-tight">
             Discuss Your Requirements
           </h3>
-          <p className="text-[0.9rem] text-slate-300 leading-relaxed mb-8 max-w-[500px] mx-auto font-light">
+          <p className="text-[1.05rem] text-slate-300 leading-relaxed mb-10 max-w-[500px] mx-auto font-light">
             Every dialogue is conducted under strict confidentiality protocol. Schedule a conversation with our managing director today.
           </p>
           <button
             onClick={() => navigate("/contact")}
-            className="inline-flex items-center gap-2 bg-blue-brand hover:bg-blue-hover text-white font-semibold tracking-[0.05em] uppercase text-[0.82rem] px-8 py-4.5 rounded-[6px] transition-all duration-300 hover:-translate-y-[2px]"
+            className="inline-flex items-center gap-3 bg-white/5 text-white border border-white/20 font-medium tracking-[0.1em] uppercase text-[0.75rem] px-10 py-4.5 transition-all duration-500 hover:bg-white/10 hover:border-gold-brand hover:text-gold-brand cursor-pointer rounded-[2px]"
           >
             Start Conversation
           </button>

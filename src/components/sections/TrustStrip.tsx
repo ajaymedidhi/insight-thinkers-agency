@@ -10,7 +10,7 @@ const BADGES = [
 
 export default function TrustStrip() {
   return (
-    <div className="bg-white border-y border-border-brand py-8 relative overflow-hidden">
+    <div className="bg-[#07152B] border-y border-white/[0.05] py-10 relative overflow-hidden">
       <div className="wrap">
         <div className="flex flex-wrap items-center justify-around gap-6">
           {BADGES.map((b, idx) => {
@@ -22,12 +22,12 @@ export default function TrustStrip() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1, duration: 0.6 }}
-                className="flex items-center gap-3 group"
+                className="flex items-center gap-4 group cursor-default"
               >
-                <div className="w-10 h-10 rounded-full bg-slate-light border border-border-brand/60 flex items-center justify-center text-blue-brand group-hover:bg-blue-brand group-hover:text-white transition-all duration-300 shadow-sm">
-                  <Icon className="w-4.5 h-4.5" />
+                <div className="w-12 h-12 rounded-full bg-[#0B1220] border border-white/10 flex items-center justify-center text-gold-brand group-hover:border-gold-brand/40 transition-colors duration-300 shadow-sm">
+                  <Icon className="w-5 h-5" />
                 </div>
-                <span className="font-mono text-[0.74rem] tracking-[0.14em] uppercase text-ink font-semibold group-hover:text-blue-brand transition-colors duration-300">
+                <span className="font-mono text-[0.7rem] tracking-[0.15em] uppercase text-slate-300 font-medium group-hover:text-gold-brand transition-colors duration-300">
                   {b.text}
                 </span>
               </motion.div>

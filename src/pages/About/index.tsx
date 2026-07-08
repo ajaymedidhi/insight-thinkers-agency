@@ -59,21 +59,32 @@ const MISSION_PILLARS = [
 
 export default function About() {
   return (
-    <div className="bg-white animate-fade-in">
+    <div className="bg-[#07152B] min-h-screen animate-fade-in text-white">
       {/* About Hero */}
-      <section className="relative py-28 md:py-32 bg-slate-brand overflow-hidden border-b border-border-brand/80">
-        <div className="absolute inset-0 pointer-events-none opacity-30"
-          style={{
-            backgroundImage: "linear-gradient(rgba(7,21,43,0.02) 1px, transparent 1px), linear-gradient(90deg, rgba(7,21,43,0.02) 1px, transparent 1px)",
-            backgroundSize: "64px 64px"
-          }}
-        />
-        <div className="wrap relative z-10 text-center max-w-[800px]">
-          <div className="eyebrow justify-center">Who We Are</div>
-          <h1 className="display tracking-[-0.01em]">
-            About <span className="font-display italic font-normal text-blue-brand">Insight Thinkers Agency</span>
+      <section className="relative py-32 md:py-40 bg-[#07152B] overflow-hidden border-b border-white/[0.05]">
+        <div className="absolute inset-0 z-0">
+          <div className="absolute top-0 right-0 w-full h-full bg-[radial-gradient(ellipse_at_top_right,rgba(200,169,107,0.08),transparent_50%)]" />
+          <div className="absolute bottom-0 left-0 w-full h-full bg-[radial-gradient(ellipse_at_bottom_left,rgba(51,65,85,0.4),transparent_50%)]" />
+          <div 
+            className="absolute inset-0 opacity-[0.03]"
+            style={{
+              backgroundImage: `linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)`,
+              backgroundSize: "80px 80px",
+            }}
+          />
+        </div>
+        <div className="wrap relative z-10 text-center max-w-[800px] mx-auto">
+          <div className="flex items-center gap-3 justify-center mb-8">
+            <span className="w-8 h-[1px] bg-gold-brand" />
+            <span className="font-mono text-[0.7rem] tracking-[0.3em] uppercase text-gold-brand font-semibold">
+              Who We Are
+            </span>
+            <span className="w-8 h-[1px] bg-gold-brand" />
+          </div>
+          <h1 className="font-display text-[clamp(3.2rem,5vw,4.5rem)] leading-[1.05] font-medium tracking-[-0.02em] text-white">
+            About <span className="font-display italic font-light text-gold-brand">Insight Thinkers Agency</span>
           </h1>
-          <p className="body-lg mt-6 max-w-[680px] mx-auto">
+          <p className="text-[1.1rem] leading-[1.7] text-slate-300 font-light mt-8 max-w-[680px] mx-auto">
             Insight Thinkers Agency operates at the convergence of corporate finance, digital marketing, and health technology. We believe specialized sectors demand specialized growth and transaction structures.
           </p>
         </div>
@@ -88,14 +99,14 @@ export default function About() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <div className="eyebrow">Our Origin</div>
-            <h2 className="display-sm">
-              Re-Architecting Growth & M&A for a <span className="font-display italic font-normal text-blue-brand">Complex Industry.</span>
+            <div className="font-mono text-[0.65rem] tracking-[0.25em] uppercase text-slate-400 font-semibold mb-6">Our Origin</div>
+            <h2 className="font-display text-[2.5rem] md:text-[3rem] text-white leading-tight">
+              Re-Architecting Growth & M&A for a <span className="font-display italic font-normal text-gold-brand">Complex Industry.</span>
             </h2>
-            <p className="body-lg mt-6">
-              Insight Thinkers Agency was founded to solve a major gap: <strong>traditional advisory firms are structured in silos.</strong> Financiers don't understand digital marketing, marketers don't understand clinical workflows, and developers don't understand transaction structuring.
+            <p className="text-[1.05rem] text-slate-300 leading-relaxed font-light mt-6">
+              Insight Thinkers Agency was founded to solve a major gap: <strong className="text-white font-medium">traditional advisory firms are structured in silos.</strong> Financiers don't understand digital marketing, marketers don't understand clinical workflows, and developers don't understand transaction structuring.
             </p>
-            <p className="body-md mt-4">
+            <p className="text-[0.95rem] text-slate-400 leading-relaxed font-light mt-4">
               We built an integrated agency model. Our multi-disciplinary team brings together investment banking rigor, performance marketing strategies, and robust software engineering to deliver end-to-end institutional value.
             </p>
           </motion.div>
@@ -105,12 +116,12 @@ export default function About() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
-            className="bg-slate-brand border border-border-brand rounded-[16px] p-8 md:p-10 shadow-sh1"
+            className="bg-[#0B1220] border border-white/10 rounded-[4px] p-8 md:p-10"
           >
-            <div className="font-display italic text-[1.4rem] leading-[1.7] text-[#0F172A] font-medium border-l-[3px] border-l-gold-brand pl-6">
+            <div className="font-display italic text-[1.4rem] leading-[1.7] text-white font-medium border-l-[3px] border-l-gold-brand pl-6">
               "Healthcare and institutional growth cannot be siloed. Financial structures, patient acquisition strategies, and technology integrations must work in unison to create sustainable asset value."
             </div>
-            <cite className="block mt-4 font-mono text-[0.62rem] tracking-[0.16em] uppercase text-muted-light not-italic font-semibold">
+            <cite className="block mt-6 font-mono text-[0.62rem] tracking-[0.16em] uppercase text-gold-brand/70 not-italic font-semibold">
               Vasanth Sabavath, Founder
             </cite>
           </motion.div>
@@ -118,11 +129,11 @@ export default function About() {
       </section>
 
       {/* Mission Section */}
-      <section className="section bg-slate-brand border-y border-border-brand/80">
+      <section className="section bg-[#0B1220] border-y border-white/[0.05]">
         <div className="wrap">
           <div className="max-w-[700px] mx-auto text-center mb-16">
-            <div className="eyebrow justify-center">Our Focus</div>
-            <h2 className="display-sm">Our Institutional Mission</h2>
+            <div className="font-mono text-[0.65rem] tracking-[0.25em] uppercase text-gold-brand font-semibold mb-6">Our Focus</div>
+            <h2 className="font-display text-[2.5rem] md:text-[3rem] text-white leading-tight">Our Institutional Mission</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-[900px] mx-auto">
@@ -133,12 +144,12 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1, duration: 0.6 }}
-                className="bg-white border border-border-brand/80 rounded-[12px] p-8 shadow-sm"
+                className="bg-transparent border border-white/10 rounded-[4px] p-8 group hover:border-gold-brand/50 transition-colors duration-500"
               >
-                <h3 className="font-display text-[1.25rem] font-semibold text-[#0F172A] mb-4">
+                <h3 className="font-display text-[1.4rem] font-medium text-white mb-4">
                   {m.title}
                 </h3>
-                <p className="text-[0.88rem] text-muted-brand leading-relaxed font-light">
+                <p className="text-[0.95rem] text-slate-300 leading-relaxed font-light">
                   {m.desc}
                 </p>
               </motion.div>
@@ -149,23 +160,23 @@ export default function About() {
 
       {/* Why Healthcare */}
       <section className="section wrap">
-        <div className="max-w-[760px] mx-auto text-center mb-16">
-          <div className="eyebrow justify-center">Sector Dedication</div>
-          <h2 className="display-sm">
-            Why Integrated <span className="font-display italic font-normal text-blue-brand">Advisory?</span>
+        <div className="max-w-[760px] mx-auto text-center">
+          <div className="font-mono text-[0.65rem] tracking-[0.25em] uppercase text-slate-400 font-semibold mb-6">Sector Dedication</div>
+          <h2 className="font-display text-[2.5rem] md:text-[3rem] text-white leading-tight">
+            Why Integrated <span className="font-display italic font-normal text-gold-brand">Advisory?</span>
           </h2>
-          <p className="body-lg mt-6">
+          <p className="text-[1.05rem] text-slate-300 leading-relaxed font-light mt-6">
             Enterprise success requires more than just capital or a website. It requires a unified approach. By combining M&A advisory, healthcare technology, and digital marketing under one roof, we eliminate vendor friction and align every strategy directly with your valuation and revenue goals.
           </p>
         </div>
       </section>
 
-      {/* Our Approach (Timeline: Understand -> Evaluate -> Strategize -> Execute) */}
-      <section className="section bg-slate-brand border-t border-border-brand/80">
+      {/* Our Approach */}
+      <section className="section bg-[#0B1220] border-t border-white/[0.05]">
         <div className="wrap">
           <div className="max-w-[760px] mx-auto text-center mb-20">
-            <div className="eyebrow justify-center">Methodology</div>
-            <h2 className="display-sm">Our Execution Approach</h2>
+            <div className="font-mono text-[0.65rem] tracking-[0.25em] uppercase text-gold-brand font-semibold mb-6">Methodology</div>
+            <h2 className="font-display text-[2.5rem] md:text-[3rem] text-white leading-tight">Our Execution Approach</h2>
           </div>
 
           <div className="relative grid grid-cols-1 md:grid-cols-4 gap-8">
@@ -176,15 +187,15 @@ export default function About() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: idx * 0.1, duration: 0.6 }}
-                className="bg-white border border-border-brand/80 rounded-[12px] p-8 shadow-sm hover:shadow-sh1 transition-all duration-300 relative group"
+                className="bg-transparent border border-white/10 rounded-[4px] p-8 hover:border-gold-brand/50 transition-all duration-500 relative group"
               >
-                <div className="absolute top-[-16px] left-[24px] font-mono text-[0.72rem] tracking-[0.16em] uppercase text-white bg-blue-brand px-3 py-1 rounded-[4px] font-semibold">
+                <div className="absolute top-[-14px] left-[24px] font-mono text-[0.65rem] tracking-[0.16em] uppercase text-[#07152B] bg-gold-brand px-3 py-1 rounded-[2px] font-semibold">
                   {a.step}
                 </div>
-                <h3 className="font-display text-[1.125rem] font-semibold text-[#0F172A] mt-4 mb-3">
+                <h3 className="font-display text-[1.25rem] font-medium text-white mt-4 mb-3">
                   {a.title}
                 </h3>
-                <p className="text-[0.84rem] text-muted-brand leading-relaxed font-light">
+                <p className="text-[0.85rem] text-slate-400 leading-relaxed font-light">
                   {a.body}
                 </p>
               </motion.div>
@@ -194,10 +205,10 @@ export default function About() {
       </section>
 
       {/* Core Values */}
-      <section className="section wrap border-t border-border-brand/80">
+      <section className="section wrap border-t border-white/[0.05]">
         <div className="max-w-[760px] mx-auto text-center mb-16">
-          <div className="eyebrow justify-center">Foundation</div>
-          <h2 className="display-sm">Our Core Values</h2>
+          <div className="font-mono text-[0.65rem] tracking-[0.25em] uppercase text-slate-400 font-semibold mb-6">Foundation</div>
+          <h2 className="font-display text-[2.5rem] md:text-[3rem] text-white leading-tight">Our Core Values</h2>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -208,11 +219,11 @@ export default function About() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: idx * 0.1, duration: 0.6 }}
-              className="p-8 border border-border-brand/75 rounded-[12px] bg-slate-brand hover:bg-white transition-all duration-300 shadow-sm"
+              className="p-8 border border-white/10 rounded-[4px] bg-[#0B1220] hover:border-gold-brand/40 transition-all duration-500 group"
             >
-              <div className="text-[2rem] mb-4">{v.ico}</div>
-              <h3 className="text-[0.98rem] font-semibold text-[#0F172A] mb-2">{v.t}</h3>
-              <p className="text-[0.84rem] text-muted-brand leading-relaxed font-light">{v.b}</p>
+              <div className="text-[2rem] mb-4 opacity-80 group-hover:opacity-100 transition-opacity">{v.ico}</div>
+              <h3 className="font-display text-[1.25rem] font-medium text-white mb-3">{v.t}</h3>
+              <p className="text-[0.85rem] text-slate-400 leading-relaxed font-light">{v.b}</p>
             </motion.div>
           ))}
         </div>
