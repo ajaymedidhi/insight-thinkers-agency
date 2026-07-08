@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { Icons } from "../Icons";
 
 const NAV_ITEMS = [
   { name: "Home", path: "/" },
@@ -34,13 +35,11 @@ export default function Footer() {
     <footer className="bg-[#07152B] py-[80px] pb-[40px] text-white relative border-t border-white/[0.04]">
       <div className="wrap">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr_1.4fr] gap-[40px] mb-[64px]">
-          
+
           {/* Logo & Narrative Column */}
           <div className="flex flex-col items-start">
             <Link to="/" className="flex items-center mb-6 select-none no-underline group">
-              <div className="font-display text-[1.4rem] text-white tracking-wide font-medium leading-none group-hover:text-gold-brand transition-colors duration-500">
-                Insight Thinkers
-              </div>
+              <Icons.Logo className="h-20 w-auto object-contain transition-all duration-500 group-hover:sepia group-hover:saturate-[3] group-hover:brightness-110 group-hover:contrast-125" />
             </Link>
             <p className="text-[0.84rem] text-slate-400 leading-[1.8] max-w-[290px] mb-6 font-light">
               Institutional-grade M&A advisory, equity financing, AI-powered healthcare technology, and digital marketing across India and Asia. Founded by Vasanth Sabavath, Hyderabad, Telangana.
@@ -169,7 +168,7 @@ export default function Footer() {
 
         <div className="flex justify-between items-center flex-wrap gap-4">
           <span className="text-[0.76rem] text-slate-500 font-light">
-            © 2025 Insight Thinkers Agency. All rights reserved. All mandates subject to NDA.
+            © 2026 Insight Thinkers Agency. All rights reserved. All mandates subject to NDA.
           </span>
           <div className="flex gap-2">
             <span className="font-mono text-[0.58rem] tracking-[0.16em] uppercase text-slate-500 bg-white/5 border border-white/[0.08] px-3 py-1.25 rounded-[5px] font-semibold select-none">

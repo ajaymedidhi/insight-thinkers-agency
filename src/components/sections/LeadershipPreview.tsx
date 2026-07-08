@@ -39,6 +39,7 @@ export default function LeadershipPreview() {
                   
                   {/* Profile Meta Info */}
                   <div className="flex flex-col gap-3 text-[0.8rem] text-slate-400 font-light text-left max-w-[260px] mx-auto">
+                    {/*
                     <div className="flex items-center gap-3">
                       <span className="w-1.5 h-1.5 rounded-full bg-gold-brand shrink-0 opacity-70"></span>
                       <span>Forbes 30 Under 30 Asia Semi-Finalist</span>
@@ -51,6 +52,7 @@ export default function LeadershipPreview() {
                       <span className="w-1.5 h-1.5 rounded-full bg-gold-brand shrink-0 opacity-70"></span>
                       <span>Google–Udacity Scholar & Gandhi Fellow</span>
                     </div>
+                    */}
                   </div>
                 </div>
               </div>

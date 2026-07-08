@@ -150,6 +150,7 @@ export default function Leadership() {
                 Founder & Managing Partner
               </div>
               <div className="flex flex-col gap-5">
+                {/* 
                 {[
                   "Forbes 30 Under 30 Asia Semi-Finalist",
                   "Harvard Business School Online Alumnus",
@@ -163,6 +164,7 @@ export default function Leadership() {
                     <span className="text-[0.95rem] font-light leading-snug">{c}</span>
                   </div>
                 ))}
+                */}
               </div>
             </motion.div>
 

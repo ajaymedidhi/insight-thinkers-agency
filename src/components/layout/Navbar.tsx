@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
+import { Icons } from "../Icons";
 
 const NAV_ITEMS = [
   { name: "About", path: "/about" },
@@ -34,9 +35,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between wrap w-full">
           {/* Logo Mark & Text */}
           <Link to="/" className="flex items-center select-none no-underline group">
-            <div className="font-display text-[1.4rem] md:text-[1.6rem] text-white tracking-wide font-medium leading-none group-hover:text-gold-brand transition-colors duration-500">
-              Insight Thinkers
-            </div>
+            <Icons.Logo className="h-12 md:h-16 w-auto object-contain transition-all duration-500 group-hover:sepia group-hover:saturate-[3] group-hover:brightness-110 group-hover:contrast-125" />
           </Link>
 
           {/* Desktop Navigation Links */}
