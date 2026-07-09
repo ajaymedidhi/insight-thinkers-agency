@@ -48,9 +48,11 @@ export default function Footer() {
               {[
                 "NDA-First Operating Protocol",
                 "Founder-Led Every Mandate — Zero Handoffs",
+                /*
                 "Medical Doctors · Software Engineers · Strategists In-House",
                 "Forbes 30U30 Asia Semi-Finalist · Harvard Business School Online Alumnus",
                 "Gandhi Fellowship · Amani Institute · Google–Udacity Scholar"
+                */
               ].map((a) => (
                 <div key={a} className="flex items-center gap-2 text-[0.71rem] text-slate-500 font-light">
                   <span className="w-1 h-1 rounded-full bg-gold-brand shrink-0" />
