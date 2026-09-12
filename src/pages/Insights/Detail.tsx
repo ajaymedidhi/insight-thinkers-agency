@@ -102,7 +102,7 @@ export default function InsightsDetail() {
         <article className="max-w-[760px]">
           {/* Content injection */}
           <div
-            className="prose prose-slate prose-lg max-w-none text-[#334155] leading-[1.9] text-[1.05rem] font-light"
+            className="prose prose-slate prose-lg max-w-none text-[#334155] leading-[1.9] text-[1.05rem] font-light prose-headings:font-display prose-headings:font-medium prose-headings:text-ink prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-6 prose-a:text-blue-brand"
             dangerouslySetInnerHTML={{ __html: article.body }}
           />
 
