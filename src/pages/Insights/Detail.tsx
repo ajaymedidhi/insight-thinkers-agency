@@ -1,225 +1,170 @@
-import { useEffect, useState } from "react";
-import { useParams, Link, useNavigate } from "react-router-dom";
-import { ARTICLES, type Article } from "../../constants/insights";
+import { useEffect, useRef, useState } from "react";
+import { useParams, Link } from "react-router-dom";
 import SEO from "../../components/shared/SEO";
-import { motion, useScroll, useSpring } from "framer-motion";
+import CTABand from "../../components/ui/CTABand";
+import ArticleCover from "../../components/ui/ArticleCover";
+import { ARTICLES, isoDate, type Article } from "../../constants/insights";
+import { FOUNDER, SITE_URL } from "../../content/site";
+import { contactFor } from "../../content/services";
+
+/** Pre-selects the most relevant enquiry topic from an article category. */
+const TOPIC_BY_CATEGORY: Record<string, string> = {
+  "Hospital Valuations": "Healthcare M&A / Transaction Advisory",
+  "Healthcare M&A": "Healthcare M&A / Transaction Advisory",
+  "Private Equity": "Capital Raising / Corporate Finance",
+  "Growth Capital": "Capital Raising / Corporate Finance",
+  "AI in Healthcare": "Healthcare Technology Advisory",
+};
+import NotFound from "../NotFound";
 
 export default function InsightsDetail() {
   const { slug } = useParams();
-  const navigate = useNavigate();
   const [copied, setCopied] = useState(false);
+  const progressRef = useRef<HTMLDivElement>(null);
 
-  // Find current article
-  const article: Article | undefined = ARTICLES.find((a) => a.slug === slug);
-
-  // Fallback to list if not found
+  // Reading progress indicator, updated without re-rendering.
   useEffect(() => {
-    if (!article) {
-      navigate("/insights");
+    let frame = 0;
+    const update = () => {
+      frame = 0;
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      progressRef.current?.style.setProperty("transform", `scaleX(${max > 0 ? Math.min(window.scrollY / max, 1) : 0})`);
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(update);
+    };
+    update();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      cancelAnimationFrame(frame);
+    };
+  }, [slug]);
+
+  const article: Article | undefined = ARTICLES.find((a) => a.slug === slug);
+  if (!article) return <NotFound />;
+
+  const url = `${SITE_URL}/insights/${article.slug}`;
+  const related = ARTICLES.filter((a) => a.slug !== slug).slice(0, 3);
+
+  const copyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(url);
+      setCopied(true);
+      window.setTimeout(() => setCopied(false), 2000);
+    } catch {
+      /* clipboard unavailable — no-op */
     }
-  }, [article, navigate]);
-
-  // Framer Motion scroll progress indicator
-  const { scrollYProgress } = useScroll();
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  });
-
-  if (!article) return null;
-
-  // Filter related articles (max 3) excluding current
-  const relatedArticles = ARTICLES.filter((a) => a.slug !== slug).slice(0, 3);
-
-  const handleCopyLink = () => {
-    navigator.clipboard.writeText(window.location.href);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
   };
 
   return (
-    <div className="bg-white min-h-screen relative pb-16 animate-fade-in">
-      <SEO 
-        title={article.title} 
+    <>
+      <SEO
+        type="article"
+        title={article.title}
         description={article.summary}
-        keywords={`${article.category}, Healthcare M&A Advisory, Hospital Valuations`}
+        keywords={`${article.category}, healthcare advisory, India`}
         schema={{
           "@context": "https://schema.org",
           "@type": "BlogPosting",
-          "headline": article.title,
-          "description": article.summary,
-          "datePublished": article.date,
-          "author": {
-            "@type": "Person",
-            "name": article.author.name
-          }
+          headline: article.title,
+          description: article.summary,
+          datePublished: isoDate(article.date),
+          mainEntityOfPage: url,
+          author: { "@type": "Person", name: article.author.name, jobTitle: article.author.role },
+          publisher: { "@type": "Organization", name: "Insight Thinkers Agency" },
         }}
       />
 
-      {/* Reading Progress Bar */}
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-[3px] bg-blue-brand origin-left z-[310]"
-        style={{ scaleX }}
-      />
+      <div ref={progressRef} aria-hidden="true" className="fixed inset-x-0 top-0 z-[60] h-0.5 origin-left scale-x-0 bg-bronze" />
 
-      {/* Article Header */}
-      <section className="bg-slate-brand border-b border-border-brand/80 py-16 md:py-20">
-        <div className="wrap max-w-[800px]">
-          <Link
-            to="/insights"
-            className="inline-flex items-center gap-2 text-slate-500 hover:text-blue-brand font-mono text-[0.65rem] tracking-[0.1em] uppercase mb-6"
-          >
-            ← Back to Insights
-          </Link>
-          <div className="flex items-center gap-4 text-[0.74rem] text-slate-500 font-mono mb-4">
-            <span className="text-blue-brand font-semibold uppercase">{article.category}</span>
-            <span>•</span>
-            <span>{article.date}</span>
-            <span>•</span>
-            <span>{article.readTime}</span>
-          </div>
-          <h1 className="font-display text-[2rem] md:text-[2.6rem] font-semibold text-[#0F172A] leading-tight">
-            {article.title}
-          </h1>
-
-          {/* Author Card Header */}
-          <div className="flex items-center gap-3 mt-6 pt-6 border-t border-border-brand/50">
-            <div className="w-10 h-10 rounded-full bg-ink flex items-center justify-center text-white font-mono text-[0.8rem] font-semibold shrink-0">
-              VS
+      <article>
+        <header className="border-b border-line pt-32 pb-14 md:pt-40 md:pb-16">
+          <div className="container-x max-w-[56rem]">
+            <Link to="/insights" className="meta inline-flex items-center gap-2 hover:text-ink">
+              <span aria-hidden="true">←</span> Insights
+            </Link>
+            <p className="meta mt-10 text-bronze-ink">{article.category}</p>
+            <h1 className="mt-5 font-serif text-[clamp(2.2rem,5vw,3.6rem)] leading-[1.06] tracking-[-0.02em] text-ink">
+              {article.title}
+            </h1>
+            <p className="lede mt-6">{article.summary}</p>
+            <div className="mt-10 flex flex-wrap items-center gap-x-8 gap-y-3 border-t border-line pt-6 text-[0.9375rem]">
+              <p>
+                <span className="text-ink">{article.author.name}</span>
+                <span className="text-muted">, {article.author.role}</span>
+              </p>
+              <p className="text-muted">
+                <time dateTime={isoDate(article.date)}>{article.date}</time> · {article.readTime}
+              </p>
             </div>
+            <ArticleCover article={article} priority className="animate-fade mt-12 aspect-[21/9]" />
+          </div>
+        </header>
+
+        <div className="container-x max-w-[56rem] py-16 md:py-20">
+          <div className="article-body max-w-[42rem]" dangerouslySetInnerHTML={{ __html: article.body }} />
+
+          <div className="mt-16 flex flex-wrap items-center gap-3 border-t border-line pt-8">
+            <span className="meta mr-2">Share</span>
+            <a
+              href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(url)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn-outline min-h-10 px-4 text-[0.875rem]"
+            >
+              LinkedIn
+            </a>
+            <a
+              href={`mailto:?subject=${encodeURIComponent(article.title)}&body=${encodeURIComponent(url)}`}
+              className="btn-outline min-h-10 px-4 text-[0.875rem]"
+            >
+              Email
+            </a>
+            <button type="button" onClick={copyLink} className="btn-outline min-h-10 px-4 text-[0.875rem]" aria-live="polite">
+              {copied ? "Link copied" : "Copy link"}
+            </button>
+          </div>
+
+          <aside aria-label="About the author" className="mt-12 grid gap-4 border-l-2 border-bronze bg-paper p-6 sm:grid-cols-[auto_1fr] sm:items-center sm:gap-6">
+            <span aria-hidden="true" className="flex h-14 w-14 items-center justify-center bg-navy font-serif text-[1.25rem] text-white">
+              {FOUNDER.initials}
+            </span>
             <div>
-              <div className="text-[0.88rem] font-semibold text-ink">{article.author.name}</div>
-              <div className="text-[0.72rem] text-slate-500 font-light">{article.author.role}</div>
+              <p className="text-ink">{article.author.name}, {article.author.role}</p>
+              <p className="mt-1 text-[0.9375rem]">
+                Leads Insight Thinkers Agency’s healthcare M&amp;A, capital and technology mandates.{" "}
+                <Link to="/leadership" className="text-navy underline decoration-bronze underline-offset-4">Profile</Link>
+              </p>
             </div>
-          </div>
+          </aside>
         </div>
-      </section>
+      </article>
 
-      {/* Main Content Layout */}
-      <div className="wrap max-w-[1100px] py-16 grid grid-cols-1 lg:grid-cols-[1fr_300px] gap-12 items-start">
-        {/* Article Body */}
-        <article className="max-w-[760px]">
-          {/* Content injection */}
-          <div
-            className="prose prose-slate prose-lg max-w-none text-[#334155] leading-[1.9] text-[1.05rem] font-light prose-headings:font-display prose-headings:font-medium prose-headings:text-ink prose-h2:text-2xl prose-h2:mt-12 prose-h2:mb-6 prose-a:text-blue-brand"
-            dangerouslySetInnerHTML={{ __html: article.body }}
-          />
-
-          {/* Social Sharing Component */}
-          <div className="mt-12 pt-8 border-t border-slate-100 flex flex-wrap items-center justify-between gap-4">
-            <div className="text-[0.78rem] text-slate-500 font-mono uppercase tracking-[0.08em]">
-              Share Article
-            </div>
-            <div className="flex items-center gap-2">
-              <a
-                href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href)}`}
-                target="_blank"
-                rel="noreferrer"
-                className="px-3.5 py-2 rounded border border-border-brand hover:border-blue-brand text-slate-600 hover:text-blue-brand font-mono text-[0.7rem] uppercase font-semibold no-underline"
-              >
-                LinkedIn
-              </a>
-              <a
-                href={`mailto:?subject=${encodeURIComponent(article.title)}&body=${encodeURIComponent(window.location.href)}`}
-                className="px-3.5 py-2 rounded border border-border-brand hover:border-blue-brand text-slate-600 hover:text-blue-brand font-mono text-[0.7rem] uppercase font-semibold no-underline"
-              >
-                Email
-              </a>
-              <button
-                onClick={handleCopyLink}
-                className="px-3.5 py-2 rounded border border-border-brand hover:border-blue-brand text-slate-600 hover:text-blue-brand font-mono text-[0.7rem] uppercase font-semibold cursor-pointer"
-              >
-                {copied ? "Copied ✓" : "Copy Link"}
-              </button>
-            </div>
-          </div>
-
-          {/* End of article CTA */}
-          <div className="mt-16 bg-slate-brand border border-border-brand rounded-[16px] p-8 text-center shadow-sm">
-            <h3 className="font-display text-[1.55rem] font-semibold text-[#0F172A] mb-3">
-              Need Strategic Guidance?
-            </h3>
-            <p className="text-[0.88rem] text-muted-brand leading-relaxed max-w-[480px] mx-auto font-light mb-6">
-              Arrange a secure dialogue to benchmark valuation metrics, exit scenarios, or capital strategies.
-            </p>
-            <button
-              onClick={() => navigate("/contact")}
-              className="inline-flex items-center gap-2 bg-ink hover:bg-blue-brand text-white font-semibold tracking-[0.05em] uppercase text-[0.82rem] px-7 py-3.5 rounded-[6px] transition-all"
-            >
-              Schedule a Confidential Discussion
-            </button>
-          </div>
-        </article>
-
-        {/* Sidebar */}
-        <aside className="flex flex-col gap-8 lg:sticky lg:top-[120px]">
-          {/* Related Articles Widget */}
-          <div className="bg-[#F8FAFC] border border-border-brand rounded-[12px] p-6">
-            <h4 className="font-mono text-[0.62rem] tracking-[0.16em] uppercase text-ink font-semibold mb-4">
-              Related Articles
-            </h4>
-            <div className="flex flex-col gap-4">
-              {relatedArticles.map((ra) => (
-                <div key={ra.slug} className="group">
-                  <div className="text-[0.68rem] text-slate-400 font-mono mb-0.5">{ra.date}</div>
-                  <Link
-                    to={`/insights/${ra.slug}`}
-                    className="text-[0.84rem] font-semibold text-ink hover:text-blue-brand leading-tight block transition-colors"
-                  >
-                    {ra.title}
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Contact CTA Widget */}
-          <div className="bg-ink rounded-[12px] p-6 text-white text-center border border-white/[0.06] shadow-md relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-[150px] h-[150px] bg-blue-brand/10 blur-[40px] rounded-full pointer-events-none" />
-            <span className="text-[1.5rem] block mb-2">📞</span>
-            <h4 className="text-[0.98rem] font-semibold text-white mb-2">Speak to a Principal</h4>
-            <p className="text-[0.76rem] text-slate-400 leading-relaxed font-light mb-4">
-              Access credentials and co-investment models directly.
-            </p>
-            <button
-              onClick={() => navigate("/contact")}
-              className="w-full py-3 bg-blue-brand hover:bg-blue-hover text-white text-[0.76rem] font-semibold uppercase tracking-[0.06em] rounded border-none cursor-pointer transition-all"
-            >
-              Contact Desk
-            </button>
-          </div>
-        </aside>
-      </div>
-
-      {/* Bottom Recommender Grid */}
-      <section className="section bg-slate-brand border-t border-border-brand/80 mt-12">
-        <div className="wrap max-w-[1100px]">
-          <h4 className="font-mono text-[0.62rem] tracking-[0.24em] uppercase text-slate-500 mb-8 font-semibold">
-            Perspectives Showcase
-          </h4>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {relatedArticles.map((ra) => (
-              <div key={ra.slug} className="bg-white border border-border-brand/80 rounded-[12px] p-6 shadow-sm hover:shadow-sh1 transition-all duration-300 flex flex-col justify-between">
-                <div>
-                  <div className="font-mono text-[0.65rem] text-blue-brand mb-2">{ra.category}</div>
-                  <h5 className="font-display text-[1.1rem] font-semibold text-ink leading-snug mb-3">
-                    <Link to={`/insights/${ra.slug}`} className="text-inherit hover:text-blue-brand transition-colors">
-                      {ra.title}
-                    </Link>
-                  </h5>
-                  <p className="text-[0.78rem] text-muted-brand leading-relaxed font-light mb-6">
-                    {ra.summary}
-                  </p>
-                </div>
-                <Link to={`/insights/${ra.slug}`} className="text-[0.74rem] text-blue-brand font-semibold uppercase">
-                  Read Article →
+      <section aria-labelledby="related-title" className="section border-t border-line bg-paper">
+        <div className="container-x">
+          <h2 id="related-title" className="h3">Further reading</h2>
+          <ul className="mt-10 grid gap-x-10 md:grid-cols-3">
+            {related.map((r) => (
+              <li key={r.slug} className="border-t border-navy">
+                <Link to={`/insights/${r.slug}`} className="group block py-6">
+                  <ArticleCover article={r} className="mb-5 aspect-[16/10]" />
+                  <p className="meta">{r.category}</p>
+                  <h3 className="mt-3 font-serif text-[1.3rem] leading-snug text-ink decoration-bronze underline-offset-4 group-hover:underline">{r.title}</h3>
+                  <p className="mt-3 text-[0.875rem] text-muted"><time dateTime={isoDate(r.date)}>{r.date}</time></p>
                 </Link>
-              </div>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
-    </div>
+
+      <CTABand
+        to={contactFor(TOPIC_BY_CATEGORY[article.category] ?? "Other")}
+        eyebrow="Discuss this topic"
+        title="Want to apply this to your own situation?"
+        body="We are glad to discuss valuation, exit scenarios or capital strategy for your business in a confidential conversation."
+      />
+    </>
   );
 }

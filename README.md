@@ -1,73 +1,34 @@
-# React + TypeScript + Vite
+# Insight Thinkers Agency — website
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+React 19 + TypeScript + Vite + Tailwind CSS v4. React Router (data router) with code-split interior pages.
 
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev      # local development
+npm run build    # type-check + production build to dist/
+npm run lint
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Where things live
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+| What | Where |
+| --- | --- |
+| Business facts (contact details, founder designation, metrics, mandate value) | `src/content/site.ts` |
+| Advisory services and enquiry topics | `src/content/services.ts` |
+| Active mandates and engagement approach | `src/content/mandates.ts` |
+| Articles and resources | `src/constants/insights.ts` |
+| Design tokens and shared component classes | `src/index.css` (`@theme` + `@layer components`) |
+| Shared UI (page hero, CTA band, headings, logo, founder portrait) | `src/components/ui/` |
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+Search the codebase for `CLIENT TO CONFIRM` / `CLIENT TO SUPPLY` for business facts awaiting client sign-off.
+
+## Forms
+
+All forms (enquiry, resource requests, newsletter) submit through `src/lib/submitForm.ts`.
+
+- Set **`VITE_FORM_ENDPOINT`** at build time to any service that accepts a JSON `POST` (e.g. Formspree, Getform or a serverless function). Each submission includes `form`, `_subject` and `page` fields alongside the user's input.
+- Without it, the form opens the visitor's email client with a pre-filled message to the firm, so enquiries are never silently discarded.
+
+## Deployment
+
+This is a client-side routed SPA: the host must rewrite unknown paths to `index.html`. Update `public/sitemap.xml` when routes or articles change.

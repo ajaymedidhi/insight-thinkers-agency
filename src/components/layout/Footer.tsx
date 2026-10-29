@@ -1,188 +1,66 @@
-import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { Icons } from "../Icons";
-
-const NAV_ITEMS = [
-  { name: "Home", path: "/" },
-  { name: "About", path: "/about" },
-  { name: "Services", path: "/services" },
-  { name: "Leadership", path: "/leadership" },
-  { name: "Mandates", path: "/mandates" },
-  { name: "Network", path: "/network" },
-  { name: "Insights", path: "/insights" },
-  { name: "Resources", path: "/resources" },
-  { name: "Contact", path: "/contact" },
-];
+import { Link } from "react-router-dom";
+import Logo from "../ui/Logo";
+import NewsletterForm from "../shared/NewsletterForm";
+import { COMPANY, FOOTER_NAV } from "../../content/site";
+import { CORE_SERVICES } from "../../content/services";
 
 export default function Footer() {
-  const navigate = useNavigate();
-  const [email, setEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
-  const [error, setError] = useState("");
-
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!email.trim() || !/\S+@\S+\.\S+/.test(email)) {
-      setError("Valid email required");
-      return;
-    }
-    setError("");
-    setSubscribed(true);
-    setEmail("");
-  };
-
   return (
-    <footer className="bg-[#07152B] py-[80px] pb-[40px] text-white relative border-t border-white/[0.04]">
-      <div className="wrap">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-[1.2fr_0.8fr_0.8fr_0.8fr_1.4fr] gap-[40px] mb-[64px]">
-
-          {/* Logo & Narrative Column */}
-          <div className="flex flex-col items-start">
-            <Link to="/" className="flex items-center mb-6 select-none no-underline group">
-              <Icons.Logo className="h-20 w-auto object-contain transition-all duration-500 group-hover:sepia group-hover:saturate-[3] group-hover:brightness-110 group-hover:contrast-125" />
-            </Link>
-            <p className="text-[0.84rem] text-slate-400 leading-[1.8] max-w-[290px] mb-6 font-light">
-              Institutional-grade M&A advisory, equity financing, AI-powered healthcare technology, and digital marketing across India and Asia. Founded by Vasanth Sabavath, Hyderabad, Telangana.
+    <footer className="on-navy bg-navy-deep text-on-navy">
+      <div className="container-x pt-20 pb-10">
+        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-12">
+          <div className="lg:col-span-4">
+            <Logo tone="light" />
+            <p className="mt-6 max-w-[22rem] text-[0.9375rem] leading-relaxed">
+              Healthcare advisory for hospital owners, entrepreneurs and investors — M&amp;A, capital raising, technology and strategic growth.
             </p>
-            <div className="flex flex-col gap-2 mb-6">
-              {[
-                "NDA-First Operating Protocol",
-                "Founder-Led Every Mandate — Zero Handoffs",
-                /*
-                "Medical Doctors · Software Engineers · Strategists In-House",
-                "Forbes 30U30 Asia Semi-Finalist · Harvard Business School Online Alumnus",
-                "Gandhi Fellowship · Amani Institute · Google–Udacity Scholar"
-                */
-              ].map((a) => (
-                <div key={a} className="flex items-center gap-2 text-[0.71rem] text-slate-500 font-light">
-                  <span className="w-1 h-1 rounded-full bg-gold-brand shrink-0" />
-                  {a}
-                </div>
-              ))}
-            </div>
+            <p className="mt-4 text-[0.875rem] text-on-navy-muted">{COMPANY.location}</p>
           </div>
 
-          {/* Navigation Column */}
-          <div>
-            <h5 className="font-mono text-[0.6rem] tracking-[0.24em] uppercase text-slate-500 mb-5 font-semibold">
-              Navigation
-            </h5>
-            <ul className="list-none flex flex-col gap-3.5 pl-0">
-              {NAV_ITEMS.map((n) => (
-                <li key={n.name}>
-                  <Link
-                    to={n.path}
-                    className="text-[0.84rem] text-slate-400 no-underline cursor-pointer transition-all duration-300 hover:text-white hover:translate-x-1 font-light inline-block"
-                  >
-                    {n.name}
-                  </Link>
+          <nav aria-label="Footer" className="lg:col-span-2">
+            <h2 className="meta mb-5">Firm</h2>
+            <ul className="space-y-3 text-[0.9375rem]">
+              {FOOTER_NAV.map((n) => (
+                <li key={n.path}>
+                  <Link to={n.path} className="transition-colors hover:text-white">{n.name}</Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className="lg:col-span-3">
+            <h2 className="meta mb-5">Advisory</h2>
+            <ul className="space-y-3 text-[0.9375rem]">
+              {CORE_SERVICES.map((s) => (
+                <li key={s.id}>
+                  <Link to={`/services#${s.id}`} className="transition-colors hover:text-white">{s.title}</Link>
+                </li>
+              ))}
+            </ul>
+            <h2 className="meta mt-10 mb-4">Contact</h2>
+            <ul className="space-y-2 text-[0.9375rem]">
+              <li><a href={`mailto:${COMPANY.email}`} className="hover:text-white">{COMPANY.email}</a></li>
+              <li><a href={`tel:${COMPANY.phoneHref}`} className="hover:text-white">{COMPANY.phone}</a></li>
+              {COMPANY.social.map((s) => (
+                <li key={s.href}>
+                  <a href={s.href} target="_blank" rel="noopener noreferrer" className="hover:text-white">{s.label}</a>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Services Column */}
-          <div>
-            <h5 className="font-mono text-[0.6rem] tracking-[0.24em] uppercase text-slate-500 mb-5 font-semibold">
-              Services
-            </h5>
-            <ul className="list-none flex flex-col gap-3.5 pl-0">
-              {[
-                "M&A Advisory",
-                "Equity Financing",
-                "Healthcare Software Dev",
-                "Healthcare Marketing",
-                "Equipment Procurement",
-                "Financial Audit",
-                "DPR & Pitch Decks",
-              ].map((s) => (
-                <li key={s}>
-                  <Link
-                    to="/services"
-                    className="text-[0.84rem] text-slate-400 no-underline cursor-pointer transition-all duration-300 hover:text-white hover:translate-x-1 font-light inline-block"
-                  >
-                    {s}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          {/* Contact Column */}
-          <div>
-            <h5 className="font-mono text-[0.6rem] tracking-[0.24em] uppercase text-slate-500 mb-5 font-semibold">
-              Contact
-            </h5>
-            <ul className="list-none flex flex-col gap-3.5 pl-0">
-              <li className="text-[0.84rem] text-slate-400 font-light">info@insightthinkers.com</li>
-              <li className="text-[0.84rem] text-slate-400 font-light">+91 95812 71590</li>
-              <li className="text-[0.84rem] text-slate-400 font-light font-mono text-[0.74rem]">NDA Enforced</li>
-              <li>
-                <button
-                  className="text-[0.84rem] text-gold-brand/80 cursor-pointer bg-transparent border-none p-0 transition-all duration-300 hover:text-gold-brand font-medium text-left"
-                  onClick={() => navigate("/contact")}
-                >
-                  Confidential Inquiry →
-                </button>
-              </li>
-            </ul>
-          </div>
-
-          {/* Newsletter Subscription Column */}
-          <div>
-            <h5 className="font-mono text-[0.6rem] tracking-[0.24em] uppercase text-slate-500 mb-5 font-semibold">
-              Subscribe to Insights
-            </h5>
-            <p className="text-[0.84rem] text-slate-400 leading-[1.6] mb-4 font-light">
-              Quarterly reports on healthcare valuations, transactions, and PE flows.
+          <div className="md:col-span-2 lg:col-span-3">
+            <h2 className="meta mb-5">Insights by email</h2>
+            <p className="mb-5 text-[0.9375rem] leading-relaxed">
+              Occasional notes on healthcare transactions, capital and technology.
             </p>
-            {subscribed ? (
-              <div className="text-[0.84rem] text-gold-brand bg-gold-brand/5 border border-gold-brand/20 p-3.5 rounded-[2px] font-light">
-                ✓ Registered for Quarterly Briefings.
-              </div>
-            ) : (
-              <form onSubmit={handleSubscribe} className="flex flex-col gap-2">
-                <div className="flex gap-2">
-                  <input
-                    type="email"
-                    value={email}
-                    onChange={(e) => {
-                      setEmail(e.target.value);
-                      setError("");
-                    }}
-                    placeholder="corporate@email.com"
-                    className="flex-1 p-2.5 border border-white/10 rounded-[2px] bg-transparent text-[0.84rem] text-white outline-none focus:border-gold-brand focus:ring-1 focus:ring-gold-brand/20 transition-all"
-                  />
-                  <button
-                    type="submit"
-                    className="bg-white/5 border border-white/20 hover:border-gold-brand hover:text-gold-brand text-white px-5 rounded-[2px] text-[0.7rem] font-semibold uppercase tracking-[0.1em] cursor-pointer transition-all duration-300"
-                  >
-                    Join
-                  </button>
-                </div>
-                {error && <span className="text-[0.72rem] text-red-400 mt-1">{error}</span>}
-              </form>
-            )}
+            <NewsletterForm stacked />
           </div>
         </div>
 
-        <hr className="border-none border-t border-white/[0.06] mb-6" />
-
-        <div className="flex justify-between items-center flex-wrap gap-4">
-          <span className="text-[0.76rem] text-slate-500 font-light">
-            © 2026 Insight Thinkers Agency. All rights reserved. All mandates subject to NDA.
-          </span>
-          <div className="flex gap-2">
-            <span className="font-mono text-[0.58rem] tracking-[0.16em] uppercase text-slate-500 bg-white/5 border border-white/[0.08] px-3 py-1.25 rounded-[5px] font-semibold select-none">
-              NDA-First
-            </span>
-            <span className="font-mono text-[0.58rem] tracking-[0.16em] uppercase text-slate-500 bg-white/5 border border-white/[0.08] px-3 py-1.25 rounded-[5px] font-semibold select-none">
-              SEBI-Compliant
-            </span>
-            <span className="font-mono text-[0.58rem] tracking-[0.16em] uppercase text-slate-500 bg-white/5 border border-white/[0.08] px-3 py-1.25 rounded-[5px] font-semibold select-none">
-              Strictly Confidential
-            </span>
-          </div>
+        <div className="rule mt-16 flex flex-col gap-3 pt-8 text-[0.8125rem] text-on-navy-muted sm:flex-row sm:items-center sm:justify-between">
+          <p>© {new Date().getFullYear()} {COMPANY.name}. All rights reserved.</p>
+          <p>Mandate information is shared with qualified counterparties under NDA.</p>
         </div>
       </div>
     </footer>

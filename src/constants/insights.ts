@@ -1,3 +1,5 @@
+import { FOUNDER } from "../content/site";
+
 export interface Article {
   slug: string;
   category: string;
@@ -28,7 +30,7 @@ export const ARTICLES: Article[] = [
       <p>Historically, hospital assets in Tier-1 cities command EBITDA multiples of 18x to 24x depending on beds scale and clinical brand depth. For mid-market setups (50 to 150 beds) in Tier-2 and Tier-3 cities, multiples typically range from 12x to 16x EBITDA. However, simple cashflow metrics are often insufficient. Institutional acquirers place significant weight on hard asset replacement values (land and building) and clinical practitioner dependencies.</p>
       
       <blockquote>
-        "spreadsheets alone cannot value hospital assets. Clinical flow quality, equipment condition, and nursing retention determine transaction outcomes."
+        "Spreadsheets alone cannot value hospital assets. Clinical flow quality, equipment condition, and nursing retention determine transaction outcomes."
       </blockquote>
       
       <h2>Core Diligence Metrics</h2>
@@ -46,8 +48,8 @@ export const ARTICLES: Article[] = [
     readTime: "6 min read",
     date: "May 28, 2026",
     author: {
-      name: "Vasanth S",
-      role: "Managing Director",
+      name: FOUNDER.name,
+      role: FOUNDER.title,
     }
   },
   {
@@ -73,8 +75,8 @@ export const ARTICLES: Article[] = [
     readTime: "8 min read",
     date: "May 15, 2026",
     author: {
-      name: "Vasanth S",
-      role: "Managing Director",
+      name: FOUNDER.name,
+      role: FOUNDER.title,
     }
   },
   {
@@ -89,8 +91,8 @@ export const ARTICLES: Article[] = [
     readTime: "5 min read",
     date: "April 20, 2026",
     author: {
-      name: "Vasanth S",
-      role: "Managing Director",
+      name: FOUNDER.name,
+      role: FOUNDER.title,
     }
   },
   {
@@ -105,8 +107,8 @@ export const ARTICLES: Article[] = [
     readTime: "7 min read",
     date: "March 10, 2026",
     author: {
-      name: "Vasanth S",
-      role: "Managing Director",
+      name: FOUNDER.name,
+      role: FOUNDER.title,
     }
   },
   {
@@ -121,11 +123,19 @@ export const ARTICLES: Article[] = [
     readTime: "9 min read",
     date: "Feb 18, 2026",
     author: {
-      name: "Vasanth S",
-      role: "Managing Director",
+      name: FOUNDER.name,
+      role: FOUNDER.title,
     }
   }
 ];
+
+/** ISO date (YYYY-MM-DD) for structured data and <time> elements. */
+export const isoDate = (d: string) => {
+  const t = new Date(d);
+  if (Number.isNaN(t.getTime())) return undefined;
+  const pad = (n: number) => String(n).padStart(2, "0");
+  return `${t.getFullYear()}-${pad(t.getMonth() + 1)}-${pad(t.getDate())}`;
+};
 
 export interface Resource {
   id: string;

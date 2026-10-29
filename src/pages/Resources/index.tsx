@@ -1,219 +1,202 @@
-import { useState } from "react";
-import { RESOURCES, type Resource } from "../../constants/insights";
+import { useEffect, useRef, useState } from "react";
 import SEO from "../../components/shared/SEO";
-import { motion, AnimatePresence } from "framer-motion";
+import PageHero from "../../components/ui/PageHero";
+import CTABand from "../../components/ui/CTABand";
+import { RESOURCES, type Resource } from "../../constants/insights";
+import { COMPANY } from "../../content/site";
+import { isValidEmail, submitForm } from "../../lib/submitForm";
+
+type Status = "idle" | "loading" | "sent" | "emailed";
 
 export default function Resources() {
-  const [selectedRes, setSelectedRes] = useState<Resource | null>(null);
+  const [selected, setSelected] = useState<Resource | null>(null);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [company, setCompany] = useState("");
   const [errors, setErrors] = useState<{ name?: string; email?: string }>({});
-  const [status, setStatus] = useState<"idle" | "loading" | "success">("idle");
+  const [status, setStatus] = useState<Status>("idle");
+  const [submitError, setSubmitError] = useState("");
+  const firstFieldRef = useRef<HTMLInputElement>(null);
+  const triggerRef = useRef<HTMLButtonElement | null>(null);
 
-  const handleOpenGate = (res: Resource) => {
-    setSelectedRes(res);
+  const open = (res: Resource, trigger: HTMLButtonElement) => {
+    triggerRef.current = trigger;
+    setSelected(res);
     setStatus("idle");
-    setName("");
-    setEmail("");
-    setCompany("");
     setErrors({});
+    setSubmitError("");
   };
 
-  const handleDownload = async (e: React.FormEvent) => {
-    e.preventDefault();
-    const err: { name?: string; email?: string } = {};
-    if (!name.trim()) err.name = "Full name required";
-    if (!email.trim() || !/\S+@\S+\.\S+/.test(email)) err.email = "Valid email required";
+  const close = () => {
+    setSelected(null);
+    triggerRef.current?.focus();
+  };
 
+  useEffect(() => {
+    if (!selected) return;
+    firstFieldRef.current?.focus();
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setSelected(null);
+        triggerRef.current?.focus();
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    return () => document.removeEventListener("keydown", onKey);
+  }, [selected]);
+
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!selected) return;
+    const err: typeof errors = {};
+    if (!name.trim()) err.name = "Please enter your name.";
+    if (!isValidEmail(email)) err.email = "Please enter a valid email address.";
     if (Object.keys(err).length) {
       setErrors(err);
       return;
     }
-
     setStatus("loading");
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    setStatus("success");
+    const res = await submitForm("resource-request", { resource: selected.title, name, email, company });
+    if (!res.ok) {
+      setSubmitError(res.error ?? "");
+      setStatus("idle");
+      return;
+    }
+    setStatus(res.via === "endpoint" ? "sent" : "emailed");
   };
 
   return (
-    <div className="bg-white animate-fade-in pb-16">
-      <SEO 
-        title="Healthcare Advisory Tools & Guides" 
-        description="Download checklists, hospital valuation templates, due diligence toolkits, and investor readiness files prepared by Insight Thinkers Agency."
-        keywords="Healthcare M&A Checklist, Hospital Valuation Guide, Investor Readiness Toolkit"
+    <>
+      <SEO
+        title="Healthcare Advisory Resources"
+        description="Guides, checklists and toolkits on hospital valuation, healthcare due diligence and investor readiness, prepared by Insight Thinkers Agency."
+        keywords="healthcare M&A checklist, hospital valuation guide, investor readiness toolkit"
         schema={{
           "@context": "https://schema.org",
-          "@type": "WebPage",
-          "name": "Healthcare Advisory Resources",
-          "description": "Gated corporate resources for healthcare exit strategies and capital raises."
+          "@type": "CollectionPage",
+          name: "Healthcare Advisory Resources",
+          description: "Advisory resources for healthcare exits, acquisitions and capital raises.",
         }}
       />
+      <PageHero
+        eyebrow="Resources"
+        title={<>Toolkits for owners, <em className="text-bronze-ink">acquirers and investors.</em></>}
+        lede="Practical guides and checklists drawn from our advisory work. Request a copy and we will send it to you."
+      />
 
-      {/* Hero */}
-      <section className="relative py-20 md:py-24 bg-slate-brand border-b border-border-brand/80">
-        <div className="wrap relative z-10 text-center max-w-[850px]">
-          <div className="eyebrow justify-center">Corporate Toolkits</div>
-          <h1 className="display tracking-[-0.015em]">
-            Healthcare Advisory <span className="font-display italic font-normal text-blue-brand">Resources</span>
-          </h1>
-          <p className="body-lg mt-6 max-w-[700px] mx-auto">
-            Practical guidelines, valuation tools, and structured checklists compiled from closed hospital transactions.
-          </p>
-        </div>
-      </section>
-
-      {/* Grid of resources */}
-      <section className="section wrap">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-[1000px] mx-auto">
-          {RESOURCES.map((res, idx) => (
-            <motion.div
-              key={res.id}
-              initial={{ opacity: 0, y: 15 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.06, duration: 0.5 }}
-              className="bg-slate-brand border border-border-brand/80 rounded-[12px] p-8 shadow-sm flex flex-col justify-between"
-            >
-              <div>
-                <span className="font-mono text-[0.58rem] tracking-[0.16em] uppercase text-blue-brand bg-blue-brand/5 border border-blue-brand/10 px-2.5 py-1 rounded inline-block mb-4 font-semibold">
-                  {res.type}
-                </span>
-                <h3 className="font-display text-[1.2rem] font-semibold text-[#0F172A] mb-3 leading-snug">
-                  {res.title}
-                </h3>
-                <p className="text-[0.82rem] text-muted-brand leading-relaxed font-light mb-8">
-                  {res.description}
-                </p>
-              </div>
-              <button
-                onClick={() => handleOpenGate(res)}
-                className="w-full py-3.5 bg-ink hover:bg-blue-brand text-white text-[0.8rem] font-semibold uppercase tracking-[0.06em] border-none cursor-pointer rounded-[6px] transition-all hover:-translate-y-[1px]"
-              >
-                Download Toolkit
-              </button>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* Gated Lead Modal */}
-      <AnimatePresence>
-        {selectedRes && (
-          <>
-            {/* Backdrop */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setSelectedRes(null)}
-              className="fixed inset-0 bg-[#07152B]/40 backdrop-blur-sm z-[400]"
-            />
-
-            {/* Modal */}
-            <motion.div
-              initial={{ opacity: 0, y: 50, scale: 0.95 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 50, scale: 0.95 }}
-              className="fixed top-[15%] left-[5%] right-[5%] md:left-1/2 md:right-auto md:w-[480px] md:-ml-[240px] bg-white rounded-[20px] p-8 shadow-sh3 z-[410] border border-border-brand/80"
-            >
-              {status === "success" ? (
-                <div className="text-center py-6 animate-fade-in">
-                  <div className="text-[2.5rem] mb-3">📁</div>
-                  <h3 className="font-display text-[1.45rem] font-semibold text-ink mb-2">
-                    Download Initialized
-                  </h3>
-                  <p className="text-[0.84rem] text-muted-brand leading-relaxed mb-6 font-light max-w-[340px] mx-auto">
-                    The {selectedRes.title} has been generated and dispatched to your email address securely.<br /><br />
-                    For direct inquiries regarding data benchmarks, reach us at <strong className="text-ink font-semibold">info@insightthinkers.com</strong>.
-                  </p>
-                  <button
-                    onClick={() => setSelectedRes(null)}
-                    className="px-6 py-2.5 bg-ink hover:bg-blue-brand text-white border-none rounded-[6px] font-mono text-[0.76rem] uppercase font-semibold cursor-pointer"
-                  >
-                    Close Window
+      <section aria-label="Resource library" className="section">
+        <div className="container-x">
+          <ul className="border-t border-navy">
+            {RESOURCES.map((r, i) => (
+              <li key={r.id} className="grid gap-4 border-b border-line py-8 md:grid-cols-12 md:items-center md:gap-8">
+                <span className="font-serif text-[1.1rem] text-bronze-ink md:col-span-1">{String(i + 1).padStart(2, "0")}</span>
+                <div className="md:col-span-7">
+                  <p className="meta">{r.type}</p>
+                  <h2 className="mt-2 font-serif text-[1.5rem] leading-snug text-ink">{r.title}</h2>
+                  <p className="mt-2 max-w-[40rem] text-[1rem] leading-relaxed">{r.description}</p>
+                </div>
+                <div className="md:col-span-4 md:text-right">
+                  <button type="button" className="btn-outline" onClick={(e) => open(r, e.currentTarget)}>
+                    Request a copy <span className="arrow" aria-hidden="true">→</span>
                   </button>
                 </div>
-              ) : (
-                <form onSubmit={handleDownload} className="flex flex-col gap-4">
-                  <div>
-                    <span className="font-mono text-[0.58rem] tracking-[0.14em] text-blue-brand uppercase font-semibold">
-                      Gated Access Profile
-                    </span>
-                    <h3 className="font-display text-[1.3rem] font-semibold text-ink mt-1">
-                      Download {selectedRes.title}
-                    </h3>
-                  </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
-                  <div className="flex flex-col gap-1">
-                    <label className="font-mono text-[0.6rem] tracking-[0.14em] uppercase text-slate-500 font-semibold">
-                      Full Name *
-                    </label>
+      <CTABand
+        eyebrow="Need something specific?"
+        title="Looking for guidance on a particular situation?"
+        body="Our resources are a starting point. For advice on a specific transaction or capital raise, speak with us directly."
+      />
+
+      {selected && (
+          <div className="animate-fade fixed inset-0 z-[90] flex items-end justify-center sm:items-center sm:p-4">
+            <div className="absolute inset-0 bg-navy-deep/50" onClick={close} aria-hidden="true" />
+            <div
+              role="dialog"
+              aria-modal="true"
+              aria-labelledby="resource-dialog-title"
+              className="animate-dialog relative max-h-[92vh] w-full max-w-[32rem] overflow-y-auto bg-paper p-6 shadow-[0_24px_60px_rgba(15,31,43,0.25)] sm:p-10"
+            >
+              <button
+                type="button"
+                onClick={close}
+                className="absolute top-3 right-3 flex h-10 w-10 items-center justify-center text-[1.25rem] text-muted hover:text-ink"
+                aria-label="Close"
+              >
+                ×
+              </button>
+
+              {status === "sent" || status === "emailed" ? (
+                <div aria-live="polite">
+                  <p className="eyebrow mb-4">{status === "sent" ? "Request received" : "Almost done"}</p>
+                  <h2 id="resource-dialog-title" className="h3">
+                    {status === "sent" ? "Thank you — we’ll send it shortly." : "Please send the email that has just opened."}
+                  </h2>
+                  <p className="mt-4 text-[1rem] leading-relaxed">
+                    {status === "sent"
+                      ? `We will email the ${selected.title} to ${email}.`
+                      : `Your email app should show a pre-filled request to ${COMPANY.email}. Press send and we will reply with the ${selected.title}.`}
+                  </p>
+                  <button type="button" onClick={close} className="btn-primary mt-8">Close</button>
+                </div>
+              ) : (
+                <form onSubmit={onSubmit} noValidate className="grid gap-5">
+                  <div>
+                    <p className="meta">{selected.type}</p>
+                    <h2 id="resource-dialog-title" className="h3 mt-2">Request: {selected.title}</h2>
+                  </div>
+                  <div>
+                    <label htmlFor="res-name" className="field-label">Full name *</label>
                     <input
-                      name="name"
+                      ref={firstFieldRef}
+                      id="res-name"
+                      autoComplete="name"
                       value={name}
                       onChange={(e) => {
                         setName(e.target.value);
-                        setErrors((er) => ({ ...er, name: "" }));
+                        setErrors((er) => ({ ...er, name: undefined }));
                       }}
-                      placeholder="Your full name"
-                      className={`p-3 border rounded-[8px] font-sans text-[0.88rem] outline-none ${
-                        errors.name ? "border-red-500 focus:ring-red-100" : "border-border-brand focus:border-blue-brand focus:ring-2 focus:ring-blue-brand/10"
-                      }`}
+                      aria-invalid={!!errors.name}
+                      aria-describedby={errors.name ? "res-name-err" : undefined}
+                      className="field"
                     />
-                    {errors.name && <span className="text-[0.72rem] text-red-500">{errors.name}</span>}
+                    {errors.name && <p id="res-name-err" className="field-error">{errors.name}</p>}
                   </div>
-
-                  <div className="flex flex-col gap-1">
-                    <label className="font-mono text-[0.6rem] tracking-[0.14em] uppercase text-slate-500 font-semibold">
-                      Corporate Email *
-                    </label>
+                  <div>
+                    <label htmlFor="res-email" className="field-label">Work email *</label>
                     <input
-                      name="email"
+                      id="res-email"
                       type="email"
+                      autoComplete="email"
                       value={email}
                       onChange={(e) => {
                         setEmail(e.target.value);
-                        setErrors((er) => ({ ...er, email: "" }));
+                        setErrors((er) => ({ ...er, email: undefined }));
                       }}
-                      placeholder="corporate@email.com"
-                      className={`p-3 border rounded-[8px] font-sans text-[0.88rem] outline-none ${
-                        errors.email ? "border-red-500 focus:ring-red-100" : "border-border-brand focus:border-blue-brand focus:ring-2 focus:ring-blue-brand/10"
-                      }`}
+                      aria-invalid={!!errors.email}
+                      aria-describedby={errors.email ? "res-email-err" : undefined}
+                      className="field"
                     />
-                    {errors.email && <span className="text-[0.72rem] text-red-500">{errors.email}</span>}
+                    {errors.email && <p id="res-email-err" className="field-error">{errors.email}</p>}
                   </div>
-
-                  <div className="flex flex-col gap-1">
-                    <label className="font-mono text-[0.6rem] tracking-[0.14em] uppercase text-slate-500 font-semibold">
-                      Company / Organization
-                    </label>
-                    <input
-                      name="company"
-                      value={company}
-                      onChange={(e) => setCompany(e.target.value)}
-                      placeholder="Firm name"
-                      className="p-3 border border-border-brand focus:border-blue-brand rounded-[8px] font-sans text-[0.88rem] outline-none focus:ring-2 focus:ring-blue-brand/10"
-                    />
+                  <div>
+                    <label htmlFor="res-company" className="field-label">Organisation</label>
+                    <input id="res-company" autoComplete="organization" value={company} onChange={(e) => setCompany(e.target.value)} className="field" />
                   </div>
-
-                  <button
-                    type="submit"
-                    disabled={status === "loading"}
-                    className="w-full py-4 text-white font-semibold tracking-[0.06em] bg-ink hover:bg-blue-brand border-none cursor-pointer rounded-[8px] uppercase text-[0.8rem] transition-all disabled:opacity-60 mt-2"
-                  >
-                    {status === "loading" ? "Validating credentials..." : "Access Secure File"}
+                  {submitError && <p role="alert" className="text-[0.9375rem] text-error">{submitError}</p>}
+                  <button type="submit" disabled={status === "loading"} className="btn-primary mt-2 w-full">
+                    {status === "loading" ? "Sending…" : "Request a copy"}
                   </button>
-
-                  <div className="text-[0.68rem] text-slate-400 text-center leading-snug mt-1">
-                    🔒 Protected under NDA storage parameters. Corporate verification required.
-                  </div>
+                  <p className="text-[0.8125rem] text-muted">We use these details to send the resource and may follow up once.</p>
                 </form>
               )}
-            </motion.div>
-          </>
+            </div>
+          </div>
         )}
-      </AnimatePresence>
-    </div>
+    </>
   );
 }

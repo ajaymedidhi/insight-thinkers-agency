@@ -6,14 +6,20 @@ import ExitIntentModal from "../shared/ExitIntentModal";
 
 export default function Layout() {
   return (
-    <div className="relative min-h-screen bg-[#07152B] text-white font-sans selection:bg-gold-brand/20 selection:text-white">
+    <>
+      <a
+        href="#main"
+        className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:bg-navy focus:px-4 focus:py-3 focus:text-white"
+      >
+        Skip to content
+      </a>
       <ScrollToTop />
       <ExitIntentModal />
       <Navbar />
-      <main>
+      <main id="main" tabIndex={-1} className="outline-none">
         <Outlet />
       </main>
       <Footer />
-    </div>
+    </>
   );
 }

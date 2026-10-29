@@ -1,75 +1,58 @@
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { SITE_URL } from "../../content/site";
 
 interface SEOProps {
   title: string;
   description: string;
   keywords?: string;
   schema?: object;
+  type?: "website" | "article";
 }
 
-export default function SEO({ title, description, keywords, schema }: SEOProps) {
+function setMeta(attr: "name" | "property", key: string, content: string) {
+  let el = document.head.querySelector(`meta[${attr}="${key}"]`);
+  if (!el) {
+    el = document.createElement("meta");
+    el.setAttribute(attr, key);
+    document.head.appendChild(el);
+  }
+  el.setAttribute("content", content);
+}
+
+export default function SEO({ title, description, keywords, schema, type = "website" }: SEOProps) {
+  const { pathname } = useLocation();
+
   useEffect(() => {
-    // Title
+    const url = `${SITE_URL}${pathname === "/" ? "/" : pathname.replace(/\/$/, "")}`;
     document.title = `${title} | Insight Thinkers Agency`;
 
-    // Description
-    let metaDesc = document.querySelector('meta[name="description"]');
-    if (!metaDesc) {
-      metaDesc = document.createElement("meta");
-      metaDesc.setAttribute("name", "description");
-      document.head.appendChild(metaDesc);
-    }
-    metaDesc.setAttribute("content", description);
+    setMeta("name", "description", description);
+    if (keywords) setMeta("name", "keywords", keywords);
+    setMeta("property", "og:title", title);
+    setMeta("property", "og:description", description);
+    setMeta("property", "og:type", type);
+    setMeta("property", "og:url", url);
 
-    // Keywords
-    if (keywords) {
-      let metaKey = document.querySelector('meta[name="keywords"]');
-      if (!metaKey) {
-        metaKey = document.createElement("meta");
-        metaKey.setAttribute("name", "keywords");
-        document.head.appendChild(metaKey);
-      }
-      metaKey.setAttribute("content", keywords);
+    let canonical = document.head.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement("link");
+      canonical.rel = "canonical";
+      document.head.appendChild(canonical);
     }
+    canonical.href = url;
 
-    // OG Title
-    let ogTitle = document.querySelector('meta[property="og:title"]');
-    if (!ogTitle) {
-      ogTitle = document.createElement("meta");
-      ogTitle.setAttribute("property", "og:title");
-      document.head.appendChild(ogTitle);
-    }
-    ogTitle.setAttribute("content", title);
-
-    // OG Description
-    let ogDesc = document.querySelector('meta[property="og:description"]');
-    if (!ogDesc) {
-      ogDesc = document.createElement("meta");
-      ogDesc.setAttribute("property", "og:description");
-      document.head.appendChild(ogDesc);
-    }
-    ogDesc.setAttribute("content", description);
-
-    // JSON-LD Schema
-    let scriptSchema = document.getElementById("jsonld-schema");
-    if (scriptSchema) {
-      scriptSchema.remove();
-    }
-
+    document.getElementById("jsonld-schema")?.remove();
     if (schema) {
       const script = document.createElement("script");
       script.id = "jsonld-schema";
       script.type = "application/ld+json";
-      script.innerHTML = JSON.stringify(schema);
+      script.textContent = JSON.stringify(schema);
       document.head.appendChild(script);
     }
 
-    return () => {
-      // Clean schema on unmount
-      const script = document.getElementById("jsonld-schema");
-      if (script) script.remove();
-    };
-  }, [title, description, keywords, schema]);
+    return () => document.getElementById("jsonld-schema")?.remove();
+  }, [title, description, keywords, schema, type, pathname]);
 
   return null;
 }
