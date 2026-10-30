@@ -38,21 +38,6 @@ export const FOUNDER = {
 };
 
 /**
- * Homepage hero photograph (served from /public).
- * CLIENT TO SUPPLY: replace with licensed or commissioned photography —
- * ideally an Indian healthcare facility the firm has rights to show. The
- * current image is a placeholder with fictional signage; never use imagery
- * showing a real hospital brand the firm has not worked with.
- */
-export const HERO_IMAGE = {
-  src: "/hero-slide-ma.jpg",
-  width: 1376,
-  height: 768,
-  /** CSS object-position; keeps the building to the right of the headline. */
-  position: "68% 45%",
-};
-
-/**
  * Mandate value.
  * The figure currently published on the live site is ₹120 Cr+ and describes
  * the hard-asset value of hospital assets under ACTIVE mandate (not completed
