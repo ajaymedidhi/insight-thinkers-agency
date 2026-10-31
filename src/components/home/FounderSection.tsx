@@ -17,13 +17,7 @@ export default function FounderSection() {
         <Reveal className="order-2 max-w-[28rem] lg:order-1 lg:col-span-4 lg:max-w-none">
           {/* Without a real portrait, the nameplate only repeats the name — skip it on small screens. */}
           <FounderPortrait className={FOUNDER.portrait ? "" : "max-lg:hidden"} />
-          {FOUNDER.portrait && (
-            <p className="mt-4 text-[0.9375rem] text-ink">
-              {FOUNDER.name}
-              <span className="text-muted"> — {FOUNDER.title}</span>
-            </p>
-          )}
-          <dl className={`border-t border-navy ${FOUNDER.portrait ? "mt-8" : "lg:mt-8"}`}>
+          <dl className={`border-t border-navy ${FOUNDER.portrait ? "mt-7" : "lg:mt-8"}`}>
             {EXPERIENCE.map((e) => (
               <div key={e.label} className="grid grid-cols-[7.5rem_1fr] gap-4 border-b border-line py-3 text-[0.9375rem]">
                 <dt className="meta pt-0.5">{e.label}</dt>

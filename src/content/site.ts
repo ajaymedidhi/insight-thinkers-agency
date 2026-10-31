@@ -21,6 +21,8 @@ export const COMPANY = {
   social: [] as { label: string; href: string }[],
 };
 
+import founderPortraitImg from "../assets/vasanth-founder.jpeg";
+
 export const FOUNDER = {
   name: "Vasanth Sabavath",
   /**
@@ -30,11 +32,9 @@ export const FOUNDER = {
   title: "Founder & CEO",
   initials: "VS",
   /**
-   * CLIENT TO SUPPLY: an authentic portrait (ideally ≥1200px tall, 4:5).
-   * Place it in src/assets and import it here. When null, the layout shows
-   * a typographic placeholder instead of a stock image.
+   * Authentic founder portrait.
    */
-  portrait: null as string | null,
+  portrait: founderPortraitImg as string | null,
 };
 
 /**
