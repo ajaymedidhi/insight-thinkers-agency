@@ -101,16 +101,17 @@ export default function Leadership() {
       </section>
 
       <section aria-labelledby="expertise-title" className="section border-t border-line">
-        <div className="container-x grid gap-12 lg:grid-cols-12 lg:gap-12">
-          <div className="lg:col-span-4">
-            <p className="eyebrow mb-5">Experience</p>
-            <h2 id="expertise-title" className="h2">Areas of expertise</h2>
+        <div className="container-x">
+          <div className="max-w-[38rem] mb-14">
+            <p className="eyebrow mb-4">Advisory Capabilities</p>
+            <h2 id="expertise-title" className="h2 text-ink">Personal leadership across all strategic disciplines.</h2>
           </div>
-          <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2 lg:col-span-7 lg:col-start-6">
-            {EXPERTISE.map((e) => (
-              <div key={e.title} className="border-t border-navy pt-6">
-                <h3 className="font-serif text-[1.3rem] leading-snug text-ink">{e.title}</h3>
-                <p className="mt-3 text-[0.98rem] leading-relaxed">{e.desc}</p>
+          <div className="grid gap-px border border-line bg-line sm:grid-cols-2">
+            {EXPERTISE.map((e, i) => (
+              <div key={e.title} className="bg-paper p-8 lg:p-10 transition-colors duration-300 hover:bg-ivory">
+                <span className="font-serif text-[1rem] font-semibold text-bronze-ink">0{i + 1}</span>
+                <h3 className="h3 mt-4 text-ink">{e.title}</h3>
+                <p className="mt-4 text-[0.98rem] leading-relaxed text-body">{e.desc}</p>
               </div>
             ))}
           </div>
@@ -118,22 +119,28 @@ export default function Leadership() {
       </section>
 
       <section aria-labelledby="journey-title" className="section border-t border-line bg-paper">
-        <div className="container-x grid gap-12 lg:grid-cols-12 lg:gap-12">
+        <div className="container-x grid gap-12 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-4">
-            <p className="eyebrow mb-5">Journey</p>
-            <h2 id="journey-title" className="h2">How the practice was built</h2>
+            <p className="eyebrow mb-5">Pedigree & Track Record</p>
+            <h2 id="journey-title" className="h2 text-ink">Built on direct operating experience.</h2>
+            <p className="lede mt-6 text-body">
+              How technical software engineering, healthcare commercialization, and investment banking convergence shaped the firm.
+            </p>
           </div>
-          <ol className="relative lg:col-span-7 lg:col-start-6">
+          <ol className="border-t border-navy/20 lg:col-span-8">
             {JOURNEY.map((j, i) => (
-              <li key={j.title} className="relative border-l border-line pb-10 pl-8 last:pb-0">
-                <span aria-hidden="true" className={`absolute top-1.5 -left-[5px] h-[9px] w-[9px] rounded-full border border-bronze ${i === JOURNEY.length - 1 ? "bg-bronze" : "bg-paper"}`} />
-                <h3 className="font-serif text-[1.3rem] text-ink">{j.title}</h3>
-                <p className="mt-2 text-[0.98rem] leading-relaxed">{j.desc}</p>
+              <li key={j.title} className="grid gap-3 border-b border-line py-8 sm:grid-cols-[14rem_1fr] sm:gap-8 transition-colors hover:bg-ivory/50 px-2 sm:px-4">
+                <div className="flex items-center gap-3 sm:flex-col sm:items-start sm:gap-1">
+                  <span className="font-serif text-[0.8rem] font-medium text-bronze-ink uppercase tracking-wider">Milestone 0{i + 1}</span>
+                  <h3 className="font-serif text-[1.2rem] text-ink font-normal">{j.title}</h3>
+                </div>
+                <p className="text-[0.95rem] leading-relaxed text-body">{j.desc}</p>
               </li>
             ))}
           </ol>
         </div>
       </section>
+
 
       <section aria-labelledby="writing-title" className="section border-t border-line">
         <div className="container-x">

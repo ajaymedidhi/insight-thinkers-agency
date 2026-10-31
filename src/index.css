@@ -27,14 +27,14 @@
   --color-success: #2f6b4f;
 
   --font-serif: "Newsreader", "Iowan Old Style", Georgia, serif;
-  --font-sans: "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 
-  --ease-editorial: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-editorial: cubic-bezier(0.16, 1, 0.3, 1);
 
-  --animate-rise: rise 0.9s var(--ease-editorial) both;
-  --animate-fade: fade 0.2s ease-out both;
+  --animate-rise: rise 0.85s var(--ease-editorial) both;
+  --animate-fade: fade 0.25s ease-out both;
   --animate-dialog: rise 0.35s var(--ease-editorial) both;
-  --animate-settle: settle 2.4s var(--ease-editorial) both;
+  --animate-settle: settle 2.8s var(--ease-editorial) both;
   --animate-hero-progress: hero-progress 7s linear forwards;
 
   @keyframes fade {
@@ -42,7 +42,7 @@
     to { opacity: 1; }
   }
   @keyframes rise {
-    from { opacity: 0; transform: translateY(14px); }
+    from { opacity: 0; transform: translateY(18px); }
     to { opacity: 1; transform: translateY(0); }
   }
   @keyframes hero-progress {
@@ -50,7 +50,7 @@
     to { transform: scaleX(1); }
   }
   @keyframes settle {
-    from { transform: scale(1.06); opacity: 0.6; }
+    from { transform: scale(1.05); opacity: 0.7; }
     to { transform: scale(1); opacity: 1; }
   }
 }
@@ -59,21 +59,19 @@
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
-    scroll-padding-top: 96px;
+    scroll-padding-top: 100px;
   }
   body {
-    @apply bg-ivory font-sans text-body antialiased;
-    font-feature-settings: "ss01", "cv11";
+    @apply bg-ivory font-sans text-body antialiased selection:bg-bronze/30 selection:text-ink;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     text-rendering: optimizeLegibility;
   }
   h1, h2, h3, h4 {
-    @apply text-ink;
+    @apply text-ink font-serif;
     text-wrap: balance;
+    letter-spacing: -0.02em;
   }
   p { text-wrap: pretty; }
-  ::selection {
-    @apply bg-bronze/35 text-ink;
-  }
   :focus-visible {
     outline: 2px solid var(--color-bronze-ink);
     outline-offset: 3px;
@@ -97,10 +95,10 @@
 @layer components {
   /* Layout */
   .container-x {
-    @apply mx-auto w-full max-w-[1240px] px-4 sm:px-8 lg:px-12;
+    @apply mx-auto w-full max-w-[1280px] px-5 sm:px-8 lg:px-12;
   }
   .section {
-    @apply py-20 md:py-28;
+    @apply py-24 md:py-32;
   }
   .rule {
     @apply border-t border-line;
@@ -111,32 +109,32 @@
 
   /* Type */
   .eyebrow {
-    @apply flex items-center gap-3 text-[0.75rem] font-medium uppercase tracking-[0.16em] text-bronze-ink;
+    @apply flex items-center gap-3 text-[0.7rem] font-semibold uppercase tracking-[0.2em] text-bronze-ink;
   }
   .eyebrow::before {
     content: "";
-    @apply block h-px w-8 shrink-0 bg-bronze;
+    @apply block h-px w-6 shrink-0 bg-bronze;
   }
   .on-navy .eyebrow {
     @apply text-bronze;
   }
   .display {
     @apply font-serif font-normal text-ink;
-    font-size: clamp(2.6rem, 6.2vw, 5.1rem);
-    line-height: 1.03;
-    letter-spacing: -0.022em;
+    font-size: clamp(2.75rem, 6.4vw, 5.4rem);
+    line-height: 1.02;
+    letter-spacing: -0.025em;
   }
   .h2 {
     @apply font-serif font-normal text-ink;
-    font-size: clamp(2rem, 3.8vw, 3.1rem);
-    line-height: 1.08;
-    letter-spacing: -0.018em;
+    font-size: clamp(2.15rem, 4.2vw, 3.4rem);
+    line-height: 1.06;
+    letter-spacing: -0.02em;
   }
   .h3 {
     @apply font-serif font-normal text-ink;
-    font-size: clamp(1.4rem, 2vw, 1.7rem);
-    line-height: 1.2;
-    letter-spacing: -0.01em;
+    font-size: clamp(1.45rem, 2.2vw, 1.85rem);
+    line-height: 1.18;
+    letter-spacing: -0.015em;
   }
   .on-navy .display,
   .on-navy .h2,
@@ -144,13 +142,13 @@
     @apply text-white;
   }
   .lede {
-    @apply text-[1.125rem] leading-[1.65] text-body md:text-[1.1875rem];
+    @apply text-[1.125rem] leading-[1.7] text-body md:text-[1.2rem];
   }
   .on-navy .lede {
     @apply text-on-navy;
   }
   .meta {
-    @apply text-[0.75rem] font-medium uppercase tracking-[0.12em] text-muted;
+    @apply text-[0.72rem] font-medium uppercase tracking-[0.15em] text-muted;
   }
   .on-navy .meta {
     @apply text-on-navy-muted;
@@ -161,33 +159,34 @@
   .btn-bronze,
   .btn-outline,
   .btn-outline-light {
-    @apply inline-flex min-h-12 items-center justify-center gap-3 text-center border border-transparent px-6 py-3 text-[0.9375rem] font-medium leading-none transition-colors duration-200 disabled:cursor-not-allowed disabled:opacity-60;
+    @apply relative inline-flex min-h-12 items-center justify-center gap-3 text-center border px-7 py-3 text-[0.875rem] font-medium tracking-wide uppercase transition-all duration-300 disabled:cursor-not-allowed disabled:opacity-60;
   }
   .btn-primary {
-    @apply bg-navy text-white hover:bg-navy-deep active:bg-navy-soft;
+    @apply border-navy bg-navy text-white hover:bg-navy-deep hover:shadow-md active:bg-navy-soft;
   }
   .btn-bronze {
-    @apply bg-bronze text-navy-deep hover:bg-bronze-light;
+    @apply border-bronze bg-bronze text-navy-deep hover:bg-bronze-light hover:border-bronze-light hover:shadow-md;
   }
   .btn-outline {
-    @apply border-navy/30 text-navy hover:border-navy hover:bg-navy/[0.03];
+    @apply border-line bg-transparent text-ink hover:border-navy hover:bg-navy hover:text-white;
   }
   .btn-outline-light {
-    @apply border-white/30 text-white hover:border-white hover:bg-white/[0.04];
+    @apply border-white/25 bg-transparent text-white hover:border-white hover:bg-white hover:text-navy;
   }
   .arrow {
-    @apply inline-block transition-transform duration-200;
+    @apply inline-block transition-transform duration-300;
   }
   [class*="btn-"]:hover .arrow,
   .link-arrow:hover .arrow {
-    transform: translateX(3px);
+    transform: translateX(4px);
   }
   .link-arrow {
-    @apply inline-flex items-center gap-2 text-[0.9375rem] font-medium text-navy underline decoration-bronze/60 decoration-1 underline-offset-[6px] transition-colors hover:decoration-navy;
+    @apply inline-flex items-center gap-2 text-[0.875rem] font-medium tracking-wide uppercase text-navy underline decoration-bronze/70 decoration-1 underline-offset-[7px] transition-colors hover:decoration-navy hover:text-navy-deep;
   }
   .on-navy .link-arrow {
-    @apply text-white decoration-bronze/70 hover:decoration-white;
+    @apply text-white decoration-bronze/80 hover:decoration-white;
   }
+
 
   /* Forms */
   .field-label {

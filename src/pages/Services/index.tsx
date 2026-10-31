@@ -53,52 +53,75 @@ export default function Services() {
           key={s.id}
           id={s.id}
           aria-labelledby={`${s.id}-title`}
-          className={`section scroll-mt-20 ${i % 2 === 1 ? "bg-paper" : ""} ${i > 0 ? "border-t border-line" : ""}`}
+          className={`section scroll-mt-24 ${i % 2 === 1 ? "bg-paper" : "bg-ivory"} border-b border-line`}
         >
-          <div className="container-x grid gap-10 lg:grid-cols-12 lg:gap-12">
+          <div className="container-x grid gap-12 lg:grid-cols-12 lg:gap-16">
             <Reveal className="lg:col-span-5">
-              <span className="font-serif text-[3rem] leading-none text-bronze-ink">{s.index}</span>
-              <h2 id={`${s.id}-title`} className="h2 mt-6">{s.title}</h2>
-              <p className="mt-6 font-serif text-[1.3rem] leading-snug text-bronze-ink italic">{s.question}</p>
-              <p className="mt-8 border-l-2 border-bronze pl-5 text-[0.98rem] leading-relaxed">
-                <span className="meta mb-2 block">Typically for</span>
-                {s.forWhom}
-              </p>
+              <div className="flex items-center gap-3">
+                <span className="font-serif text-[2.5rem] leading-none text-bronze-ink font-semibold">{s.index}</span>
+                <span className="h-px flex-1 bg-line" />
+              </div>
+
+              <h2 id={`${s.id}-title`} className="h2 mt-6 text-ink">{s.title}</h2>
+              <p className="mt-5 font-serif text-[1.25rem] leading-snug text-bronze-ink italic">"{s.question}"</p>
+              
+              <div className="mt-8 border-l-2 border-bronze bg-paper p-5 shadow-xs">
+                <span className="meta mb-2 block text-bronze-ink font-semibold">Target Counterparties</span>
+                <p className="text-[0.95rem] leading-relaxed text-ink">{s.forWhom}</p>
+              </div>
+
               <div className="mt-8">
-                <h3 className="meta mb-3">Typically engaged when</h3>
-                <ul className="space-y-2">
+                <h3 className="meta mb-3 text-muted">Typical Mandate Triggers</h3>
+                <ul className="space-y-2.5">
                   {s.problems.map((p) => (
-                    <li key={p} className="flex gap-3 text-[0.98rem] leading-relaxed text-ink">
-                      <span aria-hidden="true" className="mt-[0.7em] h-px w-3 shrink-0 bg-bronze" />
-                      {p}
+                    <li key={p} className="flex items-start gap-2.5 text-[0.9375rem] leading-relaxed text-ink">
+                      <span aria-hidden="true" className="mt-2 h-1 w-1 shrink-0 rounded-full bg-bronze" />
+                      <span>{p}</span>
                     </li>
                   ))}
                 </ul>
               </div>
             </Reveal>
-            <Reveal delay={120} className="lg:col-span-6 lg:col-start-7">
-              <p className="lede">{s.purpose}</p>
-              <ul className="mt-8 space-y-3 border-t border-line pt-8">
-                {s.scope.map((x) => (
-                  <li key={x} className="flex gap-3 text-[1rem] leading-relaxed">
-                    <span aria-hidden="true" className="mt-[0.7em] h-px w-4 shrink-0 bg-bronze" />
-                    {x}
-                  </li>
-                ))}
-              </ul>
-              <h3 className="meta mt-10 mb-4">What the engagement can include</h3>
-              <ul className="grid gap-x-8 sm:grid-cols-2">
-                {s.deliverables.map((d) => (
-                  <li key={d} className="border-b border-line py-3 text-[0.98rem] text-ink">{d}</li>
-                ))}
-              </ul>
-              <Link to={contactFor(s.topic)} className="btn-outline mt-10">
-                Discuss a mandate in this practice <span className="arrow" aria-hidden="true">→</span>
-              </Link>
+
+            <Reveal delay={120} className="lg:col-span-7 flex flex-col justify-between border-t border-line pt-8 lg:border-t-0 lg:border-l lg:border-line lg:pl-12 lg:pt-0">
+              <div>
+                <p className="lede text-ink/90 font-normal">{s.purpose}</p>
+
+                <div className="mt-8 border-t border-line pt-8">
+                  <h3 className="meta mb-4 text-bronze-ink">Advisory Scope & Execution Standards</h3>
+                  <ul className="space-y-3">
+                    {s.scope.map((x) => (
+                      <li key={x} className="flex items-start gap-3 text-[0.95rem] leading-relaxed text-body">
+                        <span aria-hidden="true" className="mt-2 h-px w-4 shrink-0 bg-bronze" />
+                        <span>{x}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className="mt-10 border-t border-line pt-8">
+                  <h3 className="meta mb-4 text-bronze-ink">Key Deliverables</h3>
+                  <ul className="grid gap-3 sm:grid-cols-2">
+                    {s.deliverables.map((d) => (
+                      <li key={d} className="flex items-center gap-2 border border-line/80 bg-paper px-3.5 py-2.5 text-[0.875rem] text-ink shadow-2xs">
+                        <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-bronze-ink shrink-0" />
+                        <span>{d}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="mt-10 pt-6 border-t border-line/60">
+                <Link to={contactFor(s.topic)} className="btn-primary">
+                  Discuss a mandate in this practice <span className="arrow" aria-hidden="true">→</span>
+                </Link>
+              </div>
             </Reveal>
           </div>
         </section>
       ))}
+
 
       <section aria-labelledby="approach-title" className="section border-t border-line">
         <div className="container-x">

@@ -10,36 +10,37 @@ export default function FounderPortrait({ className = "" }: { className?: string
   if (FOUNDER.portrait) {
     return (
       <div className={`group relative w-full ${className}`}>
-        {/* Subtle decorative offset border evoking bespoke investment memo framing */}
+        {/* Architectural offset shadow frame */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -inset-2 -z-10 border border-bronze/35 transition-transform duration-500 group-hover:scale-[1.01]"
+          className="pointer-events-none absolute -inset-3 -z-10 border border-bronze/25 bg-navy-deep/[0.03] transition-transform duration-500 group-hover:scale-[1.01]"
         />
-        <div className="frame relative aspect-[4/5] w-full overflow-hidden shadow-lg border border-line">
+        <div className="relative aspect-[4/5] w-full overflow-hidden border border-navy/20 bg-navy-deep shadow-xl">
           <img
             src={FOUNDER.portrait}
             alt={`Portrait of ${FOUNDER.name}, ${FOUNDER.title}`}
             loading="lazy"
             decoding="async"
-            className="h-full w-full object-cover object-top transition-transform duration-700 ease-editorial group-hover:scale-[1.03]"
+            className="h-full w-full object-cover object-top transition-transform duration-700 ease-editorial group-hover:scale-[1.02]"
           />
-          {/* Subtle vignette gradient for editorial finish */}
+          {/* Subtle gradient vignette */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-deep/60 via-transparent to-transparent opacity-60"
+            className="pointer-events-none absolute inset-0 bg-gradient-to-t from-navy-deep/85 via-navy-deep/20 to-transparent"
           />
-          {/* Floating badge */}
-          <div className="absolute bottom-4 left-4 right-4 flex items-center justify-between border border-white/20 bg-navy-deep/85 px-4 py-2.5 backdrop-blur-md">
+          {/* Nameplate card */}
+          <div className="absolute bottom-5 left-5 right-5 flex items-center justify-between border border-white/15 bg-navy-deep/90 px-5 py-3.5 backdrop-blur-md">
             <div>
-              <p className="font-serif text-[1rem] font-medium text-white">{FOUNDER.name}</p>
-              <p className="text-[0.75rem] uppercase tracking-wider text-bronze">{FOUNDER.title}</p>
+              <p className="font-serif text-[1.05rem] font-medium text-white tracking-tight">{FOUNDER.name}</p>
+              <p className="text-[0.7rem] uppercase tracking-[0.2em] text-bronze">{FOUNDER.title}</p>
             </div>
-            <img src={mark} alt="" width={22} height={22} className="h-5 w-5 opacity-85" />
+            <img src={mark} alt="" width={24} height={24} className="h-6 w-6 opacity-85" />
           </div>
         </div>
       </div>
     );
   }
+
   return (
     <div
       className={`on-navy relative flex aspect-[4/5] w-full flex-col justify-between overflow-hidden bg-navy p-7 sm:p-9 ${className}`}

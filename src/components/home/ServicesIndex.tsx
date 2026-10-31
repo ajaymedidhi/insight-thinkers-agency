@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
 import SectionHeading from "../ui/SectionHeading";
 import Reveal from "../ui/Reveal";
-import { CORE_SERVICES, SUPPORTING_SERVICES } from "../../content/services";
-import { PRIMARY_CTA } from "../../content/site";
+import { CORE_SERVICES } from "../../content/services";
+
 
 /**
  * Advisory practices as interactive rows. The title link stretches over the
@@ -23,64 +23,86 @@ export default function ServicesIndex() {
           />
         </Reveal>
 
-        <ol className="mt-16 border-t border-navy">
+        <div className="mt-16 grid gap-px border border-navy/20 bg-line sm:grid-cols-2">
           {CORE_SERVICES.map((s, i) => (
-            <Reveal as="li" key={s.id} delay={i * 80} id={`practice-${s.id}`} className="scroll-mt-28 border-b border-line">
-              <div className="group relative grid gap-4 py-8 transition-colors duration-300 md:grid-cols-12 md:gap-8 md:py-10 hover:bg-ivory/70 focus-within:bg-ivory/70">
+            <Reveal
+              as="div"
+              key={s.id}
+              delay={i * 90}
+              id={`practice-${s.id}`}
+              className="group relative flex flex-col justify-between bg-paper p-8 lg:p-12 transition-all duration-300 hover:bg-ivory"
+            >
+              <span
+                aria-hidden="true"
+                className="absolute inset-x-0 top-0 h-0.5 origin-left scale-x-0 bg-bronze transition-transform duration-500 ease-editorial group-hover:scale-x-100"
+              />
+              <div>
+                <div className="flex items-center justify-between gap-4 border-b border-line pb-4">
+                  <span className="font-serif text-[1.2rem] font-medium text-bronze-ink">{s.index}</span>
+                  <span className="text-[0.72rem] font-semibold uppercase tracking-[0.18em] text-muted">
+                    Practice Pillar
+                  </span>
+                </div>
+
+                <h3 className="mt-6 font-serif text-[clamp(1.6rem,2.2vw,2rem)] leading-snug text-ink">
+                  <Link to={`/services#${s.id}`} className="hover:text-bronze-ink transition-colors">
+                    {s.title}
+                  </Link>
+                </h3>
+
+                <p className="mt-4 font-serif text-[1.125rem] leading-snug text-bronze-ink italic">
+                  "{s.question}"
+                </p>
+
+                <p className="mt-4 text-[0.98rem] leading-relaxed text-body">
+                  {s.short}
+                </p>
+
+                <div className="mt-8 border-t border-line/70 pt-5">
+                  <p className="meta text-bronze-ink mb-3">Typically Engaged When</p>
+                  <ul className="space-y-2">
+                    {s.problems.map((p) => (
+                      <li key={p} className="flex items-start gap-2.5 text-[0.875rem] leading-relaxed text-ink">
+                        <span aria-hidden="true" className="mt-2 h-1 w-1 shrink-0 rounded-full bg-bronze" />
+                        <span>{p}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+
+              <div className="mt-10 flex items-center justify-between border-t border-line pt-6">
+                <Link
+                  to={`/services#${s.id}`}
+                  className="link-arrow text-[0.8125rem]"
+                >
+                  Practice Scope & Deliverables <span className="arrow" aria-hidden="true">→</span>
+                </Link>
                 <span
                   aria-hidden="true"
-                  className="absolute top-0 bottom-0 -left-4 w-0.5 origin-top scale-y-0 bg-bronze transition-transform duration-500 ease-editorial group-hover:scale-y-100 group-focus-within:scale-y-100 sm:-left-8 lg:-left-12"
-                />
-                <span className="font-serif text-[1.1rem] text-bronze-ink md:col-span-1">{s.index}</span>
-                <div className="md:col-span-5">
-                  <h3 className="h3">
-                    <Link
-                      to={`/services#${s.id}`}
-                      className="after:absolute after:inset-0 focus-visible:outline-none"
-                    >
-                      {s.title}
-                    </Link>
-                  </h3>
-                  <p className="mt-3 font-serif text-[1.1rem] leading-snug text-bronze-ink italic">{s.question}</p>
-                </div>
-                <div className="md:col-span-5">
-                  <p className="text-[1rem] leading-relaxed">{s.short}</p>
-                  <div className="row-detail max-md:hidden">
-                    <div>
-                      <p className="meta mt-6 mb-3">Typically engaged when</p>
-                      <ul className="space-y-2">
-                        {s.problems.map((p) => (
-                          <li key={p} className="flex gap-3 text-[0.9375rem] leading-relaxed text-ink">
-                            <span aria-hidden="true" className="mt-[0.7em] h-px w-3 shrink-0 bg-bronze" />
-                            {p}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <span
-                  aria-hidden="true"
-                  className="hidden h-11 w-11 items-center justify-center self-start justify-self-end rounded-full border border-line text-[1.1rem] text-bronze-ink transition-all duration-300 group-hover:translate-x-1 group-hover:border-navy group-hover:bg-navy group-hover:text-white group-focus-within:border-navy md:col-span-1 md:flex"
+                  className="flex h-9 w-9 items-center justify-center rounded-none border border-line text-bronze-ink transition-all duration-300 group-hover:border-navy group-hover:bg-navy group-hover:text-white"
                 >
                   →
                 </span>
-                {/* Visible focus ring for the stretched link. */}
-                <span aria-hidden="true" className="pointer-events-none absolute inset-0 hidden outline-2 outline-offset-[-2px] outline-bronze-ink group-has-[a:focus-visible]:block" />
               </div>
             </Reveal>
           ))}
-        </ol>
+        </div>
 
-        <Reveal className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-          <p className="text-[0.9375rem] text-muted">
-            Also: {SUPPORTING_SERVICES.map((x) => x.title).join(" · ")}
-          </p>
-          <Link to={PRIMARY_CTA.path} className="link-arrow shrink-0">
-            Not sure which fits? Ask us <span className="arrow" aria-hidden="true">→</span>
+        <Reveal className="mt-12 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between border-t border-line pt-8">
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2 text-[0.9375rem] text-muted">
+            <span className="meta text-ink">Healthcare Sectors:</span>
+            <Link to="/industries" className="text-body font-normal underline decoration-bronze/50 underline-offset-4 hover:text-ink">
+              Hospitals · Diagnostic Networks · Digital Health Platforms · Day Surgery Centers
+            </Link>
+          </div>
+          <Link to="/industries" className="link-arrow shrink-0">
+            View Sector Experience <span className="arrow" aria-hidden="true">→</span>
           </Link>
         </Reveal>
       </div>
     </section>
   );
 }
+
+

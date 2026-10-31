@@ -22,6 +22,7 @@ export const ARTICLES: Article[] = [
     category: "Hospital Valuations",
     title: "Hospital Valuation Multiples in India: Key Valuation Metrics",
     summary: "An in-depth analysis of EBITDA multiples, bed-capacity benchmarks, and operational flow valuation parameters inside India's private hospital transaction landscape.",
+    coverImage: "/healthcare-boardroom.jpg",
     body: `
       <h2>Executive Summary</h2>
       <p>Private hospital valuations in South India and pan-India markets have hit record highs, driven by growing consolidation, institutional private equity demand, and the expansion strategies of strategic healthcare networks. Valuation of hospital assets requires a multi-dimensional approach that accounts for physical beds capacity, regulatory license statuses, clinical practitioner dependencies, and local population demographics.</p>
@@ -57,6 +58,7 @@ export const ARTICLES: Article[] = [
     category: "Private Equity",
     title: "How Private Equity Evaluates Healthcare Assets",
     summary: "Understanding the financial, operational, and clinical due diligence requirements that institutional PE funds demand before structured deal closures.",
+    coverImage: "/hospital-handshake.jpg",
     body: `
       <h2>Introduction</h2>
       <p>Private Equity (PE) firms deploying growth capital or pursuing buyout rollouts into the South Asian healthcare market operate under highly structured investment mandates. This analysis details the checklist parameters PE investment committees prioritize during target validation.</p>
@@ -84,6 +86,7 @@ export const ARTICLES: Article[] = [
     category: "Healthcare M&A",
     title: "Healthcare M&A Trends for 2026: Consolidation & Corporatization",
     summary: "Reviewing the macroeconomic tailwinds, pricing premiums, and transaction deal structures shaping the private healthcare segment.",
+    coverImage: "/healthcare-facility.jpg",
     body: `
       <h2>The Consolidator Playbook</h2>
       <p>Strategic hospital networks are pursuing aggressive inorganic expansion into Tier-2 and Tier-3 cities in South India to unlock economies of scale. High cost of greenfield construction makes operational brownfield acquisitions highly attractive.</p>
@@ -100,6 +103,7 @@ export const ARTICLES: Article[] = [
     category: "AI in Healthcare",
     title: "AI's Role in Hospital Operations and Transaction Values",
     summary: "How proprietary EMR software, PACS imaging architectures, and AI diagnostic integrations improve target multiples and patient margins.",
+    coverImage: "/doctor-digital-health.jpg",
     body: `
       <h2>Technology Valuations</h2>
       <p>Hospitals operating modern, integrated digital records (HMS, PACS, EMR) command pricing premiums because digital infrastructure reduces billing leakage and speeds up patient workflow diligence.</p>
@@ -116,6 +120,7 @@ export const ARTICLES: Article[] = [
     category: "Growth Capital",
     title: "Preparing a Healthcare Business for Private Investment",
     summary: "A practical guide for promoters seeking minority growth financing or strategic partner introductions.",
+    coverImage: "/medical-technology-lab.jpg",
     body: `
       <h2>Preparation Guide</h2>
       <p>Success in capital raising is dictated by preparation quality. Hospital promoters should clean up accounting balances, draft clear shareholder agreements, and verify clinical licensing status 6 to 12 months prior to outreach.</p>
@@ -128,6 +133,7 @@ export const ARTICLES: Article[] = [
     }
   }
 ];
+
 
 /** ISO date (YYYY-MM-DD) for structured data and <time> elements. */
 export const isoDate = (d: string) => {

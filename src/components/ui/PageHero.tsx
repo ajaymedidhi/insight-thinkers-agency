@@ -9,19 +9,30 @@ interface PageHeroProps {
   aside?: ReactNode;
 }
 
-/** Interior page header: asymmetric, typographic, on ivory. */
+/** Interior page header: asymmetric, typographic, authoritative financial press aesthetic. */
 export default function PageHero({ eyebrow, title, lede, actions, aside }: PageHeroProps) {
   return (
-    <header className="border-b border-line pt-32 pb-16 md:pt-40 md:pb-20">
-      <div className="container-x grid gap-12 lg:grid-cols-12 lg:gap-12">
-        <div className={aside ? "lg:col-span-7" : "lg:col-span-9"}>
-          <p className="eyebrow animate-rise-1 mb-6">{eyebrow}</p>
-          <h1 className="display animate-rise-2">{title}</h1>
-          {lede && <div className="lede animate-rise-3 mt-8 max-w-[38rem]">{lede}</div>}
-          {actions && <div className="animate-rise-3 mt-10 flex flex-wrap gap-4">{actions}</div>}
+    <header className="relative border-b border-line bg-paper/60 pt-32 pb-16 md:pt-44 md:pb-24">
+      {/* Subtle architectural hairline accents */}
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-px bg-white/60" />
+      <div className="container-x grid gap-12 lg:grid-cols-12 lg:gap-16">
+        <div className={aside ? "lg:col-span-7" : "lg:col-span-8"}>
+          <p className="eyebrow animate-rise mb-6">{eyebrow}</p>
+          <h1 className="display animate-rise text-ink">{title}</h1>
+          {lede && (
+            <div className="lede animate-rise mt-8 max-w-[42rem] text-[1.125rem] md:text-[1.2rem] text-body">
+              {lede}
+            </div>
+          )}
+          {actions && <div className="animate-rise mt-10 flex flex-wrap gap-4">{actions}</div>}
         </div>
-        {aside && <div className="animate-rise-3 self-end lg:col-span-4 lg:col-start-9">{aside}</div>}
+        {aside && (
+          <div className="animate-rise border-t border-navy/20 pt-8 lg:col-span-5 lg:border-t-0 lg:border-l lg:border-line lg:pl-10 lg:pt-0 self-center">
+            {aside}
+          </div>
+        )}
       </div>
     </header>
   );
 }
+

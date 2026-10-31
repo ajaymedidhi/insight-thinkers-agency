@@ -4,8 +4,10 @@ import HomeHero from "../../components/home/HomeHero";
 import Credentials from "../../components/home/Credentials";
 import FounderSection from "../../components/home/FounderSection";
 import ServicesIndex from "../../components/home/ServicesIndex";
+import Pathways from "../../components/home/Pathways";
 import ActiveMandates from "../../components/home/ActiveMandates";
 import LatestInsights from "../../components/home/LatestInsights";
+import ResourcesPreview from "../../components/home/ResourcesPreview";
 import ApproachSteps from "../../components/shared/ApproachSteps";
 import Reveal from "../../components/ui/Reveal";
 import CTABand from "../../components/ui/CTABand";
@@ -32,17 +34,28 @@ export default function Home() {
         keywords="Healthcare M&A, hospital valuation, healthcare capital raising, healthcare technology advisory, India"
         schema={ORG_SCHEMA}
       />
+      {/* 1. Editorial Hero Carousel with live mandate counter & pause controls */}
       <HomeHero />
-      <Credentials />
-      <ServicesIndex />
-      <ActiveMandates />
-      <FounderSection />
 
+      {/* 2. Institutional Credibility Metrics & verified transaction figures */}
+      <Credentials />
+
+      {/* 3. Core Advisory Practices with interactive problem scenarios */}
+      <ServicesIndex />
+
+      {/* 4. Audience Pathways - Who We Advise */}
+      <Pathways />
+
+      {/* 5. Active Confidential Mandates */}
+      <ActiveMandates />
+
+
+      {/* 7. Strategic Methodology - From First Conversation to Close */}
       <section aria-labelledby="approach-title" className="section border-t border-line bg-paper">
         <div className="container-x">
           <Reveal className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
             <div>
-              <p className="eyebrow mb-5">Our approach</p>
+              <p className="eyebrow mb-5">Strategic Methodology</p>
               <h2 id="approach-title" className="h2 max-w-[18ch]">From first conversation to close.</h2>
             </div>
             <Link to="/services#approach-title" className="link-arrow shrink-0">
@@ -55,8 +68,18 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 8. Founder-Led Leadership Spotlight */}
+      <FounderSection />
+
+      {/* 9. Healthcare Market Intelligence & Publications */}
       <LatestInsights />
+
+      {/* 10. Practical Resources & Valuation Primers */}
+      <ResourcesPreview />
+
+      {/* 11. Final High-Trust Call To Action */}
       <CTABand />
     </>
   );
 }
+

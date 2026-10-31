@@ -104,37 +104,54 @@ export default function Contact() {
         keywords="contact healthcare M&A advisor, hospital sale advisor India, Insight Thinkers Agency contact"
       />
 
-      <section className="pt-32 pb-20 md:pt-40 md:pb-28">
-        <div className="container-x grid gap-16 lg:grid-cols-12 lg:gap-12">
+      <section className="pt-32 pb-20 md:pt-44 md:pb-28">
+        <div className="container-x grid gap-16 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
-            <p className="eyebrow animate-rise-1 mb-6">Contact</p>
-            <h1 className="display animate-rise-2 text-[clamp(2.6rem,5.4vw,4.4rem)]">
-              Discuss an <em className="text-bronze-ink">advisory mandate.</em>
+            <p className="eyebrow animate-rise mb-6">Confidential Intake</p>
+            <h1 className="display animate-rise text-[clamp(2.6rem,5.4vw,4.4rem)] text-ink">
+              Discuss an <em className="text-bronze-ink font-normal">advisory mandate.</em>
             </h1>
-            <p className="lede animate-rise-3 mt-8">
-              Whether you are planning a sale, evaluating an acquisition, raising capital or modernising your technology, we
-              welcome a discreet first conversation.
+            <p className="lede animate-rise mt-8 text-body">
+              Whether evaluating a hospital exit, syndicating growth equity, or commissioning technology diligence, every conversation is held in absolute confidence.
             </p>
 
-            <dl className="mt-12 border-t border-navy">
+            <dl className="mt-12 border-t border-navy/30">
               {CHANNELS.map((c) => (
                 <div key={c.label} className="border-b border-line py-5">
-                  <dt className="meta">{c.label}</dt>
-                  <dd className="mt-1 text-[1.0625rem] text-ink">
+                  <dt className="meta text-bronze-ink">{c.label}</dt>
+                  <dd className="mt-1.5 text-[1.1rem] font-serif text-ink">
                     {c.href ? <a href={c.href} className="underline decoration-bronze underline-offset-4 hover:decoration-navy">{c.value}</a> : c.value}
                   </dd>
                   <dd className="mt-1 text-[0.875rem] text-muted">{c.note}</dd>
                 </div>
               ))}
             </dl>
-            <p className="mt-8 border-l-2 border-bronze pl-5 text-[0.95rem] leading-relaxed">
-              <span className="font-medium text-ink">On confidentiality.</span> Please share only what you are comfortable with in
-              a first message. We are glad to put a mutual NDA in place before any sensitive information is exchanged.
-            </p>
+
+            <div className="mt-10 border border-line bg-paper p-6">
+              <div className="flex items-center gap-2 mb-2">
+                <span className="h-2 w-2 rounded-full bg-bronze" />
+                <span className="text-[0.72rem] font-semibold uppercase tracking-[0.16em] text-bronze-ink">
+                  Protocol Notice
+                </span>
+              </div>
+              <p className="text-[0.875rem] leading-relaxed text-body">
+                Please share only non-sensitive parameters in your preliminary message. A mutual Non-Disclosure Agreement (NDA) will be executed prior to financial or operational reviews.
+              </p>
+            </div>
           </div>
 
-          <div className="lg:col-span-6 lg:col-start-7">
-            <div className="border border-line bg-paper p-6 sm:p-10" aria-live="polite">
+          <div className="lg:col-span-7">
+            <div className="relative border border-line bg-paper p-8 sm:p-12 shadow-sm" aria-live="polite">
+              <div className="flex items-center justify-between border-b border-line pb-6 mb-8">
+                <div>
+                  <h2 className="font-serif text-[1.4rem] text-ink font-medium">Preliminary Mandate Intake</h2>
+                  <p className="text-[0.8125rem] text-muted mt-1">Directly reviewed by firm principals</p>
+                </div>
+                <span className="text-[0.72rem] font-medium uppercase tracking-[0.18em] text-bronze-ink border border-bronze/40 px-2.5 py-1">
+                  Confidential
+                </span>
+              </div>
+
               {status === "sent" || status === "emailed" ? (
                 <div className="py-6">
                   <p className="eyebrow mb-5">{status === "sent" ? "Enquiry received" : "Almost done"}</p>

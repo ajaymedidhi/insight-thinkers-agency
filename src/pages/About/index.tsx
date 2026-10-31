@@ -81,15 +81,27 @@ export default function About() {
               </p>
             </div>
           </div>
-          <figure className="self-center border-l-2 border-bronze pl-8 lg:col-span-5 lg:col-start-8">
-            <blockquote className="font-serif text-[1.6rem] leading-snug text-ink italic">
-              “Healthcare growth cannot be siloed. Financial structure, patient acquisition and technology must work together to
-              create lasting value.”
-            </blockquote>
-            <figcaption className="meta mt-6">{FOUNDER.name}, {FOUNDER.title}</figcaption>
-          </figure>
+          <div className="flex flex-col gap-8 lg:col-span-6">
+            <div className="relative aspect-[16/10] w-full overflow-hidden border border-line shadow-sm">
+              <img
+                src="/healthcare-boardroom.jpg"
+                alt="Executive Healthcare Advisory Boardroom"
+                loading="lazy"
+                decoding="async"
+                className="h-full w-full object-cover"
+              />
+            </div>
+            <figure className="border-l-2 border-bronze pl-6">
+              <blockquote className="font-serif text-[1.4rem] leading-snug text-ink italic">
+                “Healthcare growth cannot be siloed. Financial structure, patient acquisition and technology must work together to
+                create lasting value.”
+              </blockquote>
+              <figcaption className="meta mt-4">{FOUNDER.name}, {FOUNDER.title}</figcaption>
+            </figure>
+          </div>
         </div>
       </section>
+
 
       <section aria-labelledby="mission-title" className="section border-t border-line bg-paper">
         <div className="container-x">

@@ -106,10 +106,10 @@ export const METRICS_FOOTNOTE =
 
 export const NAV_ITEMS = [
   { name: "Services", path: "/services" },
+  { name: "Industries", path: "/industries" },
+  { name: "Case Studies", path: "/case-studies" },
   { name: "Mandates", path: "/mandates" },
-  { name: "Leadership", path: "/leadership" },
   { name: "Insights", path: "/insights" },
-  { name: "Resources", path: "/resources" },
   { name: "About", path: "/about" },
 ];
 
@@ -117,6 +117,8 @@ export const FOOTER_NAV = [
   { name: "About", path: "/about" },
   { name: "Leadership", path: "/leadership" },
   { name: "Services", path: "/services" },
+  { name: "Industries", path: "/industries" },
+  { name: "Case Studies", path: "/case-studies" },
   { name: "Mandates", path: "/mandates" },
   { name: "Network", path: "/network" },
   { name: "Insights", path: "/insights" },
@@ -125,3 +127,4 @@ export const FOOTER_NAV = [
 ];
 
 export const PRIMARY_CTA = { label: "Discuss an Advisory Mandate", path: "/contact" };
+

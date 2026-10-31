@@ -2,7 +2,7 @@ import { useEffect, useRef, useState, type KeyboardEvent, type PointerEvent } fr
 import { Link } from "react-router-dom";
 import { HERO_INTERVAL_MS, HERO_SLIDES } from "../../content/hero";
 import { COMPANY } from "../../content/site";
-import { prefersReducedMotion } from "../../lib/motion";
+
 
 const COUNT = HERO_SLIDES.length;
 const ASSURANCES = ["Founder-led on every mandate", "Mutual NDA before sensitive information", COMPANY.coverage];
@@ -17,14 +17,12 @@ const ASSURANCES = ["Founder-led on every mandate", "Mutual NDA before sensitive
  */
 export default function HomeHero() {
   const [index, setIndex] = useState(0);
-  const [playing, setPlaying] = useState(() => !prefersReducedMotion());
-  const [hovered, setHovered] = useState(false);
-  const [focused, setFocused] = useState(false);
+  const [playing, setPlaying] = useState(true);
   const [tabHidden, setTabHidden] = useState(false);
   const tabRefs = useRef<(HTMLButtonElement | null)[]>([]);
   const swipeX = useRef<number | null>(null);
 
-  const paused = !playing || hovered || focused || tabHidden;
+  const paused = !playing || tabHidden;
 
   useEffect(() => {
     const onVisibility = () => setTabHidden(document.hidden);
@@ -32,18 +30,21 @@ export default function HomeHero() {
     return () => document.removeEventListener("visibilitychange", onVisibility);
   }, []);
 
-  // Restarts on every slide change, so manual navigation resets the timer.
+  // Advances automatically every HERO_INTERVAL_MS unless explicitly paused by user
   useEffect(() => {
     if (paused) return;
-    const t = window.setTimeout(() => setIndex((i) => (i + 1) % COUNT), HERO_INTERVAL_MS);
-    return () => window.clearTimeout(t);
-  }, [paused, index]);
+    const t = window.setInterval(() => {
+      setIndex((i) => (i + 1) % COUNT);
+    }, HERO_INTERVAL_MS);
+    return () => window.clearInterval(t);
+  }, [paused]);
 
   const go = (i: number, moveFocus = false) => {
     const next = (i + COUNT) % COUNT;
     setIndex(next);
     if (moveFocus) tabRefs.current[next]?.focus();
   };
+
 
   const onTabKey = (e: KeyboardEvent<HTMLButtonElement>) => {
     const keys: Record<string, number> = { ArrowRight: index + 1, ArrowLeft: index - 1, Home: 0, End: COUNT - 1 };
@@ -67,20 +68,15 @@ export default function HomeHero() {
     <section
       aria-roledescription="carousel"
       aria-label="Our advisory practices"
-      className="on-navy relative isolate flex min-h-[min(100svh,820px)] flex-col overflow-hidden bg-navy-deep text-on-navy"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onFocus={() => setFocused(true)}
-      onBlur={(e) => {
-        if (!e.currentTarget.contains(e.relatedTarget as Node | null)) setFocused(false);
-      }}
+      className="on-navy relative isolate flex min-h-[min(100svh,860px)] flex-col justify-between overflow-hidden bg-navy-deep text-on-navy"
       onPointerDown={onPointerDown}
       onPointerUp={onPointerUp}
       onPointerCancel={() => (swipeX.current = null)}
     >
+
       <h1 className="sr-only">{COMPANY.name} — healthcare M&amp;A, capital and technology advisory</h1>
 
-      {/* Background photographs, cross-fading. */}
+      {/* Background photographs, cross-fading with cinematic gradient vignette */}
       <div aria-hidden="true" className="absolute inset-0 -z-10">
         {HERO_SLIDES.map((s, i) => (
           <img
@@ -97,13 +93,15 @@ export default function HomeHero() {
             style={{ objectPosition: s.image.position }}
           />
         ))}
-        <div className="absolute inset-0 bg-gradient-to-r from-navy-deep via-navy-deep/85 to-navy-deep/25" />
-        <div className="absolute inset-0 bg-gradient-to-t from-navy-deep via-transparent to-navy-deep/70" />
+        <div className="absolute inset-0 bg-gradient-to-r from-navy-deep via-navy-deep/90 to-navy-deep/40" />
+        <div className="absolute inset-0 bg-gradient-to-t from-navy-deep via-transparent to-navy-deep/80" />
+        {/* Subtle noise/texture overlay for high-end print editorial feel */}
+        <div className="absolute inset-0 bg-navy-deep/20 backdrop-blur-[0.5px]" />
       </div>
 
-      {/* Slides share one grid cell, so the hero never changes height between them. */}
+      {/* Main hero content container */}
       <div
-        className="container-x grid flex-1 content-center pt-28 pb-10 md:pt-36 md:pb-14"
+        className="container-x grid flex-1 content-center pt-32 pb-12 md:pt-44 md:pb-20"
         aria-live={paused ? "polite" : "off"}
       >
         {HERO_SLIDES.map((s, i) => {
@@ -116,34 +114,50 @@ export default function HomeHero() {
               aria-roledescription="slide"
               aria-label={`${i + 1} of ${COUNT}: ${s.label}`}
               inert={!active}
-              className={`max-w-[44rem] [grid-area:1/1] transition-opacity duration-500 ${active ? "opacity-100" : "pointer-events-none opacity-0"}`}
+              className={`max-w-[48rem] [grid-area:1/1] transition-opacity duration-500 ${active ? "opacity-100" : "pointer-events-none opacity-0"}`}
             >
-              <p className={`eyebrow mb-7 ${active ? "animate-rise-1" : ""}`}>{s.eyebrow}</p>
-              <h2 className={`display max-w-[15ch] ${active ? "animate-rise-2" : ""}`}>
-                {s.title} <em className="text-bronze-light">{s.highlight}</em>
+              <div className="flex items-center gap-4 mb-6">
+                <span className="h-px w-8 bg-bronze" />
+                <span className="text-[0.75rem] font-semibold tracking-[0.22em] uppercase text-bronze">
+                  {s.eyebrow}
+                </span>
+                <span className="text-[0.75rem] font-medium tracking-widest text-on-navy-muted">
+                  · 0{i + 1} / 0{COUNT}
+                </span>
+              </div>
+
+              <h2 className={`display max-w-[16ch] ${active ? "animate-rise" : ""}`}>
+                {s.title} <em className="text-bronze-light font-normal not-italic underline decoration-bronze/40 underline-offset-8">{s.highlight}</em>
               </h2>
-              <p className={`lede mt-7 max-w-[34rem] ${active ? "animate-rise-3" : ""}`}>{s.body}</p>
-              <div className={`mt-9 flex flex-col gap-4 sm:flex-row ${active ? "animate-rise-4" : ""}`}>
+
+              <p className="lede mt-8 max-w-[38rem] text-[1.125rem] md:text-[1.25rem] font-normal leading-relaxed text-on-navy/90">
+                {s.body}
+              </p>
+
+              <div className="mt-10 flex flex-col gap-4 sm:flex-row sm:items-center">
                 <Link to={s.cta.to} className="btn-bronze">
                   {s.cta.label} <span className="arrow" aria-hidden="true">→</span>
                 </Link>
-                <Link to={s.secondary.to} className="btn-outline-light">{s.secondary.label}</Link>
+                <Link to={s.secondary.to} className="btn-outline-light">
+                  {s.secondary.label}
+                </Link>
               </div>
             </div>
           );
         })}
-        <ul className="mt-10 hidden max-w-[44rem] flex-wrap sm:flex gap-x-6 gap-y-2 border-t border-white/12 pt-5 text-[0.8125rem] text-on-navy-muted [grid-area:2/1]">
+
+        <ul className="mt-12 hidden max-w-[50rem] flex-wrap sm:flex gap-x-8 gap-y-2 border-t border-white/10 pt-6 text-[0.8125rem] text-on-navy-muted [grid-area:2/1]">
           {ASSURANCES.map((a) => (
-            <li key={a} className="flex items-center gap-2">
-              <span aria-hidden="true" className="h-1 w-1 rounded-full bg-bronze" />
-              {a}
+            <li key={a} className="flex items-center gap-2.5">
+              <span aria-hidden="true" className="h-1.5 w-1.5 rounded-full bg-bronze" />
+              <span className="tracking-wide">{a}</span>
             </li>
           ))}
         </ul>
       </div>
 
-      {/* Slide controls */}
-      <div className="border-t border-white/12 bg-navy-deep/70 backdrop-blur-sm">
+      {/* Slide controls with elevated aesthetic */}
+      <div className="border-t border-white/10 bg-navy-deep/80 backdrop-blur-md">
         <div className="container-x flex items-stretch">
           <div role="tablist" aria-label="Choose a slide" className="grid flex-1 grid-cols-3">
             {HERO_SLIDES.map((s, i) => {
@@ -162,11 +176,11 @@ export default function HomeHero() {
                   tabIndex={active ? 0 : -1}
                   onClick={() => go(i)}
                   onKeyDown={onTabKey}
-                  className={`group relative min-h-16 min-w-0 py-3 text-left sm:py-5 transition-colors ${i > 0 ? "border-l border-white/12 pl-3 sm:pl-5" : "pr-3 sm:pr-5"} ${
+                  className={`group relative min-h-20 min-w-0 py-4 text-left sm:py-6 transition-colors ${i > 0 ? "border-l border-white/10 pl-4 sm:pl-7" : "pr-4 sm:pr-7"} ${
                     active ? "text-white" : "text-on-navy-muted hover:text-white"
                   }`}
                 >
-                  {/* Progress: full bar when paused, timed fill while playing. */}
+                  {/* Progress bar */}
                   <span aria-hidden="true" className="absolute inset-x-0 top-0 h-0.5 bg-white/10">
                     {active && (
                       <span
@@ -176,8 +190,12 @@ export default function HomeHero() {
                       />
                     )}
                   </span>
-                  <span className={`block font-serif text-[0.9rem] sm:inline sm:text-[0.95rem] ${active ? "text-bronze" : ""}`}>0{i + 1}</span>
-                  <span className="mt-0.5 block truncate text-[0.8125rem] font-medium sm:ml-3 sm:mt-0 sm:inline sm:text-[0.9375rem]">{s.label}</span>
+                  <span className={`block font-serif text-[1rem] ${active ? "text-bronze font-medium" : "text-on-navy-muted"}`}>
+                    0{i + 1}
+                  </span>
+                  <span className="mt-1 block truncate text-[0.85rem] font-medium tracking-wide sm:text-[0.95rem]">
+                    {s.label}
+                  </span>
                 </button>
               );
             })}
@@ -186,7 +204,7 @@ export default function HomeHero() {
             type="button"
             onClick={() => setPlaying((p) => !p)}
             aria-label={playing ? "Pause slideshow" : "Play slideshow"}
-            className="ml-2 flex w-11 shrink-0 items-center justify-center border-l border-white/12 pl-2 text-on-navy transition-colors hover:text-white sm:ml-4 sm:pl-4"
+            className="ml-3 flex w-12 shrink-0 items-center justify-center border-l border-white/10 pl-3 text-on-navy transition-colors hover:text-white sm:ml-6 sm:pl-6"
           >
             {playing ? (
               <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" fill="currentColor">
@@ -202,5 +220,6 @@ export default function HomeHero() {
         </div>
       </div>
     </section>
+
   );
 }

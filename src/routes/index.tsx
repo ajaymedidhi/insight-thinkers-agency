@@ -9,6 +9,8 @@ const page = (load: () => Promise<{ default: ComponentType }>) => async () => ({
 
 const about = page(() => import("../pages/About"));
 const services = page(() => import("../pages/Services"));
+const industries = page(() => import("../pages/Industries"));
+const caseStudies = page(() => import("../pages/CaseStudies"));
 const leadership = page(() => import("../pages/Leadership"));
 const mandates = page(() => import("../pages/Mandates"));
 const network = page(() => import("../pages/Network"));
@@ -27,6 +29,8 @@ export const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "about", lazy: about },
       { path: "services", lazy: services },
+      { path: "industries", lazy: industries },
+      { path: "case-studies", lazy: caseStudies },
       { path: "leadership", lazy: leadership },
       { path: "mandates", lazy: mandates },
       { path: "mandate", lazy: mandates },
@@ -40,3 +44,4 @@ export const router = createBrowserRouter([
     ],
   },
 ]);
+
